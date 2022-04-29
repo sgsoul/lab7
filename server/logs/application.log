@@ -1,0 +1,2656 @@
+[00:17:28.531 ERROR] Файл не найден.
+[00:17:28.531 TRACE] Запуск сервера!
+[00:18:35.280 FATAL] Завершение программы...
+[00:18:35.282 ERROR] Канал сервера закрыт.
+[17:25:39.047 ERROR] Файл не найден.
+[17:25:39.051 TRACE] Запуск сервера!
+[17:30:48.425 INFO ] 
+help : show help for available commands
+
+info : Write to standard output information about the collection (type,
+initialization date, number of elements, etc.)
+
+show : print to standard output all elements of the collection in
+string representation
+
+add {element} : add a new element to the collection
+
+update id {element} : update the value of the collection element whose id
+equal to given
+
+remove_by_id id : remove an element from the collection by its id
+
+clear : clear the collection
+
+save (file_name - optional) : save the collection to a common.file
+
+load (file_name - optional): load collection from common.file
+
+execute_script file_name : read and execute script from specified common.file.
+The script contains commands in the same form in which they are entered
+user is interactive.
+
+exit : exit the program (without saving to a common.file)
+
+remove_first : remove the first element from the collection
+
+add_if_max {element} : add a new element to the collection if its
+
+value is greater than the value of the largest element of this collection
+
+add_if_min {element} : add a new element to the collection if it
+the value is less than the smallest element of this collection
+
+group_counting_by_end_date : group the elements of the collection by
+the value of the endDate field, display the number of elements in each group
+
+filter_starts_with_name name : output elements, value of field name
+which starts with the given substring
+
+print_unique_salary : print the unique values of the salary field of all
+items in the collection
+
+[17:31:26.713 INFO ] Added element: id: 1
+ name: paul
+ coordinates: {"x" : 90.0, "y" : 89.0}
+ creationDate: Mon Apr 18 17:31:26 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 87
+ soundtrackName: song
+ minutesOfWaiting: 70.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[17:32:28.218 INFO ] Added element: id: 2
+ name: dbf
+ coordinates: {"x" : 4.0, "y" : 5.0}
+ creationDate: Mon Apr 18 17:32:28 MSK 2022
+ realHero: true
+ hasToothpick: false
+ impactSpeed: 60
+ soundtrackName: пктоуа
+ minutesOfWaiting: 60.0
+ weaponType: AXE
+ Car: Name:car2 Cool:true
+
+
+[17:33:05.546 ERROR] Неправильная команда.
+[17:33:10.579 INFO ] 
+help : show help for available commands
+
+info : Write to standard output information about the collection (type,
+initialization date, number of elements, etc.)
+
+show : print to standard output all elements of the collection in
+string representation
+
+add {element} : add a new element to the collection
+
+update id {element} : update the value of the collection element whose id
+equal to given
+
+remove_by_id id : remove an element from the collection by its id
+
+clear : clear the collection
+
+save (file_name - optional) : save the collection to a common.file
+
+load (file_name - optional): load collection from common.file
+
+execute_script file_name : read and execute script from specified common.file.
+The script contains commands in the same form in which they are entered
+user is interactive.
+
+exit : exit the program (without saving to a common.file)
+
+remove_first : remove the first element from the collection
+
+add_if_max {element} : add a new element to the collection if its
+
+value is greater than the value of the largest element of this collection
+
+add_if_min {element} : add a new element to the collection if it
+the value is less than the smallest element of this collection
+
+group_counting_by_end_date : group the elements of the collection by
+the value of the endDate field, display the number of elements in each group
+
+filter_starts_with_name name : output elements, value of field name
+which starts with the given substring
+
+print_unique_salary : print the unique values of the salary field of all
+items in the collection
+
+[17:33:39.894 ERROR] Неправильная команда.
+[17:34:47.458 INFO ] id: 1
+ name: paul
+ coordinates: {"x" : 90.0, "y" : 89.0}
+ creationDate: Mon Apr 18 17:31:26 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 87
+ soundtrackName: song
+ minutesOfWaiting: 70.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+
+[17:34:56.507 FATAL] Завершение программы...
+[17:34:56.542 ERROR] Канал сервера закрыт.
+[17:47:01.393 ERROR] Файл не найден.
+[17:47:01.409 TRACE] Запуск сервера!
+[17:47:09.374 INFO ] 
+help : show help for available commands
+
+info : Write to standard output information about the collection (type,
+initialization date, number of elements, etc.)
+
+show : print to standard output all elements of the collection in
+string representation
+
+add {element} : add a new element to the collection
+
+update id {element} : update the value of the collection element whose id
+equal to given
+
+remove_by_id id : remove an element from the collection by its id
+
+clear : clear the collection
+
+save (file_name - optional) : save the collection to a common.file
+
+load (file_name - optional): load collection from common.file
+
+execute_script file_name : read and execute script from specified common.file.
+The script contains commands in the same form in which they are entered
+user is interactive.
+
+exit : exit the program (without saving to a common.file)
+
+remove_first : remove the first element from the collection
+
+add_if_max {element} : add a new element to the collection if its
+
+value is greater than the value of the largest element of this collection
+
+add_if_min {element} : add a new element to the collection if it
+the value is less than the smallest element of this collection
+
+print_average_of_minutes_of_waiting: output minutes of waiting time average
+
+filter_starts_with_name name : output elements, value of field name
+which starts with the given substring
+
+print_unique_salary : print the unique values of the salary field of all
+items in the collection
+
+[17:48:10.712 INFO ] Added element: id: 1
+ name: k
+ coordinates: {"x" : 4.0, "y" : 5.0}
+ creationDate: Mon Apr 18 17:48:10 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 89
+ soundtrackName: song1
+ minutesOfWaiting: 89.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[17:49:02.042 ERROR] Неправильная команда.
+[17:50:40.927 ERROR] Неправильная команда.
+[17:50:40.927 ERROR] Неправильная команда.
+[17:53:08.616 ERROR] Файл не найден.
+[17:53:08.664 TRACE] Запуск сервера!
+[17:56:44.848 ERROR] Файл не найден.
+[17:56:44.848 TRACE] Запуск сервера!
+[18:02:18.280 ERROR] Файл не найден.
+[18:02:18.280 TRACE] Запуск сервера!
+[18:02:31.448 ERROR] Файл не найден.
+[18:02:36.481 FATAL] Завершение программы...
+[18:02:36.483 ERROR] Канал сервера закрыт.
+[18:09:31.923 ERROR] Файл не найден.
+[18:09:31.927 TRACE] Запуск сервера!
+[18:26:03.222 ERROR] Файл не найден.
+[18:26:03.225 TRACE] Запуск сервера!
+[18:26:10.236 FATAL] Завершение программы...
+[18:26:10.236 ERROR] Канал сервера закрыт.
+[18:42:08.403 ERROR] Файл не найден.
+[18:42:08.407 TRACE] Запуск сервера!
+[18:42:44.741 INFO ] Added element: id: 1
+ name: ppo
+ coordinates: {"x" : 78.0, "y" : 89.0}
+ creationDate: Mon Apr 18 18:42:44 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 67
+ soundtrackName: song1
+ minutesOfWaiting: 89.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[18:42:47.819 INFO ] [
+  {
+    "id": 1,
+    "name": "ppo",
+    "coordinates": {
+      "x": 78.0,
+      "y": 89.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 67,
+    "soundtrackName": "song1",
+    "minutesOfWaiting": 89.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "car1",
+      "cool": true
+    }
+  }
+]
+[18:43:46.241 FATAL] Завершение программы...
+[18:43:46.241 ERROR] Канал сервера закрыт.
+[21:20:09.276 ERROR] Файл не найден.
+[21:20:09.276 TRACE] Запуск сервера!
+[21:21:37.200 ERROR] Неправильная команда.
+[21:22:29.649 INFO ] Added element: id: 1
+ name: aa
+ coordinates: {"x" : 344.0, "y" : -1.0}
+ creationDate: Mon Apr 18 21:22:29 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 56
+ soundtrackName: -000
+ minutesOfWaiting: -0.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[21:22:35.847 INFO ] [
+  {
+    "id": 1,
+    "name": "aa",
+    "coordinates": {
+      "x": 344.0,
+      "y": -1.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 56,
+    "soundtrackName": "-000",
+    "minutesOfWaiting": -0.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "car1",
+      "cool": true
+    }
+  }
+]
+[21:22:46.816 INFO ] 
+help : show help for available commands
+
+info : Write to standard output information about the collection (type,
+initialization date, number of elements, etc.)
+
+show : print to standard output all elements of the collection in
+string representation
+
+add {element} : add a new element to the collection
+
+update id {element} : update the value of the collection element whose id
+equal to given
+
+remove_by_id id : remove an element from the collection by its id
+
+clear : clear the collection
+
+save (file_name - optional) : save the collection to a common.file
+
+load (file_name - optional): load collection from common.file
+
+execute_script file_name : read and execute script from specified common.file.
+The script contains commands in the same form in which they are entered
+user is interactive.
+
+exit : exit the program (without saving to a common.file)
+
+remove_first : remove the first element from the collection
+
+add_if_max {element} : add a new element to the collection if its
+
+value is greater than the value of the largest element of this collection
+
+add_if_min {element} : add a new element to the collection if it
+the value is less than the smallest element of this collection
+
+print_average_of_minutes_of_waiting: output minutes of waiting time average
+
+filter_starts_with_name name : output elements, value of field name
+which starts with the given substring
+
+print_unique_salary : print the unique values of the salary field of all
+items in the collection
+
+[21:23:04.943 ERROR] Неправильная команда.
+[21:23:13.038 ERROR] Неправильная команда.
+[21:28:52.228 ERROR] Файл не найден.
+[21:28:52.232 TRACE] Запуск сервера!
+[21:29:31.820 INFO ] Added element: id: 1
+ name: ff
+ coordinates: {"x" : 2.0, "y" : 3.0}
+ creationDate: Mon Apr 18 21:29:31 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 80
+ soundtrackName: soso
+ minutesOfWaiting: 4444.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[21:29:42.891 ERROR] Неверный аргумент команды.
+[23:24:17.789 ERROR] Файл не найден.
+[23:24:17.796 TRACE] Запуск сервера!
+[23:24:28.040 INFO ] 
+help : show help for available commands
+
+info : Write to standard output information about the collection (type,
+initialization date, number of elements, etc.)
+
+show : print to standard output all elements of the collection in
+string representation
+
+add {element} : add a new element to the collection
+
+update id {element} : update the value of the collection element whose id
+equal to given
+
+remove_by_id id : remove an element from the collection by its id
+
+clear : clear the collection
+
+save (file_name - optional) : save the collection to a common.file
+
+load (file_name - optional): load collection from common.file
+
+execute_script file_name : read and execute script from specified common.file.
+The script contains commands in the same form in which they are entered
+user is interactive.
+
+exit : exit the program (without saving to a common.file)
+
+remove_first : remove the first element from the collection
+
+add_if_max {element} : add a new element to the collection if its
+
+value is greater than the value of the largest element of this collection
+
+add_if_min {element} : add a new element to the collection if it
+the value is less than the smallest element of this collection
+
+print_average_of_minutes_of_waiting: output minutes of waiting time average
+
+filter_starts_with_name name : output elements, value of field name
+which starts with the given substring
+
+print_unique_salary : print the unique values of the salary field of all
+items in the collection
+
+[23:25:00.280 ERROR] Файл не найден.
+[23:26:08.905 INFO ] Added element: id: 1
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Mon Apr 18 23:26:08 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[23:26:08.905 ERROR] Неправильная команда.
+[23:26:08.905 INFO ] script successfully executed
+[23:44:23.064 ERROR] Файл не найден.
+[23:44:23.073 TRACE] Запуск сервера!
+[23:47:59.781 ERROR] Файл не найден.
+[23:48:43.134 INFO ] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Mon Apr 18 23:48:43 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[23:48:43.134 ERROR] Неправильная команда.
+[23:48:43.134 INFO ] Скрипт успешно выполнен.
+[23:48:47.273 INFO ] [
+  {
+    "id": 1,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  }
+]
+[23:52:50.308 FATAL] Завершение программы...
+[23:52:50.343 ERROR] Канал сервера закрыт.
+[23:56:11.774 TRACE] Запуск сервера!
+[23:56:19.895 INFO ] Коллекция успешно загружена.
+[00:04:55.196 INFO ] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 40.0, "y" : 60.0}
+ creationDate: Tue Apr 19 00:04:55 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 10000
+ soundtrackName: ILOVEPROG
+ minutesOfWaiting: 5.0
+ weaponType: AXE
+ Car: Name:Niva Cool:true
+
+
+[00:04:59.336 INFO ] Коллекция успешно сохранена
+[00:05:03.270 INFO ] [
+  {
+    "id": 1,
+    "name": "Alex",
+    "coordinates": {
+      "x": 40.0,
+      "y": 60.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 10000,
+    "soundtrackName": "ILOVEPROG",
+    "minutesOfWaiting": 5.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "Niva",
+      "cool": true
+    }
+  }
+]
+[00:05:59.695 INFO ] Добавлен элемент: id: 2
+ name: Justin Bieber
+ coordinates: {"x" : 6.0, "y" : 9.0}
+ creationDate: Tue Apr 19 00:05:59 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1
+ soundtrackName: Baby
+ minutesOfWaiting: 10000.0
+ weaponType: AXE
+ Car: Name:Volga Cool:true
+
+
+[00:06:02.732 INFO ] Коллекция успешно сохранена
+[00:06:04.745 INFO ] [
+  {
+    "id": 2,
+    "name": "Justin Bieber",
+    "coordinates": {
+      "x": 6.0,
+      "y": 9.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 1,
+    "soundtrackName": "Baby",
+    "minutesOfWaiting": 10000.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "Volga",
+      "cool": true
+    }
+  },
+  {
+    "id": 1,
+    "name": "Alex",
+    "coordinates": {
+      "x": 40.0,
+      "y": 60.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 10000,
+    "soundtrackName": "ILOVEPROG",
+    "minutesOfWaiting": 5.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "Niva",
+      "cool": true
+    }
+  }
+]
+[00:06:19.895 FATAL] Завершение программы...
+[00:06:19.896 ERROR] Канал сервера закрыт.
+[00:11:25.864 ERROR] human #1 не соответствует условиям.
+[00:11:25.864 ERROR] human #2 не соответствует условиям.
+[00:11:25.864 ERROR] Все элементы повреждены.
+[00:11:25.872 TRACE] Запуск сервера!
+[00:11:56.491 FATAL] Добавлен элемент: id: 1
+ name: aa
+ coordinates: {"x" : 2.0, "y" : 3.0}
+ creationDate: Tue Apr 19 00:11:56 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 44
+ soundtrackName: 555
+ minutesOfWaiting: 55.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[00:32:14.005 FATAL] Завершение программы...
+[00:32:14.018 ERROR] Канал сервера закрыт.
+[00:32:38.791 ERROR] human #1 не соответствует условиям.
+[00:32:38.791 ERROR] human #2 не соответствует условиям.
+[00:32:38.791 ERROR] Все элементы повреждены.
+[00:32:38.798 TRACE] Запуск сервера!
+[00:33:13.556 ERROR] human #1 не соответствует условиям.
+[00:33:13.561 ERROR] human #2 не соответствует условиям.
+[00:33:13.561 ERROR] Все элементы повреждены.
+[00:33:13.561 FATAL] Коллекция успешно загружена.
+[00:34:55.488 FATAL] Коллекция пуста!
+[00:35:51.005 FATAL] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 60.0, "y" : 40.0}
+ creationDate: Tue Apr 19 00:35:50 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 100000
+ soundtrackName: I LOVE JAVA
+ minutesOfWaiting: 5.0
+ weaponType: SHOTGUN
+ Car: Name:Tesla Model X Cool:true
+
+
+[00:36:10.169 FATAL] Коллекция успешно сохранена
+[00:36:13.198 FATAL] Завершение программы...
+[00:36:13.198 ERROR] Канал сервера закрыт.
+[00:36:44.887 ERROR] human #1 не соответствует условиям.
+[00:36:44.897 ERROR] Все элементы повреждены.
+[00:36:44.897 TRACE] Запуск сервера!
+[00:36:54.276 ERROR] human #1 не соответствует условиям.
+[00:36:54.276 ERROR] Все элементы повреждены.
+[00:36:54.277 FATAL] Коллекция успешно загружена.
+[00:37:02.338 FATAL] Завершение программы...
+[00:37:02.338 ERROR] Канал сервера закрыт.
+[00:37:12.333 ERROR] human #1 не соответствует условиям.
+[00:37:12.335 ERROR] Все элементы повреждены.
+[00:37:12.335 TRACE] Запуск сервера!
+[00:37:15.577 ERROR] human #1 не соответствует условиям.
+[00:37:15.577 ERROR] Все элементы повреждены.
+[00:37:15.577 FATAL] Коллекция успешно загружена.
+[00:37:18.588 FATAL] Коллекция пуста!
+[00:38:02.050 ERROR] human #1 не соответствует условиям.
+[00:38:02.055 ERROR] Все элементы повреждены.
+[00:38:02.057 TRACE] Запуск сервера!
+[00:38:12.462 ERROR] human #1 не соответствует условиям.
+[00:38:12.462 ERROR] Все элементы повреждены.
+[00:38:12.462 FATAL] Коллекция успешно загружена.
+[00:39:08.039 TRACE] Запуск сервера!
+[00:39:31.668 FATAL] Добавлен элемент: id: 1
+ name: aaa
+ coordinates: {"x" : 4.0, "y" : 5.0}
+ creationDate: Tue Apr 19 00:39:31 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 66
+ soundtrackName: 7
+ minutesOfWaiting: 5.0
+ weaponType: AXE
+ Car: Name:44 Cool:true
+
+
+[00:39:44.857 FATAL] Коллекция успешно сохранена
+[00:39:47.833 FATAL] Завершение программы...
+[00:39:47.833 ERROR] Канал сервера закрыт.
+[00:40:07.952 ERROR] human #1 не соответствует условиям.
+[00:40:07.953 ERROR] Все элементы повреждены.
+[00:40:07.956 TRACE] Запуск сервера!
+[00:40:15.403 ERROR] Коллекция пуста!
+[00:40:42.203 TRACE] Запуск сервера!
+[00:41:02.776 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 2.0}
+ creationDate: Tue Apr 19 00:41:02 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2
+ soundtrackName: 2
+ minutesOfWaiting: 2.0
+ weaponType: AXE
+ Car: Name:2 Cool:true
+
+
+[00:41:06.881 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "2",
+      "cool": true
+    }
+  }
+]
+[00:41:23.969 FATAL] Завершение программы...
+[00:41:23.971 ERROR] Канал сервера закрыт.
+[00:41:59.346 TRACE] Запуск сервера!
+[00:42:17.867 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 2.0}
+ creationDate: Tue Apr 19 00:42:17 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2
+ soundtrackName: 2
+ minutesOfWaiting: 2.0
+ weaponType: AXE
+ Car: null
+
+
+[00:42:21.968 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "гггг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE"
+  }
+]
+[00:42:35.988 FATAL] Завершение программы...
+[00:42:35.990 ERROR] Канал сервера закрыт.
+[00:54:38.443 TRACE] Запуск сервера!
+[00:54:57.026 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 2.0}
+ creationDate: Tue Apr 19 00:54:57 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2
+ soundtrackName: 2
+ minutesOfWaiting: 2.0
+ weaponType: AXE
+ Car: Name:2 Cool:true
+
+
+[00:55:01.132 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "гг1гг-мм-дд",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "2",
+      "cool": true
+    }
+  }
+]
+[00:57:00.621 TRACE] Запуск сервера!
+[00:57:18.046 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 2.0}
+ creationDate: Tue Apr 19 00:57:18 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2
+ soundtrackName: 2
+ minutesOfWaiting: 2.0
+ weaponType: AXE
+ Car: Name:2 Cool:true
+
+
+[00:57:21.145 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "2022-04-19T00:57:18.",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "2",
+      "cool": true
+    }
+  }
+]
+[00:58:38.775 TRACE] Запуск сервера!
+[00:58:51.100 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 2.0}
+ creationDate: Tue Apr 19 00:58:51 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2
+ soundtrackName: 2
+ minutesOfWaiting: 2.0
+ weaponType: AXE
+ Car: Name:2 Cool:true
+
+
+[00:58:55.206 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "19-04-2022 00:58:51",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "2",
+      "cool": true
+    }
+  }
+]
+[00:59:20.372 FATAL] Добавлен элемент: id: 2
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue Apr 19 00:59:20 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: null
+ Car: Name:AXE Cool:true
+
+
+[00:59:25.407 FATAL] Неправильная команда.
+[00:59:45.586 FATAL] Добавлен элемент: id: 3
+ name: 09876543456
+ coordinates: {"x" : 6.0, "y" : 6.0}
+ creationDate: Tue Apr 19 00:59:45 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 6
+ soundtrackName: 6
+ minutesOfWaiting: 6.0
+ weaponType: SHOTGUN
+ Car: Name:cef Cool:true
+
+
+[00:59:49.624 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 2.0
+    },
+    "creationDate": "19-04-2022 00:58:51",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2,
+    "soundtrackName": "2",
+    "minutesOfWaiting": 2.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "2",
+      "cool": true
+    }
+  },
+  {
+    "id": 2,
+    "name": "3",
+    "coordinates": {
+      "x": 3.0,
+      "y": 3.0
+    },
+    "creationDate": "19-04-2022 00:59:20",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 3,
+    "soundtrackName": "3",
+    "minutesOfWaiting": 3.0,
+    "car": {
+      "name": "AXE",
+      "cool": true
+    }
+  },
+  {
+    "id": 3,
+    "name": "09876543456",
+    "coordinates": {
+      "x": 6.0,
+      "y": 6.0
+    },
+    "creationDate": "19-04-2022 00:59:45",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 6,
+    "soundtrackName": "6",
+    "minutesOfWaiting": 6.0,
+    "weaponType": "SHOTGUN",
+    "car": {
+      "name": "cef",
+      "cool": true
+    }
+  }
+]
+[00:59:54.691 FATAL] Коллекция успешно сохранена
+[00:59:58.727 FATAL] Завершение программы...
+[00:59:58.728 ERROR] Канал сервера закрыт.
+[01:03:35.611 ERROR] human #1 не соответствует условиям.
+[01:03:35.611 ERROR] human #2 не соответствует условиям.
+[01:03:35.618 ERROR] human #3 не соответствует условиям.
+[01:03:35.619 ERROR] Все элементы повреждены.
+[01:03:35.621 TRACE] Запуск сервера!
+[01:03:46.860 ERROR] human #1 не соответствует условиям.
+[01:03:46.861 ERROR] human #2 не соответствует условиям.
+[01:03:46.862 ERROR] human #3 не соответствует условиям.
+[01:03:46.862 ERROR] Все элементы повреждены.
+[01:03:46.863 FATAL] Коллекция успешно загружена.
+[01:03:48.873 FATAL] Коллекция пуста!
+[01:03:55.916 FATAL] Завершение программы...
+[01:03:55.916 ERROR] Канал сервера закрыт.
+[01:04:35.074 ERROR] human #1 не соответствует условиям.
+[01:04:35.085 ERROR] human #2 не соответствует условиям.
+[01:04:35.085 ERROR] human #3 не соответствует условиям.
+[01:04:35.086 ERROR] Все элементы повреждены.
+[01:04:35.088 TRACE] Запуск сервера!
+[01:04:45.963 TRACE] Запуск сервера!
+[01:05:29.692 FATAL] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 60.0, "y" : 40.0}
+ creationDate: Tue Apr 19 01:05:29 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1000
+ soundtrackName: I LOVE JAVA
+ minutesOfWaiting: 5.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[01:06:20.124 FATAL] Добавлен элемент: id: 2
+ name: Justin Bieber
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue Apr 19 01:06:20 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 5
+ soundtrackName: Baby
+ minutesOfWaiting: 1000.0
+ weaponType: AXE
+ Car: Name:NIVA Cool:true
+
+
+[01:06:26.215 FATAL] Коллекция успешно сохранена
+[01:06:31.212 FATAL] Завершение программы...
+[01:06:31.212 ERROR] Канал сервера закрыт.
+[01:06:44.919 ERROR] human #1 не соответствует условиям.
+[01:06:44.925 ERROR] human #2 не соответствует условиям.
+[01:06:44.925 ERROR] Все элементы повреждены.
+[01:06:44.929 TRACE] Запуск сервера!
+[01:06:54.380 FATAL] Завершение программы...
+[01:06:54.381 ERROR] Канал сервера закрыт.
+[01:07:02.325 ERROR] human #1 не соответствует условиям.
+[01:07:02.325 ERROR] human #2 не соответствует условиям.
+[01:07:02.325 ERROR] Все элементы повреждены.
+[01:07:02.342 TRACE] Запуск сервера!
+[01:07:13.633 TRACE] Запуск сервера!
+[01:08:07.569 FATAL] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 40.0, "y" : 60.0}
+ creationDate: Tue Apr 19 01:08:07 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 100000
+ soundtrackName: I LOVE JAVA
+ minutesOfWaiting: 5.0
+ weaponType: PISTOL
+ Car: Name:tesla model XXX Cool:true
+
+
+[01:08:46.948 FATAL] Добавлен элемент: id: 2
+ name: Justin Bieber
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue Apr 19 01:08:46 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 5
+ soundtrackName: BABY
+ minutesOfWaiting: 1000.0
+ weaponType: AXE
+ Car: Name:NIVA Cool:true
+
+
+[01:09:46.473 FATAL] Добавлен элемент: id: 3
+ name: Ken Kaneki
+ coordinates: {"x" : 1000.0, "y" : 7.0}
+ creationDate: Tue Apr 19 01:09:46 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1000
+ soundtrackName: 1000-7 - fem.love
+ minutesOfWaiting: 993.0
+ weaponType: SHOTGUN
+ Car: Name:ghoul Cool:true
+
+
+[01:09:49.589 FATAL] Коллекция успешно сохранена
+[01:43:47.186 ERROR] human #1 не соответствует условиям.
+[01:43:47.186 ERROR] human #2 не соответствует условиям.
+[01:43:47.196 ERROR] human #3 не соответствует условиям.
+[01:43:47.196 ERROR] Все элементы повреждены.
+[01:43:47.200 TRACE] Запуск сервера!
+[01:44:11.559 TRACE] Получение запроса от /127.0.0.1:65112
+[01:44:11.563 ERROR] Эта команда предназначена только для сервера.
+[01:44:11.570 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:44:16.569 TRACE] Получение запроса от /127.0.0.1:65112
+[01:44:16.570 FATAL] Коллекция пуста!
+[01:44:16.570 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:44:44.601 FATAL] Неправильная команда.
+[01:44:44.601 FATAL] Коллекция пуста!
+[01:44:52.658 FATAL] 
+help : показать справку для доступных команд
+
+info : запись в стандартный вывод информации о коллекции (тип,
+дата инициализации, количество элементов и т.д.)
+
+show : вывести на стандартный вывод все элементы коллекции в
+строковое представление
+
+add {element} : добавление новый элемент в коллекцию
+
+update id {element} : обновите значение элемента коллекции по идентификатору
+
+remove_by_id id : удалить элемент из коллекции по его идентификатору
+
+clear : очистить коллекцию
+
+save (file_name - optional) : сохраните коллекцию в общий файл
+
+load (file_name - optional): загрузить коллекцию из common.file
+
+execute_script file_name : считайте и выполняйте скрипт из указанного общего файла.
+Скрипт содержит команды в той же форме, в которой они вводятся
+пользователь является интерактивным.
+
+exit : выйдите из программы (без сохранения в общий файл)
+
+remove_first : удалите первый элемент из коллекции
+
+add_if_max {element} : добавьте новый элемент в коллекцию, если его
+
+значение больше значения самого большого элемента этой коллекции
+
+add_if_min {element} : добавьте новый элемент в коллекцию, если он
+значение меньше, чем наименьший элемент этой коллекции
+
+print_average_of-minutes-of_waiting : выведите средне значение
+по полю время ожидания
+filter_starts_with_name name : выходные элементы, значение имени поля
+который начинается с заданной подстроки
+
+print_unique_impactspeed : выведите уникальные значения поля скорости удара
+[01:44:56.675 FATAL] Коллекция пуста!
+[01:45:27.918 FATAL] Добавлен элемент: id: 1
+ name: 2
+ coordinates: {"x" : 2.0, "y" : 3.0}
+ creationDate: Tue Apr 19 01:45:27 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 444
+ soundtrackName: song1
+ minutesOfWaiting: 33.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[01:45:30.967 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 3.0
+    },
+    "creationDate": "19-04-2022 01:45:27",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 444,
+    "soundtrackName": "song1",
+    "minutesOfWaiting": 33.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "car1",
+      "cool": true
+    }
+  }
+]
+[01:45:35.987 FATAL] Коллекция успешно сохранена
+[01:45:43.224 TRACE] Получение запроса от /127.0.0.1:65112
+[01:45:43.224 ERROR] Неправильная команда.
+[01:45:43.224 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:45:43.224 TRACE] Получение запроса от /127.0.0.1:65112
+[01:45:43.232 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 3.0
+    },
+    "creationDate": "19-04-2022 01:45:27",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 444,
+    "soundtrackName": "song1",
+    "minutesOfWaiting": 33.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "car1",
+      "cool": true
+    }
+  }
+]
+[01:45:43.234 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:46:24.563 TRACE] Получение запроса от /127.0.0.1:65112
+[01:46:24.563 FATAL] Информация о коллекции, размер: 1, дата инициализации: 2022-04-19T01:43:46.414
+[01:46:24.563 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:46:50.738 TRACE] Получение запроса от /127.0.0.1:65112
+[01:46:50.741 FATAL] [
+  {
+    "id": 1,
+    "name": "2",
+    "coordinates": {
+      "x": 2.0,
+      "y": 3.0
+    },
+    "creationDate": "19-04-2022 01:45:27",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 444,
+    "soundtrackName": "song1",
+    "minutesOfWaiting": 33.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "car1",
+      "cool": true
+    }
+  }
+]
+[01:46:50.741 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:47:12.931 TRACE] Получение запроса от /127.0.0.1:65112
+[01:47:12.933 ERROR] Неправильная команда.
+[01:47:12.934 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:47:27.043 TRACE] Получение запроса от /127.0.0.1:65112
+[01:47:27.043 ERROR] Неправильная команда.
+[01:47:27.043 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:48:24.471 TRACE] Получение запроса от /127.0.0.1:65112
+[01:48:24.471 FATAL] Элемент #1 успешно удалён.
+[01:48:24.471 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:48:29.512 TRACE] Получение запроса от /127.0.0.1:65112
+[01:48:29.514 FATAL] Коллекция пуста!
+[01:48:29.515 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:50:56.754 FATAL] Неправильная команда.
+[01:51:10.868 FATAL] Добавлен элемент: id: 1
+ name: 55
+ coordinates: {"x" : 5.0, "y" : 5.0}
+ creationDate: Tue Apr 19 01:51:10 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 5
+ soundtrackName: 5
+ minutesOfWaiting: 5.0
+ weaponType: AXE
+ Car: null
+
+
+[01:51:19.935 FATAL] Коллекция очищена.
+[01:51:42.091 FATAL] Добавлен элемент: id: 1
+ name: 6
+ coordinates: {"x" : 7.0, "y" : 7.0}
+ creationDate: Tue Apr 19 01:51:42 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 7
+ soundtrackName: 7
+ minutesOfWaiting: 7.0
+ weaponType: AXE
+ Car: Name:7 Cool:true
+
+
+[01:51:58.234 FATAL] Добавлен элемент: id: 2
+ name: 6
+ coordinates: {"x" : 6.0, "y" : 6.0}
+ creationDate: Tue Apr 19 01:51:58 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 6
+ soundtrackName: 6
+ minutesOfWaiting: 6.0
+ weaponType: AXE
+ Car: Name:6 Cool:true
+
+
+[01:52:16.368 FATAL] Добавлен элемент: id: 3
+ name: 4
+ coordinates: {"x" : 4.0, "y" : 4.0}
+ creationDate: Tue Apr 19 01:52:16 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 4
+ soundtrackName: 4
+ minutesOfWaiting: 4.0
+ weaponType: AXE
+ Car: Name:4 Cool:true
+
+
+[01:52:21.424 FATAL] Коллекция успешно сохранена
+[01:52:32.553 TRACE] Получение запроса от /127.0.0.1:65112
+[01:52:32.553 FATAL] [
+  {
+    "id": 3,
+    "name": "4",
+    "coordinates": {
+      "x": 4.0,
+      "y": 4.0
+    },
+    "creationDate": "19-04-2022 01:52:16",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 4,
+    "soundtrackName": "4",
+    "minutesOfWaiting": 4.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "4",
+      "cool": true
+    }
+  },
+  {
+    "id": 2,
+    "name": "6",
+    "coordinates": {
+      "x": 6.0,
+      "y": 6.0
+    },
+    "creationDate": "19-04-2022 01:51:58",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 6,
+    "soundtrackName": "6",
+    "minutesOfWaiting": 6.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "6",
+      "cool": true
+    }
+  },
+  {
+    "id": 1,
+    "name": "6",
+    "coordinates": {
+      "x": 7.0,
+      "y": 7.0
+    },
+    "creationDate": "19-04-2022 01:51:42",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 7,
+    "soundtrackName": "7",
+    "minutesOfWaiting": 7.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "7",
+      "cool": true
+    }
+  }
+]
+[01:52:32.553 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:52:41.629 TRACE] Получение запроса от /127.0.0.1:65112
+[01:52:41.629 ERROR] Неправильная команда.
+[01:52:41.630 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:53:34.053 TRACE] Получение запроса от /127.0.0.1:65112
+[01:53:34.053 ERROR] Неправильная команда.
+[01:53:34.053 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:53:43.143 TRACE] Получение запроса от /127.0.0.1:65112
+[01:53:43.158 FATAL] Элемент #3 удалён.
+[01:53:43.158 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:57:13.941 TRACE] Получение запроса от /127.0.0.1:65112
+[01:57:13.941 ERROR] Эта команда предназначена только для сервера.
+[01:57:13.941 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:57:13.941 TRACE] Получение запроса от /127.0.0.1:65112
+[01:57:13.941 FATAL] [
+  {
+    "id": 2,
+    "name": "6",
+    "coordinates": {
+      "x": 6.0,
+      "y": 6.0
+    },
+    "creationDate": "19-04-2022 01:51:58",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 6,
+    "soundtrackName": "6",
+    "minutesOfWaiting": 6.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "6",
+      "cool": true
+    }
+  },
+  {
+    "id": 1,
+    "name": "6",
+    "coordinates": {
+      "x": 7.0,
+      "y": 7.0
+    },
+    "creationDate": "19-04-2022 01:51:42",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 7,
+    "soundtrackName": "7",
+    "minutesOfWaiting": 7.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "7",
+      "cool": true
+    }
+  }
+]
+[01:57:13.941 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:57:13.954 TRACE] Получение запроса от /127.0.0.1:65112
+[01:57:13.954 FATAL] Информация о коллекции, размер: 2, дата инициализации: 2022-04-19T01:43:46.414
+[01:57:13.954 TRACE] Ответ отправлен на /127.0.0.1:65112
+[01:58:09.387 FATAL] Завершение программы...
+[01:58:09.426 ERROR] Канал сервера закрыт.
+[08:10:07.117 ERROR] human #1 не соответствует условиям.
+[08:10:07.120 ERROR] human #2 не соответствует условиям.
+[08:10:07.120 ERROR] human #3 не соответствует условиям.
+[08:10:07.120 ERROR] Все элементы повреждены.
+[08:10:07.128 TRACE] Запуск сервера!
+[08:12:27.926 FATAL] Неправильная команда.
+[08:13:10.240 FATAL] Файл не найден.
+[08:22:19.574 ERROR] human #1 не соответствует условиям.
+[08:22:19.574 ERROR] human #2 не соответствует условиям.
+[08:22:19.574 ERROR] human #3 не соответствует условиям.
+[08:22:19.584 ERROR] Все элементы повреждены.
+[08:22:19.584 TRACE] Запуск сервера!
+[08:24:19.280 FATAL] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 2
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 3
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 4
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 5
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 6
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 7
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 8
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 9
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 10
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 11
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 12
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 13
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 14
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 15
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 16
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 17
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 18
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 19
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.280 FATAL] Добавлен элемент: id: 20
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 21
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 22
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 23
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 24
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 25
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 26
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 27
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 28
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 29
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 30
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 31
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 32
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 33
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.295 FATAL] Добавлен элемент: id: 34
+ name: Alex
+ coordinates: {"x" : 420.0, "y" : 240.0}
+ creationDate: Tue Apr 19 08:24:19 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 90
+ soundtrackName: Morgenshtern - ICE
+ minutesOfWaiting: 3.0
+ weaponType: PISTOL
+ Car: Name:Tesla Model X Cool:true
+
+
+[08:24:19.342 FATAL] Коллекция успешно сохранена
+[08:24:19.358 FATAL] [
+  {
+    "id": 1,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 2,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 3,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 4,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 5,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 6,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 7,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 8,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 9,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 10,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 11,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 12,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 13,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 14,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 15,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 16,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 17,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 18,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 19,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 20,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 21,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 22,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 23,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 24,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 25,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 26,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 27,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 28,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 29,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 30,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 31,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 32,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 33,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  },
+  {
+    "id": 34,
+    "name": "Alex",
+    "coordinates": {
+      "x": 420.0,
+      "y": 240.0
+    },
+    "creationDate": "19-04-2022 08:24:19",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 90,
+    "soundtrackName": "Morgenshtern - ICE",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "PISTOL",
+    "car": {
+      "name": "Tesla Model X",
+      "cool": true
+    }
+  }
+]
+[08:24:19.374 FATAL] Информация о коллекции, размер: 34, дата инициализации: 2022-04-19T08:22:18.717
+[08:24:19.374 FATAL] Скрипт успешно выполнен.
+[08:24:54.158 TRACE] Получение запроса от /127.0.0.1:51420
+[08:24:54.162 ERROR] Полученные данные повреждены.
+[08:47:23.671 ERROR] human #1 не соответствует условиям.
+[08:47:23.671 ERROR] human #2 не соответствует условиям.
+[08:47:23.680 ERROR] human #3 не соответствует условиям.
+[08:47:23.680 ERROR] human #4 не соответствует условиям.
+[08:47:23.680 ERROR] human #5 не соответствует условиям.
+[08:47:23.680 ERROR] human #6 не соответствует условиям.
+[08:47:23.681 ERROR] human #7 не соответствует условиям.
+[08:47:23.682 ERROR] human #8 не соответствует условиям.
+[08:47:23.682 ERROR] human #9 не соответствует условиям.
+[08:47:23.682 ERROR] human #10 не соответствует условиям.
+[08:47:23.683 ERROR] human #11 не соответствует условиям.
+[08:47:23.683 ERROR] human #12 не соответствует условиям.
+[08:47:23.684 ERROR] human #13 не соответствует условиям.
+[08:47:23.684 ERROR] human #14 не соответствует условиям.
+[08:47:23.685 ERROR] human #15 не соответствует условиям.
+[08:47:23.686 ERROR] human #16 не соответствует условиям.
+[08:47:23.686 ERROR] human #17 не соответствует условиям.
+[08:47:23.687 ERROR] human #18 не соответствует условиям.
+[08:47:23.687 ERROR] human #19 не соответствует условиям.
+[08:47:23.688 ERROR] human #20 не соответствует условиям.
+[08:47:23.688 ERROR] human #21 не соответствует условиям.
+[08:47:23.688 ERROR] human #22 не соответствует условиям.
+[08:47:23.689 ERROR] human #23 не соответствует условиям.
+[08:47:23.692 ERROR] human #24 не соответствует условиям.
+[08:47:23.693 ERROR] human #25 не соответствует условиям.
+[08:47:23.693 ERROR] human #26 не соответствует условиям.
+[08:47:23.694 ERROR] human #27 не соответствует условиям.
+[08:47:23.694 ERROR] human #28 не соответствует условиям.
+[08:47:23.694 ERROR] human #29 не соответствует условиям.
+[08:47:23.695 ERROR] human #30 не соответствует условиям.
+[08:47:23.696 ERROR] human #31 не соответствует условиям.
+[08:47:23.696 ERROR] human #32 не соответствует условиям.
+[08:47:23.697 ERROR] human #33 не соответствует условиям.
+[08:47:23.697 ERROR] human #34 не соответствует условиям.
+[08:47:23.697 ERROR] Все элементы повреждены.
+[08:47:23.701 TRACE] Запуск сервера!
+[08:48:15.980 FATAL] Добавлен элемент: id: 1
+ name: 4
+ coordinates: {"x" : 5.0, "y" : 6.0}
+ creationDate: Tue Apr 19 08:48:15 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 8
+ soundtrackName: 8
+ minutesOfWaiting: 8.0
+ weaponType: AXE
+ Car: Name:car1 Cool:true
+
+
+[08:48:33.145 FATAL] 8
+
+[08:48:52.234 FATAL] Неправильная команда.
+[08:49:11.396 FATAL] Неверный аргумент команды.
+[08:49:38.586 FATAL] Неправильная команда.
+[08:49:38.586 FATAL] Коллекция очищена.
+[08:50:14.893 FATAL] Добавлен элемент: id: 1
+ name: Alex
+ coordinates: {"x" : 40.0, "y" : 60.0}
+ creationDate: Tue Apr 19 08:50:14 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1000
+ soundtrackName: song1
+ minutesOfWaiting: 5.0
+ weaponType: AXE
+ Car: Name:tesla Cool:true
+
+
+[08:50:20.945 FATAL] Коллекция успешно сохранена
+[08:52:07.883 ERROR] human #1 не соответствует условиям.
+[08:52:07.884 ERROR] Все элементы повреждены.
+[08:52:07.887 TRACE] Запуск сервера!
+[08:52:31.356 FATAL] Добавлен элемент: id: 1
+ name: 1
+ coordinates: {"x" : 2.0, "y" : 3.0}
+ creationDate: Tue Apr 19 08:52:31 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 6
+ soundtrackName: 7
+ minutesOfWaiting: 8.0
+ weaponType: AXE
+ Car: Name:9 Cool:true
+
+
+[08:52:46.494 FATAL] Среднее время ожидания: 8.0 минут.
+[09:12:26.370 ERROR] human #1 не соответствует условиям.
+[09:12:26.372 ERROR] Все элементы повреждены.
+[09:12:26.374 TRACE] Запуск сервера!
+[09:12:54.394 TRACE] Получение запроса от /127.0.0.1:57632
+[09:12:54.401 ERROR] Неправильная команда.
+[09:12:54.403 TRACE] Ответ отправлен на /127.0.0.1:57632
+[09:13:14.532 TRACE] Получение запроса от /127.0.0.1:57632
+[09:13:14.546 FATAL] Добавлен элемент: id: 1
+ name: 5
+ coordinates: {"x" : 5.0, "y" : 5.0}
+ creationDate: Tue Apr 19 09:13:14 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 5
+ soundtrackName: 5
+ minutesOfWaiting: 5.0
+ weaponType: AXE
+ Car: Name:5 Cool:true
+
+
+[09:13:14.546 TRACE] Ответ отправлен на /127.0.0.1:57632
+[09:27:43.676 ERROR] human #1 не соответствует условиям.
+[09:27:43.677 ERROR] Все элементы повреждены.
+[09:27:43.680 TRACE] Запуск сервера!
+[09:28:06.748 FATAL] 
+help : показать справку для доступных команд
+
+info : запись в стандартный вывод информации о коллекции (тип,
+дата инициализации, количество элементов и т.д.)
+
+show : вывести на стандартный вывод все элементы коллекции в
+строковое представление
+
+add {element} : добавление новый элемент в коллекцию
+
+update id {element} : обновите значение элемента коллекции по идентификатору
+
+remove_by_id id : удалить элемент из коллекции по его идентификатору
+
+clear : очистить коллекцию
+
+save (file_name - optional) : сохраните коллекцию в общий файл
+
+load (file_name - optional): загрузить коллекцию из common.file
+
+execute_script file_name : считайте и выполняйте скрипт из указанного общего файла.
+Скрипт содержит команды в той же форме, в которой они вводятся
+пользователь является интерактивным.
+
+exit : выйдите из программы (без сохранения в общий файл)
+
+remove_first : удалите первый элемент из коллекции
+
+add_if_max {element} : добавьте новый элемент в коллекцию, если его
+
+значение больше значения самого большого элемента этой коллекции
+
+add_if_min {element} : добавьте новый элемент в коллекцию, если он
+значение меньше, чем наименьший элемент этой коллекции
+
+print_average_of_minutes_of_waiting : выведите средне значение
+по полю время ожидания
+
+filter_starts_with_name name : выходные элементы, значение имени поля
+который начинается с заданной подстроки
+
+print_unique_impact_speed : выведите уникальные значения поля скорости удара
+[09:29:05.159 FATAL] Информация о коллекции, размер: 0, дата инициализации: 2022-04-19T09:27:42.814
+[09:29:15.248 FATAL] Коллекция пуста!
+[09:32:58.717 ERROR] human #1 не соответствует условиям.
+[09:32:58.719 ERROR] Все элементы повреждены.
+[09:34:01.805 TRACE] Получение запроса от /127.0.0.1:61833
+[09:34:01.815 FATAL] Добавлен элемент: id: 1
+ name: ghghghggh
+ coordinates: {"x" : 6.0, "y" : 8.0}
+ creationDate: Tue Apr 19 09:34:01 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 2345678
+ soundtrackName: dfghjkl
+ minutesOfWaiting: 23456.0
+ weaponType: AXE
+ Car: Name:ghjk Cool:true
+
+
+[09:34:01.815 TRACE] Ответ отправлен на /127.0.0.1:61833
+[09:34:10.859 TRACE] Получение запроса от /127.0.0.1:61833
+[09:34:10.865 FATAL] [
+  {
+    "id": 1,
+    "name": "ghghghggh",
+    "coordinates": {
+      "x": 6.0,
+      "y": 8.0
+    },
+    "creationDate": "19-04-2022 09:34:01",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 2345678,
+    "soundtrackName": "dfghjkl",
+    "minutesOfWaiting": 23456.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "ghjk",
+      "cool": true
+    }
+  }
+]
+[09:34:10.866 TRACE] Ответ отправлен на /127.0.0.1:61833
+[16:49:03.969 ERROR] human #1 не соответствует условиям.
+[16:49:03.977 ERROR] Все элементы повреждены.
+[16:49:03.981 TRACE] Запуск сервера!
+[16:49:54.027 TRACE] Получение запроса от /127.0.0.1:60812
+[16:49:54.095 FATAL] Добавлен элемент: id: 1
+ name: 11
+ coordinates: {"x" : 1.0, "y" : 1.0}
+ creationDate: Tue Apr 26 16:49:54 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1
+ soundtrackName: 1
+ minutesOfWaiting: 1.0
+ weaponType: AXE
+ Car: Name:1 Cool:true
+
+
+[16:49:54.100 TRACE] Ответ отправлен на /127.0.0.1:60812
+[16:54:09.336 FATAL] Неправильная команда.
+[16:54:09.337 FATAL] Завершение программы...
+[16:54:09.374 ERROR] Канал сервера закрыт.

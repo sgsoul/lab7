@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Alex",
+    "coordinates": {
+      "x": 40.0,
+      "y": 60.0
+    },
+    "creationDate": "19-04-2022 08:50:14",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 1000,
+    "soundtrackName": "song1",
+    "minutesOfWaiting": 5.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "tesla",
+      "cool": true
+    }
+  }
+]
