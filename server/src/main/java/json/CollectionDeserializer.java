@@ -36,7 +36,7 @@ public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBein
                     Log.logger.error("Найден человек без id.");
                     throw new JsonParseException("Нет б");
                 }
-                human = (HumanBeing) context.deserialize(jsonHuman, HumanBeing.class);
+                human = context.deserialize(jsonHuman, HumanBeing.class);
 
                 Integer id = human.getId();
 
@@ -60,7 +60,7 @@ public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBein
             throw new JsonParseException("Нет данных.");
         }
         if (damagedElements != 0)
-            Log.logger.error(Integer.toString(damagedElements) + " элементы в базе данных повреждены.");
+            Log.logger.error(damagedElements + " элементы в базе данных повреждены.");
         return collection;
     }
 }

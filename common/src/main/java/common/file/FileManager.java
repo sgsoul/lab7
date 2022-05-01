@@ -9,7 +9,6 @@ import java.io.*;
  */
 
 public class FileManager implements ReaderWriter {
-    private InputStream inputStream;
     private String path;
 
     public FileManager(String pth) {
@@ -33,7 +32,7 @@ public class FileManager implements ReaderWriter {
             File file = new File(path);
             if (!file.exists()) throw new FileNotExistsException();
             if (!file.canRead()) throw new FileWrongPermissionsException("Не удаётся открыть файл.");
-            inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(file);
             reader = new InputStreamReader(inputStream);
             int currectSymbol;
             while ((currectSymbol = reader.read()) != -1) {
@@ -48,7 +47,8 @@ public class FileManager implements ReaderWriter {
 
     private void create(File file) throws CannotCreateFileException {
         try {
-            file.createNewFile();
+            boolean success = file.createNewFile();
+            if (!success) throw new CannotCreateFileException();
         } catch (IOException e) {
             throw new CannotCreateFileException();
         }

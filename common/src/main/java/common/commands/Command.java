@@ -2,17 +2,18 @@ package common.commands;
 
 import common.connection.Request;
 import common.connection.Response;
+import common.exceptions.*;
 
 /**
  * Интерфейс обратного вызова команды.
  */
 
 public interface Command {
-    public Response run();
+    Response run() throws InvalidDataException, CommandException, FileException, ConnectionException, CollectionException;
 
-    public String getName();
+    String getName();
 
-    public CommandType getType();
+    CommandType getType();
 
-    public void setArgument(Request a);
+    void setArgument(Request a);
 }

@@ -1,106 +1,102 @@
 package collection;
 
+import common.auth.User;
+import common.data.HumanBeing;
+
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Интерфейс для хранения элементов.
  */
 
-public interface CollectionManager<T> {
-
-    /**
-     * Генерирует новый уникальный идентификатор для коллекции.
-     */
-
-    public int generateNextId();
+public interface HumanManager {
 
     /**
      * Сортировка коллекции.
      */
 
-    public void sort();
+    void sort();
 
-    public Vector<T> getCollection();
+    Collection<HumanBeing> getCollection();
 
     /**
      * Добавление нового элемента.
      */
 
-    public void add(T element);
+    void add(HumanBeing element);
 
     /**
      * Получение информации о коллекции.
      */
 
-    public String getInfo();
+    String getInfo();
 
     /**
      * Проверяет, содержит ли коллекция элемент с определенным идентификатором.
      */
 
-    public boolean checkID(Integer ID);
+    boolean checkID(Integer ID);
 
     /**
      * Удаляет элемент по идентификатору.
      */
 
-    public boolean removeByID(Integer id);
+    boolean removeByID(Integer id);
 
     /**
      * Обновляет элемент по идентификатору.
      */
 
-    public boolean updateByID(Integer id, T newElement);
+    boolean updateByID(Integer id, HumanBeing newElement);
 
     /**
      * Получение размера коллекции.
      */
 
-    public int getSize();
+    void clear();
 
-    public void clear();
-
-    public void removeFirst();
+    void removeFirst();
 
     /**
      * Добавляет элемент, если он больше максимального.
      */
 
-    public boolean addIfMax(T element);
+    boolean addIfMax(HumanBeing element);
 
     /**
      * Добавляет элемент, если он меньше минимального.
      */
 
-    public boolean addIfMin(T element);
+    boolean addIfMin(HumanBeing element);
 
     /**
      * Вывод всех элементов, имя которых начинается с подстроки.
      */
 
-    public List<T> filterStartsWithName(String start);
+    List<HumanBeing> filterStartsWithName(String start);
 
 
     /**
      * Вывод всех уникальных значений поля скорости удара.
      */
 
-    public List<Integer> getUniqueImpactSpeed();
+    List<Integer> getUniqueImpactSpeed();
 
     /**
      * Преобразование коллекции в JSON.
      */
 
-    public boolean deserializeCollection(String json);
+    boolean deserializeCollection(String data);
 
     /**
      * Парсинг коллекции из JSON.
      */
 
-    public String serializeCollection();
+    String serializeCollection();
 
-    public double getAverageMinutesOfWaiting();
+    double getAverageMinutesOfWaiting();
+
+    HumanBeing getByID(Integer id);
+
 }

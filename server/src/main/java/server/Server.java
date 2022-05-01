@@ -1,29 +1,25 @@
 package server;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 
 import java.nio.ByteBuffer;
-import java.nio.channels.AlreadyBoundException;
-import java.nio.channels.ClosedChannelException;
-import java.nio.channels.DatagramChannel;
+import java.nio.channels.*;
 
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import collection.CollectionManager;
+import auth.UserManager;
 import collection.HumanCollectionManager;
 
 
+import collection.HumanManager;
 import commands.ServerCommandManager;
+import common.auth.User;
 import common.commands.*;
 import common.connection.*;
-import common.connection.Status;
 import common.data.*;
-import common.file.FileManager;
 import common.file.ReaderWriter;
 
 import exceptions.ServerOnlyCommandException;
@@ -37,37 +33,51 @@ import static log.Log.logger;
  */
 
 public class Server extends Thread implements SenderReceiver {
-
-    private CollectionManager<HumanBeing> collectionManager;
-    private ReaderWriter fileManager;
+    public final int MAX_CLIENTS = 10;
+    private HumanManager collectionManager;
     private ServerCommandManager commandManager;
     private int port;
-    private InetSocketAddress clientAddress;
     private DatagramChannel channel;
-
+    private User hostUser;
+    private Selector selector;
     private volatile boolean running;
+   // private DatabaseHandler databaseHandler; // todo sqgl
+    private UserManager userManager;
+    private Thread receiverThread;
+    private Thread senderThread;
+    private ExecutorService requestHandlerFixedThreadPool;
 
-    private void init(int p, String path) throws ConnectionException {
+
+    private void init(int p, Properties properties) throws ConnectionException, DatabaseException {
         running = true;
         port = p;
-        collectionManager = new HumanCollectionManager();
-        fileManager = new FileManager(path);
+        hostUser = null;
+        receiverThread.start();
+        senderThread.start();
+        requestHandlerFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
+     //   databaseHandler = new DatabaseHandler(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+     //   userManager = new UserDatabaseManager(databaseHandler);
+      //  collectionManager = new HumanDatabaseManager(databaseHandler, userManager);
         commandManager = new ServerCommandManager(this);
+
         try {
-            collectionManager.deserializeCollection(fileManager.read());
-        } catch (FileException e) {
-            logger.error(e.getMessage());
+            collectionManager.deserializeCollection("");
+        } catch (CollectionException e) {
+            Log.logger.error(e.getMessage());
         }
         host(port);
         setName("Поток сервера.");
-        logger.trace("Запуск сервера!");
+        Log.logger.trace("Запуск сервера!");
     }
 
     private void host(int p) throws ConnectionException {
         try {
-            if (channel != null && channel.isOpen()) channel.close();
+            port = p;
             channel = DatagramChannel.open();
+            channel.configureBlocking(false);
             channel.bind(new InetSocketAddress(port));
+            selector = Selector.open();
+            channel.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ);
         } catch (AlreadyBoundException e) {
             throw new PortAlreadyInUseException();
         } catch (IllegalArgumentException e) {
@@ -77,19 +87,21 @@ public class Server extends Thread implements SenderReceiver {
         }
     }
 
-    public Server(int p, String path) throws ConnectionException {
-        init(p, path);
+    public Server(int p, Properties properties) throws ConnectionException {
+        init(p, properties);
     }
 
     /**
      * Получение запроса от клиента.
      */
 
-    public Request receive() throws ConnectionException, InvalidDataException {
+    public void receive() throws ConnectionException, InvalidDataException {
         ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE);
+        InetSocketAddress clientAddress = null;
+        Request request = null;
         try {
             clientAddress = (InetSocketAddress) channel.receive(buf);
-            logger.trace("Получение запроса от " + clientAddress.toString());
+            Log.logger.trace("Получение запроса от " + clientAddress.toString());
         } catch (ClosedChannelException e) {
             throw new ClosedConnectionException();
         } catch (IOException e) {
@@ -97,61 +109,64 @@ public class Server extends Thread implements SenderReceiver {
         }
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buf.array()));
-            Request req = (Request) objectInputStream.readObject();
-            return req;
+            request = (Request) objectInputStream.readObject();
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             throw new InvalidReceivedDataException();
         }
-
+   //     request.offer(new AbstractMap.SimpleEntry<>(clientAddress, request));
     }
 
     /**
      * Отправление ответа.
      */
 
-    public void send(Response response) throws ConnectionException {
-        if (clientAddress == null) throw new InvalidAddressException("Адрес клиента не найден.");
+    public void send(InetSocketAddress address, Response response) throws ConnectionException {
+        if (address == null) throw new InvalidAddressException("Адрес клиента не найден.");
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             objectOutputStream.writeObject(response);
-            channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), clientAddress);
-            logger.trace("Ответ отправлен на " + clientAddress.toString());
+            channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), address);
+            logger.trace("Ответ отправлен на " + address.toString());
         } catch (IOException e) {
             throw new ConnectionException("Что-то пошло не так во время отправки ответа.");
         }
     }
 
     /**
+     * Обработка запроса.
+     */
+
+    private void handleRequest(InetSocketAddress address, Request request) {
+        AnswerMsg answerMsg = new AnswerMsg();
+        try {
+
+            HumanBeing human = request.getHuman();
+
+            if (human != null) {
+                human.setCreationDate(new Date());
+            }
+            request.setStatus(Request.Status.RECEIVED_BY_SERVER);
+
+            if (commandManager.getCommand(request).getType() == CommandType.SERVER_ONLY) {
+                throw new ServerOnlyCommandException();
+            }
+            answerMsg = (AnswerMsg) commandManager.runCommand(request);
+
+            if (answerMsg.getStatus() == Response.Status.EXIT) {
+                close();
+            }
+        } catch (CommandException e) {
+            answerMsg.error(e.getMessage());
+            Log.logger.error(e.getMessage());
+        }
+    //    response.offer(new AbstractMap.SimpleEntry<>(address, answerMsg));
+    }
+
+    /**
      * Запуск сервера.
      */
 
-    public void run() {
-        while (running) {
-            AnswerMsg answerMsg = new AnswerMsg();
-            try {
-                try {
-                    Request commandMsg = receive();
-                    if (commandMsg.getHuman() != null) {
-                        commandMsg.getHuman().setCreationDate(new Date());
-                    }
-                    if (commandManager.getCommand(commandMsg).getType() == CommandType.SERVER_ONLY) {
-                        throw new ServerOnlyCommandException();
-                    }
-                    answerMsg = commandManager.runCommand(commandMsg);
-                    if (answerMsg.getStatus() == Status.EXIT) {
-                        close();
-                    }
-                } catch (CommandException e) {
-                    answerMsg.error(e.getMessage());
-                    logger.error(e.getMessage());
-                }
-                send(answerMsg);
-            } catch (ConnectionException | InvalidDataException e) {
-                logger.error(e.getMessage());
-            }
-        }
-    }
 
     public void consoleMode() {
         commandManager.consoleMode();
@@ -164,22 +179,75 @@ public class Server extends Thread implements SenderReceiver {
     public void close() {
         try {
             running = false;
+            receiverThread.interrupt();
+            requestHandlerFixedThreadPool.shutdown();
+            senderThread.interrupt();
+          // databaseHandler.closeConnection();
             channel.close();
         } catch (IOException e) {
-            logger.error("Не удаётся закрыть канал.");
+            Log.logger.error("Не удалось закрыть канал.");
         }
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public User getHostUser() {
+        return hostUser;
+    }
+
+    public void setHostUser(User usr) {
+        hostUser = usr;
     }
 
     public Commandable getCommandManager() {
         return commandManager;
     }
 
-    public ReaderWriter getFileManager() {
-        return fileManager;
-    }
-
-    public CollectionManager<HumanBeing> getCollectionManager() {
+    public HumanManager getCollectionManager() {
         return collectionManager;
     }
 
+    private class Receiver implements Runnable {
+        public void run() {
+            try {
+                receive();
+            } catch (ConnectionException | InvalidDataException e) {
+                Log.logger.error(e.getMessage());
+            }
+        }
+    }
+
+    private class RequestHandler implements Runnable {
+        private final Request request;
+        private final InetSocketAddress address;
+
+        public RequestHandler(Map.Entry<InetSocketAddress, Request> requestEntry) {
+            request = requestEntry.getValue();
+            address = requestEntry.getKey();
+        }
+
+        public void run() {
+            handleRequest(address, request);
+        }
+    }
+
+    private class Sender implements Runnable {
+        private final Response response;
+        private final InetSocketAddress address;
+
+        public Sender(Map.Entry<InetSocketAddress, Response> responseEntry) {
+            response = responseEntry.getValue();
+            address = responseEntry.getKey();
+        }
+
+        public void run() {
+            try {
+                send(address, response);
+            } catch (ConnectionException e) {
+                Log.logger.error(e.getMessage());
+            }
+        }
+    }
 }

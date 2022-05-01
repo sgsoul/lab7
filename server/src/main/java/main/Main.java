@@ -1,15 +1,14 @@
 package main;
 
 import common.exceptions.ConnectionException;
+import common.exceptions.DatabaseException;
 import common.exceptions.InvalidPortException;
-import common.exceptions.InvalidProgramArgumentsException;
+import log.Log;
 import server.*;
 
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.util.NoSuchElementException;
+import java.io.PrintStream;
+import java.util.Properties;
 
-import static common.io.OutputManager.print;
 
 /**
  * Основной класс для запуска сервера с аргументами.
@@ -17,35 +16,42 @@ import static common.io.OutputManager.print;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
-
-        args = new String[]{"4445", "C:\\Users\\Irina\\itmoprog\\lab6\\server\\src\\main\\resources\\humanCollection.json"};
-        /*args[0] = "4445";
-        args[1] = "C:\\Users\\79006\\OneDrive\\Рабочий стол\\lab6\\server\\humans.json";*/
+        System.setOut(new PrintStream(System.out, true, "UTF-8"));
+        args = new String[]{"4445", "localhost"};
         int port = 0;
-        String strPort = "";
-        String path = "";
+        String strPort = "4445";
+        String dbHost = "pg";
+        String user = "s340384";
+        String password = "pzg218";
+        String url = "jdbc:postgresql://" + dbHost + ":5432/studs"; // использование базы данной
+
         try {
-            if (args.length >= 2) {
-                path = args[1];
+            if (args.length == 4) {
                 strPort = args[0];
+                dbHost = args[1];
+                user = args[2];
+                password = args[3];
+                url = "jdbc:postgresql://" + dbHost + ":5432/studs";
             }
             if (args.length == 1) strPort = args[0];
-            if (args.length == 0) throw new InvalidProgramArgumentsException("Адреса не существует.");
+            if (args.length == 0) Log.logger.info("Нет порта, переданного аргументом, размещенного на " + strPort);
             try {
                 port = Integer.parseInt(strPort);
             } catch (NumberFormatException e) {
                 throw new InvalidPortException();
             }
-            Server server = new Server(port, path);
+            Properties settings = new Properties();
+            settings.setProperty("url", url);
+            settings.setProperty("user", user);
+            settings.setProperty("password", password);
+            Server server = new Server(port, settings);
+
             server.start();
             server.consoleMode();
-        }
-        catch (InvalidProgramArgumentsException | ConnectionException e){
-            print(e.getMessage());
-        }
-        catch (NoSuchElementException e) {
-            print("что за ловушки джокера??");
+
+        } catch (ConnectionException | DatabaseException e) {
+            Log.logger.error(e.getMessage());
         }
     }
 }
+

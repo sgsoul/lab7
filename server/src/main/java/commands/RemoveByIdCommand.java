@@ -1,31 +1,37 @@
 package commands;
 
+import collection.HumanManager;
+import common.auth.User;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 import static common.utils.Parser.*;
 
 public class RemoveByIdCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public RemoveByIdCommand(CollectionManager<HumanBeing> cm) {
+    public RemoveByIdCommand(HumanManager cm) {
         super("remove_by_id", CommandType.NORMAL);
         collectionManager = cm;
     }
 
 
     @Override
-    public String execute() throws InvalidDataException {
+    public String execute() throws InvalidDataException, AuthException {
+        User user = getArgument().getUser();
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
         if (!hasStringArg()) throw new MissedCommandArgumentException();
         Integer id = parseId(getStringArg());
-        if (!collectionManager.checkID(id)) throw new InvalidCommandArgumentException("ID не найден.");
+        if (!collectionManager.checkID(id))
+            throw new InvalidCommandArgumentException("Не найден ID #" + id);
 
-        boolean success = collectionManager.removeByID(id);
-        if (success) return "Элемент #" + Integer.toString(id) + " удалён.";
-        else throw new CommandException("Не удалось добавить элемент.");
+        String owner = collectionManager.getByID(id).getUserLogin();
+        String workerCreatorLogin = user.getLogin();
+
+        if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
+            throw new AuthException("У вас нет доступа, элемент был создан " + owner);
+        collectionManager.removeByID(id);
+        return "Элемент #" + id + " удалён.";
     }
 
 }

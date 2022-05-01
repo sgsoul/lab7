@@ -2,6 +2,7 @@ package common.connection;
 
 import java.io.Serializable;
 
+import common.auth.User;
 import common.data.HumanBeing;
 
 /**
@@ -9,14 +10,26 @@ import common.data.HumanBeing;
  */
 
 public class CommandMsg implements Request {
-    private String commandName;
-    private String commandStringArgument;
-    private Serializable commandObjectArgument;
+    private final String commandName;
+    private final String commandStringArgument;
+    private final HumanBeing human;
+    private User user;
+    private Request.Status status;
 
-    public CommandMsg(String commandNm, String commandSA, Serializable commandOA) {
+    public CommandMsg(String commandNm, String commandSA, HumanBeing h) {
         commandName = commandNm;
         commandStringArgument = commandSA;
-        commandObjectArgument = commandOA;
+        human = h;
+        user = null;
+        status = Status.DEFAULT;
+    }
+
+    public CommandMsg(String commandNm, String commandSA, HumanBeing h, User usr) {
+        commandName = commandNm;
+        commandStringArgument = commandSA;
+        human = h;
+        user = usr;
+        status = Status.DEFAULT;
     }
 
     public String getCommandName() {
@@ -28,6 +41,22 @@ public class CommandMsg implements Request {
     }
 
     public HumanBeing getHuman() {
-        return (HumanBeing) commandObjectArgument;
+        return human;
+    }
+
+    public void setUser(User usr) {
+        user = usr;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status s) {
+        status = s;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

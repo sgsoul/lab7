@@ -1,14 +1,13 @@
 package commands;
 
+import collection.HumanManager;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 public class AddIfMaxCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public AddIfMaxCommand(CollectionManager<HumanBeing> cm) {
+    public AddIfMaxCommand(HumanManager cm) {
         super("add_if_max", CommandType.NORMAL);
         collectionManager = cm;
     }

@@ -1,6 +1,9 @@
 package commands;
 
-import common.file.ReaderWriter;
+import auth.UserManager;
+import collection.HumanManager;
+import common.auth.User;
+
 import server.*;
 import log.*;
 import common.commands.*;
@@ -8,19 +11,16 @@ import common.connection.*;
 import common.data.HumanBeing;
 import common.exceptions.*;
 
-import collection.CollectionManager;
-
-import java.nio.charset.StandardCharsets;
 
 public class ServerCommandManager extends CommandManager {
-    private Server server;
-    private CollectionManager<HumanBeing> collectionManager;
-    private ReaderWriter fileManager;
+    private final Server server;
+
+   // private final UserManager userManager;
 
     public ServerCommandManager(Server serv) {
         server = serv;
-        collectionManager = server.getCollectionManager();
-        fileManager = server.getFileManager();
+        HumanManager collectionManager = server.getCollectionManager();
+        //UserManager = server.getUserManager();
         addCommand(new ExitCommand());
         addCommand(new HelpCommand());
         addCommand(new ExecuteScriptCommand(this));
@@ -36,8 +36,10 @@ public class ServerCommandManager extends CommandManager {
         addCommand(new FilterStartsWithNameCommand(collectionManager));
         addCommand(new PrintAverageOfMinutesOfWaiting(collectionManager));
         addCommand(new PrintUniqueImpactSpeedCommand(collectionManager));
-        addCommand(new SaveCommand(collectionManager, fileManager));
-        addCommand(new LoadCommand(collectionManager, fileManager));
+
+       // addCommand(new LoginCommand(userManager));
+      //  addCommand(new RegisterCommand(userManager));
+       // addCommand(new ShowUsersCommand(userManager));
     }
 
     public Server getServer() {
@@ -45,28 +47,46 @@ public class ServerCommandManager extends CommandManager {
     }
 
     @Override
-    public AnswerMsg runCommand(Request msg) {
+    public Response runCommand(Request msg) {
         AnswerMsg res = new AnswerMsg();
+        User user = msg.getUser();
+        String cmdName = msg.getCommandName();
+        boolean isGeneratedByServer = (msg.getStatus() != Request.Status.RECEIVED_BY_SERVER);
         try {
-            Command cmd = getCommand(msg.getCommandName());
-            cmd.setArgument(msg);
-            res = (AnswerMsg) cmd.run();
-        } catch (CommandException e) {
+            Command cmd = getCommand(msg);
+            if (cmd.getType() != CommandType.AUTH && cmd.getType() != CommandType.SPECIAL) {
+                if (isGeneratedByServer) {
+                    user = server.getHostUser();
+                    msg.setUser(user);
+                }
+                if (user == null) throw new AuthException();
+                //          if (!userManager.isValid(user)) throw new AuthException();
+
+                HumanBeing worker = msg.getHuman();
+                if (worker != null) worker.setUser(user);
+            }
+            res = (AnswerMsg) super.runCommand(msg);
+        } catch (ConnectionException | CommandException e) {
             res.error(e.getMessage());
         }
+        String message = "";
+
+        if (user != null) message += "[" + user.getLogin() + "] ";
+        if (cmdName != null) message += "[" + cmdName + "] ";
+
+        if (res.getMessage().contains("\n")) message += "\n";
         switch (res.getStatus()) {
             case EXIT:
-                //Log.logger.fatal(new String(res.getMessage().getBytes(), StandardCharsets.UTF_8));
-                Log.logger.fatal(res.getMessage());
+                Log.logger.fatal(message + "Выключение...");
                 server.close();
                 break;
             case ERROR:
-                //Log.logger.error(new String(res.getMessage().getBytes(), StandardCharsets.UTF_8));
-                Log.logger.fatal(res.getMessage());
+                Log.logger.error(message + res.getMessage());
                 break;
+            case AUTH_SUCCESS:
+                if (isGeneratedByServer) server.setHostUser(user);
             default:
-                //Log.logger.info(new String(res.getMessage().getBytes(), StandardCharsets.UTF_8));
-                Log.logger.fatal(res.getMessage());
+                Log.logger.info(message + res.getMessage());
                 break;
         }
         return res;

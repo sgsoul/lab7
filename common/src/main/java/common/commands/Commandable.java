@@ -10,23 +10,23 @@ public interface Commandable {
      * Добавление команды.
      */
 
-    public void addCommand(Command cmd);
+    void addCommand(Command cmd);
 
     /**
      * Запускает команду.
      */
 
-    public Response runCommand(Request req);
+    Response runCommand(Request req);
 
-    public Command getCommand(String key);
+    Command getCommand(String key);
 
-    public default Command getCommand(Request req) {
+    default Command getCommand(Request req) {
         return getCommand(req.getCommandName());
     }
 
-    public boolean hasCommand(String s);
+    boolean hasCommand(String s);
 
-    public default boolean hasCommand(Request req) {
+    default boolean hasCommand(Request req) {
         return hasCommand(req.getCommandName());
     }
 
@@ -34,11 +34,11 @@ public interface Commandable {
      * Выполнение в консоли.
      */
 
-    public void consoleMode();
+    void consoleMode();
 
     /**
      * Выполнение скрипта.
      */
 
-    public void fileMode(String path) throws FileException;
+    void fileMode(String path) throws FileException;
 }

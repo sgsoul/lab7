@@ -1,22 +1,23 @@
 package commands;
 
+import collection.HumanManager;
+import common.auth.User;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 public class ClearCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public ClearCommand(CollectionManager<HumanBeing> cm) {
+    public ClearCommand(HumanManager cm) {
         super("clear", CommandType.NORMAL);
-        collectionManager = cm;
+   //     collectionManager = (HumanDatabaseManager) cm; //todo sgl
     }
 
     @Override
     public String execute() throws InvalidDataException {
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
-        collectionManager.clear();
+        User user = getArgument().getUser();
+  //      collectionManager.clear(user);
         return "Коллекция очищена.";
     }
 

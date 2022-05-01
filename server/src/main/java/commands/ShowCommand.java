@@ -1,14 +1,13 @@
 package commands;
 
+import collection.HumanManager;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 public class ShowCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public ShowCommand(CollectionManager<HumanBeing> cm) {
+    public ShowCommand(HumanManager cm) {
         super("show", CommandType.NORMAL);
         collectionManager = cm;
     }

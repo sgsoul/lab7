@@ -8,14 +8,13 @@ import common.exceptions.*;
 import common.commands.*;
 import common.connection.*;
 
-import java.nio.charset.StandardCharsets;
 
 /**
  * Менеджер команд для клиента.
  */
 
 public class ClientCommandManager extends CommandManager {
-    private Client client;
+    private final Client client;
 
     public ClientCommandManager(Client c) {
         client = c;
@@ -32,20 +31,24 @@ public class ClientCommandManager extends CommandManager {
     public AnswerMsg runCommand(Request msg) {
         AnswerMsg res = new AnswerMsg();
         if (hasCommand(msg)) {
-            Command cmd = getCommand(msg);
-            cmd.setArgument(msg);
-            res = (AnswerMsg) cmd.run();
+            res = (AnswerMsg) super.runCommand(msg);
+            if (res.getStatus() == Response.Status.EXIT) {
+                res.info("Отключение...");
+            }
         } else {
             try {
+                if (client.getUser() != null && msg.getUser() == null) msg.setUser(client.getUser());
                 client.send(msg);
                 res = (AnswerMsg) client.receive();
+                if (res.getStatus() == Response.Status.AUTH_SUCCESS) {
+                    client.setUser(msg.getUser());
+                }
             } catch (ConnectionTimeoutException e) {
-                res.info("котёнок умер").setStatus(Status.EXIT); // =(
+                res.info("Попытки всё...bye").setStatus(Response.Status.EXIT);
             } catch (InvalidDataException | ConnectionException e) {
                 res.error(e.getMessage());
             }
         }
-        //print(new String(res.toString().getBytes(), StandardCharsets.UTF_8)); // летит время
         print(res);
         return res;
     }

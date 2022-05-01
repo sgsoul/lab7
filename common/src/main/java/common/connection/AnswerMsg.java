@@ -10,7 +10,8 @@ public class AnswerMsg implements Response {
     private static final long serialVersionUID = 666;
     private String msg;
     private Status status;
-    public AnswerMsg(){
+
+    public AnswerMsg() {
         msg = "";
         status = Status.FINE;
     }
@@ -19,7 +20,7 @@ public class AnswerMsg implements Response {
      * Пустой ввод.
      */
 
-    public AnswerMsg clear(){
+    public AnswerMsg clear() {
         msg = "";
         return this;
     }
@@ -28,7 +29,7 @@ public class AnswerMsg implements Response {
      * Ответ для пользователя.
      */
 
-    public AnswerMsg info(Object str){
+    public AnswerMsg info(Object str) {
         msg = str.toString();// + "\n";
         return this;
     }
@@ -37,7 +38,7 @@ public class AnswerMsg implements Response {
      * Сообщение об ошибке.
      */
 
-    public AnswerMsg error(Object str){
+    public AnswerMsg error(Object str) {
         msg = /*"Error: " + */str.toString();// + "\n";
         setStatus(Status.ERROR);
         return this;
@@ -47,7 +48,7 @@ public class AnswerMsg implements Response {
      * Установка статуса сообщения.
      */
 
-    public AnswerMsg setStatus(Status st){
+    public AnswerMsg setStatus(Status st) {
         status = st;
         return this;
     }
@@ -56,7 +57,7 @@ public class AnswerMsg implements Response {
      * Получить сообщение.
      */
 
-    public String getMessage(){
+    public String getMessage() {
         return msg;
     }
 
@@ -64,18 +65,16 @@ public class AnswerMsg implements Response {
      * Получить статус сообщения.
      */
 
-    public Status getStatus(){
+    public Status getStatus() {
         return status;
     }
 
 
-    @Override 
-    public String toString(){
-        switch (getStatus()){
-            case ERROR:
-                return "Err: " + getMessage();
-            default:
-                return getMessage();
+    @Override
+    public String toString() {
+        if (getStatus() == Status.ERROR) {
+            return "Err: " + getMessage();
         }
+        return getMessage();
     }
 }

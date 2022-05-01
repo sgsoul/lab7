@@ -7,17 +7,17 @@ public interface ReaderWriter {
      * Путь к файлу.
      */
 
-    public void setPath(String pth);
+    void setPath(String pth);
 
     /**
      * Чтение данных.
      */
 
-    public String read() throws FileException;
+    String read() throws FileException;
 
     /**
      * Сохранение данных.
      */
 
-    public void write(String data) throws FileException;
+    void write(String data) throws FileException;
 }

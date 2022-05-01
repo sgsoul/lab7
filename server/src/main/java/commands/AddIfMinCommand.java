@@ -1,14 +1,13 @@
 package commands;
 
+import collection.HumanManager;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 public class AddIfMinCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public AddIfMinCommand(CollectionManager<HumanBeing> cm) {
+    public AddIfMinCommand(HumanManager cm) {
         super("add_if_min", CommandType.NORMAL);
         collectionManager = cm;
     }
@@ -19,5 +18,4 @@ public class AddIfMinCommand extends CommandImpl {
         if (success) return ("Добавлен элемент: " + getHumanArg().toString());
         else throw new CommandException("Не удалось добавить элемент.");
     }
-
 }

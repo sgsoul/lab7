@@ -10,6 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.NoSuchElementException;
 
 import commands.ClientCommandManager;
+import common.auth.User;
 import common.connection.Request;
 import common.connection.Response;
 import common.connection.SenderReceiver;
@@ -27,7 +28,7 @@ public class Client extends Thread implements SenderReceiver {
     private DatagramSocket socket;
     public final int MAX_TIME_OUT = 1000;
     public final int MAX_ATTEMPTS = 3;
-
+    private User user = null;
     private boolean running;
     private ClientCommandManager commandManager;
 
@@ -44,6 +45,14 @@ public class Client extends Thread implements SenderReceiver {
 
     public Client(String addr, int p) throws ConnectionException {
         init(addr, p);
+    }
+
+    public void setUser(User usr) {
+        user = usr;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     /**
@@ -72,6 +81,7 @@ public class Client extends Thread implements SenderReceiver {
 
     public void send(Request request) throws ConnectionException {
         try {
+            request.setStatus(Request.Status.SENT_FROM_CLIENT);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
             ObjectOutputStream objOutput = new ObjectOutputStream(byteArrayOutputStream);
             objOutput.writeObject(request);
@@ -79,7 +89,6 @@ public class Client extends Thread implements SenderReceiver {
             socket.send(requestPacket);
             byteArrayOutputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
             throw new ConnectionException("Что-то пошло не так при отправке запроса.");
         }
 
@@ -96,15 +105,12 @@ public class Client extends Thread implements SenderReceiver {
         try {
             socket.receive(receivePacket);
         } catch (SocketTimeoutException e) {
-            int attempts = MAX_ATTEMPTS;
-            boolean success = false;
-            for (; attempts > 0; attempts--) {
-                printErr("Превышен тайм-аут ответа сервера." + Integer.toString(attempts) + " попытки всё...");
+            for (int attempts = MAX_ATTEMPTS; attempts > 0; attempts--) {
+                printErr("Превышен тайм-аут ответа сервера." + attempts + " попытки всё...");
                 try {
                     socket.receive(receivePacket);
-                    success = true;
                     break;
-                } catch (IOException error) {
+                } catch (IOException ignored) {
 
                 }
             }
@@ -128,12 +134,8 @@ public class Client extends Thread implements SenderReceiver {
 
     @Override
     public void run() {
-        try {commandManager.consoleMode();
+        commandManager.consoleMode();
         close();
-        } catch (NoSuchElementException e) {
-            print("хватит баловаться >:(");
-        }
-
     }
 
     /**
