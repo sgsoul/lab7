@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 import common.data.*;
+import common.exceptions.EmptyCollectionException;
+import common.exceptions.NoSuchIdException;
 import json.*;
 
 import com.google.gson.*;
@@ -17,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
  * Управление коллекцией.
  */
 
-public class HumanCollectionManager implements CollectionManager<HumanBeing> {
+public class HumanCollectionManager implements HumanManager {
     private Vector<HumanBeing> collection;
     private java.time.LocalDateTime initDate;
     private Set<Integer> uniqueIds;
@@ -69,7 +71,7 @@ public class HumanCollectionManager implements CollectionManager<HumanBeing> {
      */
 
     public String getInfo() {
-        return "Информация о коллекции, размер: " + Integer.toString(collection.size()) + ", дата инициализации: " + initDate.toString();
+        return "Информация о коллекции, размер: " + collection.size() + ", дата инициализации: " + initDate.toString();
     }
 
     /**
@@ -201,11 +203,25 @@ public class HumanCollectionManager implements CollectionManager<HumanBeing> {
 
     public double getAverageMinutesOfWaiting() {
         OptionalDouble minutes = collection.stream()
-                         .mapToDouble(humanBeing -> humanBeing.getMinutesOfWaiting())
-                         .average();
+                .mapToDouble(humanBeing -> humanBeing.getMinutesOfWaiting())
+                .average();
         return minutes.getAsDouble();
-       }
+    }
 
+    public HumanBeing getByID(Integer id) {
+        assertNotEmpty();
+        Optional<HumanBeing> worker = collection.stream()
+                .filter(w -> w.getId() == id)
+                .findFirst();
+        if (!worker.isPresent()) {
+            throw new NoSuchIdException(id);
+        }
+        return worker.get();
+    }
+
+    public void assertNotEmpty() {
+        if (collection.isEmpty()) throw new EmptyCollectionException();
+    }
 
     /**
      * Десериализация коллекции
