@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
+import common.auth.User;
 import common.data.*;
 import common.exceptions.EmptyCollectionException;
 import common.exceptions.NoSuchIdException;
@@ -126,9 +127,10 @@ public class HumanCollectionManager implements HumanManager {
 
     /**
      * Очистить коллекцию.
+     * @param user
      */
 
-    public void clear() {
+    public void clear(User user) {
         collection.clear();
         uniqueIds.clear();
     }

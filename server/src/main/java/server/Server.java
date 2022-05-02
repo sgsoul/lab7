@@ -9,9 +9,10 @@ import java.nio.channels.*;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import auth.UserManager;
-import collection.HumanCollectionManager;
 
 
 import collection.HumanManager;
@@ -20,7 +21,6 @@ import common.auth.User;
 import common.commands.*;
 import common.connection.*;
 import common.data.*;
-import common.file.ReaderWriter;
 
 import exceptions.ServerOnlyCommandException;
 import log.Log;
@@ -41,23 +41,25 @@ public class Server extends Thread implements SenderReceiver {
     private User hostUser;
     private Selector selector;
     private volatile boolean running;
-   // private DatabaseHandler databaseHandler; // todo sqgl
+    // private DatabaseHandler databaseHandler; // todo sql
     private UserManager userManager;
     private Thread receiverThread;
-    private Thread senderThread;
+    private ExecutorService senderFixedThreadPool;
     private ExecutorService requestHandlerFixedThreadPool;
-
+    private final Lock locker = new ReentrantLock();
 
     private void init(int p, Properties properties) throws ConnectionException, DatabaseException {
         running = true;
         port = p;
         hostUser = null;
+        receiverThread = new Thread(new Receiver());
         receiverThread.start();
-        senderThread.start();
+        senderFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
         requestHandlerFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
-     //   databaseHandler = new DatabaseHandler(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
-     //   userManager = new UserDatabaseManager(databaseHandler);
-      //  collectionManager = new HumanDatabaseManager(databaseHandler, userManager);
+
+        //   databaseHandler = new DatabaseHandler(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+        //   userManager = new UserDatabaseManager(databaseHandler);
+        //  collectionManager = new HumanDatabaseManager(databaseHandler, userManager);
         commandManager = new ServerCommandManager(this);
 
         try {
@@ -113,7 +115,7 @@ public class Server extends Thread implements SenderReceiver {
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             throw new InvalidReceivedDataException();
         }
-   //     request.offer(new AbstractMap.SimpleEntry<>(clientAddress, request));
+        //     request.offer(new AbstractMap.SimpleEntry<>(clientAddress, request));
     }
 
     /**
@@ -160,8 +162,9 @@ public class Server extends Thread implements SenderReceiver {
             answerMsg.error(e.getMessage());
             Log.logger.error(e.getMessage());
         }
-    //    response.offer(new AbstractMap.SimpleEntry<>(address, answerMsg));
+        //    response.offer(new AbstractMap.SimpleEntry<>(address, answerMsg));
     }
+
 
     /**
      * Запуск сервера.
@@ -181,8 +184,8 @@ public class Server extends Thread implements SenderReceiver {
             running = false;
             receiverThread.interrupt();
             requestHandlerFixedThreadPool.shutdown();
-            senderThread.interrupt();
-          // databaseHandler.closeConnection();
+            senderFixedThreadPool.shutdown();
+            // databaseHandler.closeConnection();
             channel.close();
         } catch (IOException e) {
             Log.logger.error("Не удалось закрыть канал.");
@@ -241,6 +244,8 @@ public class Server extends Thread implements SenderReceiver {
             response = responseEntry.getValue();
             address = responseEntry.getKey();
         }
+
+
 
         public void run() {
             try {

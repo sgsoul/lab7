@@ -3,7 +3,6 @@ package collection;
 import common.auth.User;
 import common.data.HumanBeing;
 
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -52,9 +51,10 @@ public interface HumanManager {
 
     /**
      * Получение размера коллекции.
+     * @param user
      */
 
-    void clear();
+    void clear(User user);
 
     void removeFirst();
 

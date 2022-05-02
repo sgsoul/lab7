@@ -17,7 +17,7 @@ public class ClearCommand extends CommandImpl {
     public String execute() throws InvalidDataException {
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
         User user = getArgument().getUser();
-  //      collectionManager.clear(user);
+        collectionManager.clear(user);
         return "Коллекция очищена.";
     }
 
