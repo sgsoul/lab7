@@ -113,7 +113,7 @@ class HumanCollectionManagerTest {
         assertEquals(2, humanCollectionManager.getCollection().size());
     }
 
-    @Test
+  /*  @Test
     @DisplayName("Проверка метода очистки коллекции")
     void clear() {
         HumanBeing humanFirst = new HumanBeing(1, "name1", 2, 3, true,true,
@@ -126,6 +126,7 @@ class HumanCollectionManagerTest {
         assertTrue(humanCollectionManager.getCollection().isEmpty());
         assertEquals(0, humanCollectionManager.getCollection().size());
     }
+    */
 
     @Test
     @DisplayName("Проверка метода удаления первого элемента в коллекции")
