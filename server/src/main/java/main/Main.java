@@ -26,10 +26,10 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws SQLException, FileException, InvalidDataException, NoSuchIdException {
 
-        args = new String[]{"4445", "C:\\Users\\Irina\\itmoprog\\lab6\\server\\src\\main\\resources\\humanCollection.json"};
+        //args = new String[]{"4445", "C:\\Users\\Irina\\itmoprog\\lab6\\server\\src\\main\\resources\\humanCollection.json"};
         /*args[0] = "4445";
         args[1] = "C:\\Users\\79006\\OneDrive\\Рабочий стол\\lab6\\server\\humans.json";*/
-        int port = 0;
+        int port = 2222;
         String strPort = "5432";
         //String path = "";
         String dbHost = "localhost";

@@ -11,8 +11,8 @@ public final class ConnectionManager {
     public static final String PASSWORD = "qwerty";
     public static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 
-    private ConnectionManager() {
-    }
+//    private ConnectionManager() {
+//    }
 
     public static Connection open(){
         try {

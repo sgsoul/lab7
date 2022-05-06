@@ -24,7 +24,7 @@ public class RemoveFirstCommand extends CommandImpl {
         String owner = collectionManager.getByID(id).getUserLogin();
         String workerCreatorLogin = user.getLogin();
         if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
-            throw new AuthException("У васс нет доступа. Элемент был создан:  " + owner);
+            throw new AuthException("У вас нет доступа. Элемент был создан:  " + owner);
         collectionManager.removeFirst();
         return "Элемент #" + id + " удалён.";
     }

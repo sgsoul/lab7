@@ -22,7 +22,6 @@ import static groovyjarjarantlr4.v4.runtime.misc.Utils.removeAll;
 
 public class HumanDBManager extends HumanCollectionManager {
     //language=SQL
-    //todo worker query
     private final static String INSERT_HUMANS_QUERY = "INSERT INTO WORKERS (name, coordinates_x, coordinates_y, creation_date, real_hero, has_toothpick, impact_speed, soundtrack_name, minutes_of_waiting, weapon_type, car_name, car_coolcheck, user_login,id)" +
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT) RETURNING id; ";
     private final DBManager dbManager;
@@ -44,7 +43,6 @@ public class HumanDBManager extends HumanCollectionManager {
                         "coordinates_x FLOAT NOT NULL ," +
                         "coordinates_y FLOAT NOT NULL ," +
                         "creation_date TEXT NOT NULL," +
-                        //todo
                         "real_hero BOOLEAN," +
                         "has_toothpick BOOLEAN," +
                         "impact_speed INTEGER ," +
@@ -87,7 +85,6 @@ public class HumanDBManager extends HumanCollectionManager {
         statement.setString(10,human.getWeaponType().toString());
         statement.setString(11,human.getCar().getName());
         statement.setBoolean(12,human.getCar().checkCool());
-        //todo user login
         statement.setString(13, human.getUserLogin());
 
     }
@@ -104,7 +101,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
         Integer impactSpeed = resultSet.getInt("impact_speed");
         String soundtrackName = resultSet.getString("soundtrack_name");
-        float minutesOfWaiting = resultSet.getFloat("minutes-of-waiting");
+        float minutesOfWaiting = resultSet.getFloat("minutes_of_waiting");
         WeaponType weaponType;
         try {
             weaponType = WeaponType.valueOf(resultSet.getString("weapon_type"));
@@ -117,7 +114,6 @@ public class HumanDBManager extends HumanCollectionManager {
         HumanBeing human = new HumanBeing(name, coordinates, realHero, hasToothpick, impactSpeed, soundtrackName, minutesOfWaiting, weaponType, car);
         human.setCreationDate(creationDate);
         human.setId(id);
-        //todo user login
         human.setUserLogin(resultSet.getString("user_login"));
         if (!userManager.isPresent(human.getUserLogin())) throw new DataBaseException("no user found");
         return human;
@@ -128,7 +124,6 @@ public class HumanDBManager extends HumanCollectionManager {
 
         dbManager.setCommitMode();
         dbManager.setSavepoint();
-        //todo worker query
         try (PreparedStatement statement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY, true)) {
             setHuman(statement, humanBeing);
             if (statement.executeUpdate() == 0) throw new DataBaseException();
@@ -200,7 +195,6 @@ public class HumanDBManager extends HumanCollectionManager {
         return false;
     }
 
-    //todo add if max
     @Override
     public boolean addIfMax(HumanBeing human) {
         //language=SQL
@@ -235,7 +229,7 @@ public class HumanDBManager extends HumanCollectionManager {
         super.addWithoutIdGeneration(human);
         return false;
     }
-        //todo add if min
+
     @Override
     public boolean addIfMin(HumanBeing human) {
         //language=SQL

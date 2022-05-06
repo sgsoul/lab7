@@ -26,9 +26,9 @@ public class RemoveByIdCommand extends CommandImpl {
             throw new InvalidCommandArgumentException("Не найден ID #" + id);
 
         String owner = collectionManager.getByID(id).getUserLogin();
-        String workerCreatorLogin = user.getLogin();
+        String humanCreatorLogin = user.getLogin();
 
-        if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
+        if (humanCreatorLogin == null || !humanCreatorLogin.equals(owner))
             throw new AuthException("У вас нет доступа, элемент был создан " + owner);
         collectionManager.removeByID(id);
         return "Элемент #" + id + " удалён.";
