@@ -44,7 +44,7 @@ public class Server extends Thread implements SenderReceiver {
     // private DatabaseHandler databaseHandler; // todo sql
     private UserManager userManager;
     private Thread receiverThread;
-    private ExecutorService senderFixedThreadPool;
+    private Thread senderThread;
     private ExecutorService requestHandlerFixedThreadPool;
     private final Lock locker = new ReentrantLock();
 
@@ -52,9 +52,7 @@ public class Server extends Thread implements SenderReceiver {
         running = true;
         port = p;
         hostUser = null;
-        receiverThread = new Thread(new Receiver());
-        receiverThread.start();
-        senderFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
+
         requestHandlerFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
 
         //   databaseHandler = new DatabaseHandler(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
@@ -99,24 +97,40 @@ public class Server extends Thread implements SenderReceiver {
      */
 
     public void receive() throws ConnectionException, InvalidDataException {
-        ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE);
-        InetSocketAddress clientAddress = null;
-        Request request = null;
-        try {
-            clientAddress = (InetSocketAddress) channel.receive(buf);
-            if (clientAddress == null) return;
-            Log.logger.trace("Получение запроса от " + clientAddress.toString());
-        } catch (ClosedChannelException e) {
-            throw new ClosedConnectionException();
-        } catch (IOException e) {
-            throw new ConnectionException("Что-то пошло не так во время получения запроса.");
-        }
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buf.array()));
-            request = (Request) objectInputStream.readObject();
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            throw new InvalidReceivedDataException();
-        }
+        Runnable task = () -> {
+            ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE);
+            InetSocketAddress clientAddress = null;
+            Request request = null;
+            try {
+                clientAddress = (InetSocketAddress) channel.receive(buf);
+                if (clientAddress == null) return;
+                Log.logger.trace("Получение запроса от " + clientAddress.toString());
+            } catch (ClosedChannelException e) {
+                try {
+                    throw new ClosedConnectionException();
+                } catch (ClosedConnectionException ex) {
+                    ex.printStackTrace();
+                }
+            } catch (IOException e) {
+                try {
+                    throw new ConnectionException("Что-то пошло не так во время получения запроса.");
+                } catch (ConnectionException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buf.array()));
+                request = (Request) objectInputStream.readObject();
+            } catch (ClassNotFoundException | ClassCastException | IOException e) {
+                try {
+                    throw new InvalidReceivedDataException();
+                } catch (InvalidReceivedDataException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        Thread readThread = new Thread(task);
+        readThread.start();
     }
 
     /**
@@ -124,16 +138,30 @@ public class Server extends Thread implements SenderReceiver {
      */
 
     public void send(InetSocketAddress address, Response response) throws ConnectionException {
+
         if (address == null) throw new InvalidAddressException("Адрес клиента не найден.");
-        try {
+        Runnable task = () -> {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(response);
-            channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), address);
+            ObjectOutputStream objectOutputStream = null;
+            try {
+                objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                objectOutputStream.writeObject(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), address);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             logger.trace("Ответ отправлен на " + address.toString());
-        } catch (IOException e) {
-            throw new ConnectionException("Что-то пошло не так во время отправки ответа.");
-        }
+        };
+        Thread sendThread = new Thread(task);
+        sendThread.start();
     }
 
     /**
@@ -141,28 +169,33 @@ public class Server extends Thread implements SenderReceiver {
      */
 
     private void handleRequest(InetSocketAddress address, Request request) {
-        AnswerMsg answerMsg = new AnswerMsg();
-        try {
+        ExecutorService service = Executors.newFixedThreadPool(2);
+        Runnable task = () -> {
+            AnswerMsg answerMsg = new AnswerMsg();
+            try {
 
-            HumanBeing human = request.getHuman();
+                HumanBeing human = request.getHuman();
 
-            if (human != null) {
-                human.setCreationDate(new Date());
+                if (human != null) {
+                    human.setCreationDate(new Date());
+                }
+                request.setStatus(Request.Status.RECEIVED_BY_SERVER);
+
+                if (commandManager.getCommand(request).getType() == CommandType.SERVER_ONLY) {
+                    throw new ServerOnlyCommandException();
+                }
+                answerMsg = (AnswerMsg) commandManager.runCommand(request);
+
+                if (answerMsg.getStatus() == Response.Status.EXIT) {
+                    close();
+                }
+            } catch (CommandException e) {
+                answerMsg.error(e.getMessage());
+                Log.logger.error(e.getMessage());
             }
-            request.setStatus(Request.Status.RECEIVED_BY_SERVER);
+        };
+        service.execute(task);
 
-            if (commandManager.getCommand(request).getType() == CommandType.SERVER_ONLY) {
-                throw new ServerOnlyCommandException();
-            }
-            answerMsg = (AnswerMsg) commandManager.runCommand(request);
-
-            if (answerMsg.getStatus() == Response.Status.EXIT) {
-                close();
-            }
-        } catch (CommandException e) {
-            answerMsg.error(e.getMessage());
-            Log.logger.error(e.getMessage());
-        }
     }
 
 
@@ -193,7 +226,7 @@ public class Server extends Thread implements SenderReceiver {
             running = false;
             receiverThread.interrupt();
             requestHandlerFixedThreadPool.shutdown();
-            senderFixedThreadPool.shutdown();
+            senderThread.interrupt();
             // databaseHandler.closeConnection();
             channel.close();
         } catch (IOException e) {
@@ -221,15 +254,6 @@ public class Server extends Thread implements SenderReceiver {
         return collectionManager;
     }
 
-    private class Receiver implements Runnable {
-        public void run() {
-            try {
-                receive();
-            } catch (ConnectionException | InvalidDataException e) {
-                Log.logger.error(e.getMessage());
-            }
-        }
-    }
 
     private class RequestHandler implements Runnable {
         private final Request request;
@@ -245,22 +269,5 @@ public class Server extends Thread implements SenderReceiver {
         }
     }
 
-    private class Sender implements Runnable {
-        private final Response response;
-        private final InetSocketAddress address;
 
-        public Sender(Map.Entry<InetSocketAddress, Response> responseEntry) {
-            response = responseEntry.getValue();
-            address = responseEntry.getKey();
-        }
-
-
-        public void run() {
-            try {
-                send(address, response);
-            } catch (ConnectionException e) {
-                Log.logger.error(e.getMessage());
-            }
-        }
-    }
 }
