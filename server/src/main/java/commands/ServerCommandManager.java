@@ -16,7 +16,6 @@ import common.exceptions.*;
 public class ServerCommandManager extends CommandManager {
     private Server server;
     //private CollectionManager<HumanBeing> collectionManager;
-    private ReaderWriter fileManager;
     private UserManager userManager;
 
     public ServerCommandManager(Server serv) {

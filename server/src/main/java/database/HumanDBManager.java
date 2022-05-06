@@ -78,8 +78,8 @@ public class HumanDBManager extends HumanCollectionManager {
         statement.setDouble(3, human.getCoordinates().getY());
         statement.setString(4, DateConverter.dateToString(human.getCreationDate()));
         statement.setBoolean(5, human.checkRealHero());
-        statement.setBoolean(6,human.checkHasToothpick());
-        statement.setLong(7,human.getImpactSpeed());
+        statement.setBoolean(6, human.checkHasToothpick());
+        statement.setLong(7, human.getImpactSpeed());
         statement.setString(8, human.getSoundtrackName());
         statement.setFloat(9, human.getMinutesOfWaiting());
         statement.setString(10,human.getWeaponType().toString());
@@ -110,7 +110,7 @@ public class HumanDBManager extends HumanCollectionManager {
         }
         String carName = resultSet.getString("car_name");
         boolean carCool = resultSet.getBoolean("car_coolcheck");
-        Car car = new Car(carName,carCool);
+        Car car = new Car(carName, carCool);
         HumanBeing human = new HumanBeing(name, coordinates, realHero, hasToothpick, impactSpeed, soundtrackName, minutesOfWaiting, weaponType, car);
         human.setCreationDate(creationDate);
         human.setId(id);
@@ -229,7 +229,7 @@ public class HumanDBManager extends HumanCollectionManager {
         super.addWithoutIdGeneration(human);
         return false;
     }
-
+    
     @Override
     public boolean addIfMin(HumanBeing human) {
         //language=SQL
@@ -288,8 +288,8 @@ public class HumanDBManager extends HumanCollectionManager {
     }
 
     @Override
-    public boolean deserializeCollection(String ignored) {
-        if (!getCollection().isEmpty()) /*super.clear()*/;
+    public void deserializeCollection(String ignored) {
+        if (!getCollection().isEmpty()) /*super.clear()*/ ;
         //language=SQL
         String query = "SELECT * FROM HUMANS";
         try (PreparedStatement selectAllStatement = dbManager.getPreparedStatement(query)) {
@@ -310,6 +310,5 @@ public class HumanDBManager extends HumanCollectionManager {
         } catch (SQLException e) {
             throw new DataBaseException("cannot load");
         }
-        return false;
     }
 }

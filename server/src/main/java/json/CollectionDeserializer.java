@@ -34,18 +34,18 @@ public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBein
                 }
                 if (!jsonHuman.getAsJsonObject().has("id")) {
                     Log.logger.error("Найден человек без id.");
-                    throw new JsonParseException("Нет б");
+                    throw new JsonParseException("Нет id");
                 }
                 human = context.deserialize(jsonHuman, HumanBeing.class);
 
                 Integer id = human.getId();
 
                 if (uniqueIds.contains(id)) {
-                    Log.logger.error("Человек с таким идентификатором уже есть #" + Integer.toString(id));
+                    Log.logger.error("Человек с таким идентификатором уже есть #" + id);
                     throw new JsonParseException("Этот id не является уникальным.");
                 }
                 if (!human.validate()) {
-                    Log.logger.error("human #" + Integer.toString(id) + " не соответствует условиям.");
+                    Log.logger.error("human #" + id + " не соответствует условиям.");
                     throw new JsonParseException("Неверные данные.");
                 }
                 uniqueIds.add(id);

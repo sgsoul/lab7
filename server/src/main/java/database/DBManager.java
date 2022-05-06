@@ -12,10 +12,10 @@ public class DBManager {
     ConnectionManager connectionManager;
     Connection connection;
 
-    public DBManager(ConnectionManager connection) throws DataBaseException {
+/*    public DBManager(ConnectionManager connection) throws DataBaseException {
         this.connectionManager = connectionManager;
         connectToDataBase();
-    }
+    }*/
 
     public DBManager(String url, String user, String password) throws DataBaseException {
         user = user;

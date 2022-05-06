@@ -39,6 +39,7 @@ public interface HumanManager {
 
     /**
      * Удаляет элемент по идентификатору.
+     *
      * @return
      */
 
@@ -52,6 +53,7 @@ public interface HumanManager {
 
     /**
      * Получение размера коллекции.
+     *
      * @param user
      */
 
@@ -88,7 +90,7 @@ public interface HumanManager {
      * Преобразование коллекции в JSON.
      */
 
-    boolean deserializeCollection(String data);
+    void deserializeCollection(String data);
 
     /**
      * Парсинг коллекции из JSON.

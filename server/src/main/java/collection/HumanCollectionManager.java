@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import common.auth.User;
 import common.data.*;
+import common.exceptions.CollectionException;
 import common.exceptions.EmptyCollectionException;
 import common.exceptions.NoSuchIdException;
 import json.*;
@@ -86,6 +87,7 @@ public class HumanCollectionManager implements HumanManager {
 
     /**
      * Удалить элемент по идентификатору.
+     *
      * @return
      */
 
@@ -127,6 +129,7 @@ public class HumanCollectionManager implements HumanManager {
 
     /**
      * Очистить коллекцию.
+     *
      * @param user
      */
 
@@ -229,8 +232,7 @@ public class HumanCollectionManager implements HumanManager {
      * Десериализация коллекции
      */
 
-    public boolean deserializeCollection(String json) {
-        boolean success = true;
+    public void deserializeCollection(String json) {
         try {
             if (json == null || json.equals("")) {
                 collection = new Vector<HumanBeing>();
@@ -245,10 +247,8 @@ public class HumanCollectionManager implements HumanManager {
                 collection = gson.fromJson(json.trim(), collectionType);
             }
         } catch (JsonParseException e) {
-            success = false;
+            throw new CollectionException("Не удалось загрузить.");
         }
-        return success;
-
     }
 
     /**
