@@ -37,15 +37,17 @@ import static log.Log.logger;
 
 public class Server extends Thread implements SenderReceiver {
     public final int MAX_CLIENTS = 10;
+
     private HumanManager collectionManager;
     private ServerCommandManager commandManager;
+
     private int port;
     private DatagramChannel channel;
+
     private DBManager dbManager;
     private UserDBManager userDBManager;
     private User hostUser;
-//    private Queue<Map.Entry<InetSocketAddress, Request>> requestQueue;
-//    private Queue<Map.Entry<InetSocketAddress, Response>> responseQueue;
+
     private Selector selector;
     private volatile boolean running;
     private UserManager userManager;
@@ -77,17 +79,17 @@ public class Server extends Thread implements SenderReceiver {
 
         requestHandlerFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
 
-        //   databaseHandler = new DatabaseHandler(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
-        //   userManager = new UserDatabaseManager(databaseHandler);
-        //  collectionManager = new HumanDatabaseManager(databaseHandler, userManager);
+        dbManager = new DBManager(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+        userManager = new UserDBManager(dbManager);
+        collectionManager = new HumanDBManager(dbManager, userManager);
         commandManager = new ServerCommandManager(this);
 
-//        try {
-//            collectionManager.deserializeCollection("");
-//        } catch (CollectionException e) {
-//
-//            Log.logger.error(e.getMessage());
-//        }
+        try {
+            collectionManager.deserializeCollection("");
+        } catch (CollectionException e) {
+
+            Log.logger.error(e.getMessage());
+        }
         host(port);
         setName("Поток сервера.");
         Log.logger.trace("Запуск сервера!");
@@ -225,40 +227,41 @@ public class Server extends Thread implements SenderReceiver {
     /**
      * Запуск сервера.
      */
-
-//    public void run() {
-//        while (running) {
-//            try {
-//                try {
-//                    Request commandMsg = receive();
-//                    if (commandMsg.getHuman() != null) {
-//                        commandMsg.getHuman().setCreationDate(new Date());
-//                    }
-//                    if (commandManager.getCommand(commandMsg).getType() == CommandType.SERVER_ONLY) {
-//                        throw new ServerOnlyCommandException();
-//                    }
-//                    answerMsg = (AnswerMsg) commandManager.runCommand(commandMsg);
-//                    if (answerMsg.getStatus().equals(Response.Status.EXIT)) {
-//                        close();
-//                    }
-//                } catch (CommandException e) {
-//                    answerMsg.error(e.getMessage());
-//                    logger.error(e.getMessage());
-//                }
-//                send(answerMsg);
-//            } catch (ConnectionException | InvalidDataException e) {
-//                logger.error(e.getMessage());
-//                try {
-//                    selector.select();
-//                } catch (IOException ex) {
-//                    continue;
-//                }
-//            } catch (IOException e) {
-//                continue;
-//            }
-//        }
-//    }
-
+/*
+    public void run() {
+        while (running) {
+            AnswerMsg answerMsg = new AnswerMsg();
+            try {
+                try {
+                    Request commandMsg = receive();
+                    if (commandMsg.getHuman() != null) {
+                        commandMsg.getHuman().setCreationDate(new Date());
+                    }
+                    if (commandManager.getCommand(commandMsg).getType() == CommandType.SERVER_ONLY) {
+                        throw new ServerOnlyCommandException();
+                    }
+                    answerMsg = (AnswerMsg) commandManager.runCommand(commandMsg);
+                    if (answerMsg.getStatus().equals(Response.Status.EXIT)) {
+                        close();
+                    }
+                } catch (CommandException e) {
+                    answerMsg.error(e.getMessage());
+                    logger.error(e.getMessage());
+                }
+                send(answerMsg);
+            } catch (ConnectionException | InvalidDataException e) {
+                logger.error(e.getMessage());
+                try {
+                    selector.select();
+                } catch (IOException ex) {
+                    continue;
+                }
+            } catch (IOException e) {
+                continue;
+            }
+        }
+    }
+    */
     public void consoleMode() throws FileException, InvalidDataException, ConnectionException {
         commandManager.consoleMode();
     }
@@ -273,7 +276,7 @@ public class Server extends Thread implements SenderReceiver {
             receiverThread.interrupt();
             requestHandlerFixedThreadPool.shutdown();
             senderThread.interrupt();
-            // databaseHandler.closeConnection();
+            DBManager.closeConnection();
             channel.close();
         } catch (IOException e) {
             Log.logger.error("Не удалось закрыть канал.");
