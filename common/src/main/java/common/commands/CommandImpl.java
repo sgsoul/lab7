@@ -9,13 +9,13 @@ import common.exceptions.*;
  */
 
 public abstract class CommandImpl implements Command {
-    private CommandType type;
-    private String name;
+    private final CommandType type;
+    private final String name;
     private Request arg;
 
-    public CommandImpl(String command_name, CommandType command_type) {
-        name = command_name;
-        type = command_type;
+    public CommandImpl(String n, CommandType t) {
+        name = n;
+        type = t;
     }
 
     public CommandType getType() {
@@ -30,13 +30,16 @@ public abstract class CommandImpl implements Command {
      * Команда выполнения пользователя.
      */
 
-    public abstract String execute() throws InvalidDataException, CommandException, FileException, ConnectionException;
+    public String execute() throws InvalidDataException, CommandException, FileException, ConnectionException, CollectionException {
+        return "";
+    }
 
     /**
      * Выполнение -> ответ.
      */
 
-    public Response run() throws InvalidDataException, CommandException, FileException, ConnectionException {
+
+    public Response run() throws InvalidDataException, CommandException, FileException, ConnectionException, CollectionException {
         AnswerMsg res = new AnswerMsg();
         res.info(execute());
         return res;
@@ -64,5 +67,9 @@ public abstract class CommandImpl implements Command {
 
     public HumanBeing getHumanArg() {
         return getArgument().getHuman();
+    }
+
+    public boolean hasUserArg() {
+        return arg != null && arg.getUser() != null && arg.getUser().getLogin() != null;
     }
 }

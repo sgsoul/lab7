@@ -2,31 +2,32 @@ package common.connection;
 
 import java.io.Serializable;
 
+import common.auth.User;
 import common.data.HumanBeing;
-import common.utils.User;
 
 /**
  * Сообщение с командой и аргументами.
  */
 
 public class CommandMsg implements Request {
-    private String commandName;
-    private String commandStringArgument;
-    private Serializable commandObjectArgument;
-    private HumanBeing human;
+    private final String commandName;
+    private final String commandStringArgument;
+    private final HumanBeing human;
     private User user;
     private Request.Status status;
 
-    public CommandMsg(String commandName, String commandSA, Serializable commandOA) {
-        commandName = commandName;
+    public CommandMsg(String commandNm, String commandSA, HumanBeing h) {
+        commandName = commandNm;
         commandStringArgument = commandSA;
-        commandObjectArgument = commandOA;
+        human = h;
+        user = null;
+        status = Status.DEFAULT;
     }
 
-    public CommandMsg(String commandName, String commandSA, HumanBeing humanBeing, User usr) {
-        commandName = commandName;
+    public CommandMsg(String commandNm, String commandSA, HumanBeing h, User usr) {
+        commandName = commandNm;
         commandStringArgument = commandSA;
-        human = humanBeing;
+        human = h;
         user = usr;
         status = Status.DEFAULT;
     }
@@ -35,29 +36,27 @@ public class CommandMsg implements Request {
         return commandName;
     }
 
-    @Override
-    public User getUser() {
-        return user;
-    }
-
     public String getStringArg() {
         return commandStringArgument;
     }
 
     public HumanBeing getHuman() {
-        return (HumanBeing) commandObjectArgument;
+        return human;
     }
 
-    public void setStatus(Status status) {
-        status = status;
+    public void setUser(User usr) {
+        user = usr;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setUser(User user) {
-        user = user;
+    public void setStatus(Status s) {
+        status = s;
     }
 
+    public User getUser() {
+        return user;
+    }
 }

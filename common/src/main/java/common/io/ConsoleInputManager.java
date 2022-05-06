@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import java.time.LocalDate;
 
+import common.auth.User;
 import common.data.*;
 import common.exceptions.IncorrectInputInScriptException;
 
@@ -81,4 +82,20 @@ public class ConsoleInputManager extends InputManagerImpl {
         return new Question<Car>("Введите машину:", super::readCar).getAnswer();
     }
 
+    @Override
+    public String readLogin() {
+        return new Question<String>("enter login:", super::readLogin).getAnswer();
+    }
+
+    @Override
+    public String readPassword() {
+        return new Question<String>("enter password:", super::readPassword).getAnswer();
+    }
+
+    @Override
+    public User readUser() {
+        String login = readLogin();
+        String password = readPassword();
+        return new User(login, password);
+    }
 }

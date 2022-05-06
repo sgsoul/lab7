@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import client.Client;
 import common.exceptions.ConnectionException;
+import common.exceptions.EndOfInputException;
 import common.exceptions.InvalidPortException;
 import common.exceptions.InvalidProgramArgumentsException;
 
@@ -13,35 +14,36 @@ import static common.io.OutputManager.*;
 
 
 public class Main {
-    //public static Logger logger = LogManager.getLogger("logger");
-    //static final Logger logger = LogManager.getRootLogger();
     public static void main(String[] args) throws Exception {
-        //System.setOut(new PrintStream(System.out, false, "UTF-8"));
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
-        args = new String[]{"localhost", "4445"};
-        String addr = "";
+        String address = "localhost";
+        String strPort = "4445";
         int port = 0;
         try {
-            if (args.length != 2) throw new InvalidProgramArgumentsException("Адрес не найден.");
-            addr = args[0];
+            if (args.length == 2) {
+                address = args[0];
+                strPort = args[1];
+            }
+            if (args.length == 1) {
+                strPort = args[0];
+                print("Нет адреса, передаваемого аргументами, установка по умолчанию " + address);
+            }
+            if (args.length == 0) {
+                print("Нет порта и адреса, передаваемых аргументами, установка по умолчанию :" + address + "/" + strPort);
+            }
             try {
-                port = Integer.parseInt(args[1]);
-
-//            catch (NoSuchElementException e) {
-//                print("хватит баловться >:(");
-//            }
-            Client client = new Client(addr, port);
-            client.start();
-              } catch (NumberFormatException |NoSuchElementException e) {
+                port = Integer.parseInt(strPort);
+            } catch (NumberFormatException e) {
                 throw new InvalidPortException();
             }
-//            catch (NoSuchElementException e) {
-//                print("хватит баловться >:(");
-//            }
-        } catch (InvalidProgramArgumentsException | ConnectionException e) {
+            Client client = new Client(address, port);
+            try {
+                client.start();
+            } catch (EndOfInputException e) {
+                printErr(e.getMessage());
+            }
+        } catch (ConnectionException e) {
             print(e.getMessage());
         }
-
-        //System.out.println(res.getMessage());
     }
 }

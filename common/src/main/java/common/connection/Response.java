@@ -3,6 +3,11 @@ package common.connection;
 import java.io.Serializable;
 
 public interface Response extends Serializable{
+
+    String getMessage();
+
+    Status getStatus();
+
     enum Status {
         ERROR,
         FINE,
@@ -10,6 +15,4 @@ public interface Response extends Serializable{
         AUTH_SUCCESS
     }
 
-    public String getMessage();
-    public Status getStatus();
 }

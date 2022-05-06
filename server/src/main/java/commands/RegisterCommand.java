@@ -1,5 +1,8 @@
 package commands;
 
+
+import auth.UserManager;
+import common.auth.User;
 import common.commands.CommandImpl;
 import common.commands.CommandType;
 import common.connection.AnswerMsg;
@@ -8,8 +11,6 @@ import common.exceptions.CommandException;
 import common.exceptions.ConnectionException;
 import common.exceptions.FileException;
 import common.exceptions.InvalidDataException;
-import common.utils.User;
-import database.UserManager;
 import exceptions.DataBaseException;
 
 public class RegisterCommand extends CommandImpl {
@@ -31,12 +32,14 @@ public class RegisterCommand extends CommandImpl {
         User user = getArgument().getUser();
         if (user != null && user.getLogin() != null && user.getPassword() != null) {
             if (userManager.isPresent(user.getLogin())) {
-                throw new DataBaseException("user " + user.getLogin() + " already exist");
+
+                throw new DataBaseException("Пользователь " + user.getLogin() + " уже существует.");
             }
             userManager.add(user);
-            return new AnswerMsg().info("user " + user.getLogin() + " successfully registered").setStatus(Response.Status.AUTH_SUCCESS);
+            return new AnswerMsg().info("Пользователь " + user.getLogin() + " успешно зарегистрирован.").setStatus(Response.Status.AUTH_SUCCESS);
         }
-        throw new DataBaseException("something wrong with user");
+        throw new DataBaseException("пользователь заболел...?");
 
     }
 }
+

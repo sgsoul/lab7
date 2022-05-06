@@ -1,14 +1,13 @@
 package commands;
 
+import collection.HumanManager;
 import common.exceptions.*;
-import collection.CollectionManager;
 import common.commands.*;
-import common.data.*;
 
 public class InfoCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public InfoCommand(CollectionManager<HumanBeing> cm) {
+    public InfoCommand(HumanManager cm) {
         super("info", CommandType.NORMAL);
         collectionManager = cm;
     }

@@ -10,9 +10,9 @@ import common.data.*;
 import common.exceptions.*;
 
 public class PrintUniqueImpactSpeedCommand extends CommandImpl {
-    private CollectionManager<HumanBeing> collectionManager;
+    private HumanManager collectionManager;
 
-    public PrintUniqueImpactSpeedCommand(CollectionManager<HumanBeing> cm) {
+    public PrintUniqueImpactSpeedCommand(HumanManager cm) {
         super("print_unique_impact_speed", CommandType.NORMAL);
         collectionManager = cm;
     }

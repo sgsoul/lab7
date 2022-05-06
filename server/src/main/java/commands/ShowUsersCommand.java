@@ -1,9 +1,9 @@
 package commands;
 
+import auth.UserManager;
 import common.commands.CommandImpl;
 import common.commands.CommandType;
 import common.exceptions.AuthorizationException;
-import database.UserManager;
 
 public class ShowUsersCommand extends CommandImpl {
     private final UserManager userManager;
@@ -15,6 +15,7 @@ public class ShowUsersCommand extends CommandImpl {
 
     @Override
     public String execute() throws AuthorizationException {
+
         StringBuilder builder = new StringBuilder();
         builder.append("\n");
         userManager.getUsers().forEach(user -> builder.append(user).append("\n"));

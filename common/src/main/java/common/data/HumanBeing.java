@@ -1,5 +1,7 @@
 package common.data;
 
+import common.auth.User;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
@@ -54,10 +56,10 @@ public class HumanBeing implements Collectionable, Serializable {
         this.car = car;
     }
 
-    public HumanBeing(int id,String name, double x, double y, boolean realHero, boolean hasToothpick, Integer impactSpeed, String soundtrackName, float minutesOfWaiting, WeaponType weaponType, String carName, boolean coolCar ) {
+    public HumanBeing(int id, String name, double x, double y, boolean realHero, boolean hasToothpick, Integer impactSpeed, String soundtrackName, float minutesOfWaiting, WeaponType weaponType, String carName, boolean coolCar) {
         this.id = id;
         this.name = name;
-        this.coordinates = new Coordinates(x,y);
+        this.coordinates = new Coordinates(x, y);
         this.creationDate = creationDate;
         this.realHero = realHero;
         this.hasToothpick = hasToothpick;
@@ -287,5 +289,17 @@ public class HumanBeing implements Collectionable, Serializable {
                         weaponType != null &&
                         creationDate != null
         );
+    }
+
+    public void setUserLogin(String login) {
+        userLogin = login;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUser(User usr) {
+        userLogin = usr.getLogin();
     }
 }

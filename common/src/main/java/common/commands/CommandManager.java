@@ -6,19 +6,19 @@ import java.io.Closeable;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import common.connection.*;
-import common.connection.Status;
 import common.exceptions.*;
 import common.io.*;
 
 public abstract class CommandManager implements Commandable, Closeable {
-    private Map<String, Command> map;
+    private final Map<String, Command> map;
     private InputManager inputManager;
     private boolean isRunning;
     private String currentScriptFileName;
-    private static Stack<String> callStack = new Stack<>();
+    private static final Stack<String> callStack = new Stack<>();
 
     public void clearStack() {
         callStack.clear();
@@ -60,10 +60,20 @@ public abstract class CommandManager implements Commandable, Closeable {
         inputManager = new ConsoleInputManager();
         isRunning = true;
         while (isRunning) {
+            Response answerMsg = new AnswerMsg();
             print(new String("Введите команду. 'help' - список команд: ".getBytes(), StandardCharsets.UTF_8));
-            CommandMsg commandMsg = inputManager.readCommand();
-            Response answerMsg = runCommand(commandMsg);
-            if (answerMsg.getStatus().equals(Status.EXIT)) {
+
+            try {
+                CommandMsg commandMsg = inputManager.readCommand();
+                answerMsg = runCommand(commandMsg);
+            } catch (NoSuchElementException e) {
+                close();
+                print("Пользовательский ввод недоступен.");
+                break;
+            }
+
+            if (answerMsg.getStatus() == Response.Status.EXIT) {
+
                 close();
             }
         }
@@ -72,22 +82,28 @@ public abstract class CommandManager implements Commandable, Closeable {
     public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException {
         currentScriptFileName = path;
         inputManager = new FileInputManager(path);
-        isRunning = true;
-        while (isRunning && inputManager.getScanner().hasNextLine()) {
+        while (isRunning && inputManager.hasNextLine()) {
             CommandMsg commandMsg = inputManager.readCommand();
             Response answerMsg = runCommand(commandMsg);
-            if (answerMsg.getStatus().equals(Status.EXIT)) {
+            if (answerMsg.getStatus() == Response.Status.EXIT) {
                 close();
             }
         }
     }
 
-    public void setInputManager(InputManager in) {
-        inputManager = in;
-    }
+    public Response runCommand(Request msg) throws InvalidDataException, ConnectionException {
+        AnswerMsg res = new AnswerMsg();
+        try {
+            Command cmd = getCommand(msg);
+            cmd.setArgument(msg);
+            res = (AnswerMsg) cmd.run();
 
-    public InputManager getInputManager() {
-        return inputManager;
+        } catch (ExitException e) {
+            res.setStatus(Response.Status.EXIT);
+        } catch (CommandException | InvalidDataException | ConnectionException | FileException | CollectionException e) {
+            res.error(e.getMessage());
+        }
+        return res;
     }
 
     public static String getHelp() {
@@ -135,7 +151,7 @@ public abstract class CommandManager implements Commandable, Closeable {
                 "который начинается с заданной подстроки\n" +
                 "\n" +
                 "print_unique_impact_speed : выведите уникальные значения поля скорости удара";
-      
+
         //return "\r\nhelp : show help for available commands\r\n\r\ninfo : Write to standard output information about the collection (type,\r\ninitialization date, number of elements, etc.)\r\n\r\nshow : print to standard output all elements of the collection in\r\nstring representation\r\n\r\nadd {element} : add a new element to the collection\r\n\r\nupdate id {element} : update the value of the collection element whose id\r\nequal to given\r\n\r\nremove_by_id id : remove an element from the collection by its id\r\n\r\nclear : clear the collection\r\n\r\nsave (file_name - optional) : save the collection to a common.file\r\n\r\nload (file_name - optional): load collection from common.file\r\n\r\nexecute_script file_name : read and execute script from specified common.file.\r\nThe script contains commands in the same form in which they are entered\r\nuser is interactive.\r\n\r\nexit : exit the program (without saving to a common.file)\r\n\r\nremove_first : remove the first element from the collection\r\n\r\nadd_if_max {element} : add a new element to the collection if its\r\n\r\nvalue is greater than the value of the largest element of this collection\r\n\r\nadd_if_min {element} : add a new element to the collection if it\r\nthe value is less than the smallest element of this collection\r\n\r\nprint_average_of_minutes_of_waiting: output minutes of waiting time average\r\n\r\nfilter_starts_with_name name : output elements, value of field name\r\nwhich starts with the given substring\r\n\r\nprint_unique_salary : print the unique values of the salary field of all\r\nitems in the collection\r\n"; main
     }
 

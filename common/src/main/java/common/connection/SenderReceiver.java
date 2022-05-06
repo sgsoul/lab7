@@ -7,5 +7,5 @@ import java.io.Closeable;
  */
 
 public interface SenderReceiver extends Closeable {
-    public final int BUFFER_SIZE = 4096;
+    int BUFFER_SIZE = 4096;
 }

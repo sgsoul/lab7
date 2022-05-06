@@ -1,7 +1,6 @@
 package commands;
 
 import common.commands.*;
-import common.connection.Status;
 import common.exceptions.*;
 
 public class ExecuteScriptCommand extends CommandImpl {

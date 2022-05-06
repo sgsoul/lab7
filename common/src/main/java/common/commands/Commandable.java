@@ -12,23 +12,23 @@ public interface Commandable {
      * Добавление команды.
      */
 
-    public void addCommand(Command cmd);
+    void addCommand(Command cmd);
 
     /**
      * Запускает команду.
      */
+    Response runCommand(Request req) throws FileException, InvalidDataException, ConnectionException;
 
-    public Response runCommand(Request req) throws FileException, InvalidDataException, ConnectionException;
 
-    public Command getCommand(String key);
+    Command getCommand(String key);
 
-    public default Command getCommand(Request req) {
+    default Command getCommand(Request req) {
         return getCommand(req.getCommandName());
     }
 
-    public boolean hasCommand(String s);
+    boolean hasCommand(String s);
 
-    public default boolean hasCommand(Request req) {
+    default boolean hasCommand(Request req) {
         return hasCommand(req.getCommandName());
     }
 
@@ -36,11 +36,14 @@ public interface Commandable {
      * Выполнение в консоли.
      */
 
-    public void consoleMode() throws FileException, InvalidDataException, ConnectionException;
+    void consoleMode() throws FileException, InvalidDataException, ConnectionException;
+
 
     /**
      * Выполнение скрипта.
      */
 
-    public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
+
+    void fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
+
 }

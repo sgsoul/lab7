@@ -1,27 +1,30 @@
 package main;
 
+
 import common.exceptions.*;
 import database.ConnectionManager;
 import org.postgresql.Driver;
 import server.*;
-
 import java.awt.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
+import log.Log;
+
+
+import java.io.PrintStream;
+
 import java.util.Properties;
 
-import static common.io.OutputManager.print;
 
 /**
  * Основной класс для запуска сервера с аргументами.
  */
 
 public class Main {
-    public static void main(String[] args) throws SQLException, FileException, InvalidDataException {
+    public static void main(String[] args) throws SQLException, FileException, InvalidDataException, NoSuchIdException {
 
         args = new String[]{"4445", "C:\\Users\\Irina\\itmoprog\\lab6\\server\\src\\main\\resources\\humanCollection.json"};
         /*args[0] = "4445";
@@ -43,27 +46,26 @@ public class Main {
                 url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
             }
             if (args.length == 1) strPort = args[0];
-            if (args.length == 0) throw new InvalidProgramArgumentsException("Адреса не существует.");
+            if (args.length == 0) Log.logger.info("Нет порта, переданного аргументом, размещенного на " + strPort);
             try {
                 port = Integer.parseInt(strPort);
             } catch (NumberFormatException e) {
                 throw new InvalidPortException();
             }
-
             Properties settings = new Properties();
             settings.setProperty("url", url);
             settings.setProperty("user", user);
             settings.setProperty("password", password);
-
             Server server = new Server(port, settings);
 
             server.start();
             server.consoleMode();
-        } catch (InvalidProgramArgumentsException | ConnectionException e) {
-            print(e.getMessage());
-        } catch (NoSuchElementException e) {
-            print("что за ловушки джокера??");
+//        } catch (NoSuchElementException e) {
+//            print("что за ловушки джокера??");
+        } catch (ConnectionException | DatabaseException e) {
+            Log.logger.error(e.getMessage());
         }
 
     }
 }
+

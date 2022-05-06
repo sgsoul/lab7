@@ -1,8 +1,10 @@
 package commands;
 
+
+import auth.UserManager;
+import common.auth.User;
 import common.file.ReaderWriter;
-import common.utils.User;
-import database.UserManager;
+import collection.HumanManager;
 import server.*;
 import log.*;
 import common.commands.*;
@@ -10,20 +12,17 @@ import common.connection.*;
 import common.data.HumanBeing;
 import common.exceptions.*;
 
-import collection.CollectionManager;
-
-import java.nio.charset.StandardCharsets;
 
 public class ServerCommandManager extends CommandManager {
     private Server server;
-    private CollectionManager<HumanBeing> collectionManager;
+    //private CollectionManager<HumanBeing> collectionManager;
     private ReaderWriter fileManager;
     private UserManager userManager;
 
     public ServerCommandManager(Server serv) {
         server = serv;
-        collectionManager = server.getCollectionManager();
-        fileManager = server.getFileManager();
+        HumanManager collectionManager = server.getCollectionManager();
+        userManager = server.getUserManager();
         addCommand(new ExitCommand());
         addCommand(new HelpCommand());
         addCommand(new ExecuteScriptCommand(this));
@@ -39,8 +38,10 @@ public class ServerCommandManager extends CommandManager {
         addCommand(new FilterStartsWithNameCommand(collectionManager));
         addCommand(new PrintAverageOfMinutesOfWaiting(collectionManager));
         addCommand(new PrintUniqueImpactSpeedCommand(collectionManager));
-        addCommand(new SaveCommand(collectionManager, fileManager));
-        addCommand(new LoadCommand(collectionManager, fileManager));
+
+        addCommand(new LoginCommand(userManager));
+        addCommand(new RegisterCommand(userManager));
+        addCommand(new ShowUsersCommand(userManager));
     }
 
     public Server getServer() {
@@ -55,29 +56,38 @@ public class ServerCommandManager extends CommandManager {
         boolean isGeneratedByServer = (msg.getStatus() != Request.Status.RECEIVED_BY_SERVER);
         try {
             Command cmd = getCommand(msg);
+            if (cmd.getType() != CommandType.AUTH && cmd.getType() != CommandType.SPECIAL) {
+                if (isGeneratedByServer) {
+                    user = server.getHostUser();
+                    msg.setUser(user);
+                }
+                if (user == null) throw new AuthException();
+                if (!userManager.isValid(user)) throw new AuthException();
 
-            //executing command
-            res = (AnswerMsg) this.runCommand(msg);
-        } catch (CommandException e) {
+                HumanBeing human = msg.getHuman();
+                if (human != null) human.setUser(user);
+            }
+            res = (AnswerMsg) super.runCommand(msg);
+        } catch (ConnectionException | CommandException | InvalidDataException e) {
             res.error(e.getMessage());
         }
         String message = "";
 
-        //format user and current command
         if (user != null) message += "[" + user.getLogin() + "] ";
         if (cmdName != null) message += "[" + cmdName + "] ";
 
-        //format multiline output
         if (res.getMessage().contains("\n")) message += "\n";
         switch (res.getStatus()) {
             case EXIT:
-                Log.logger.fatal(message + "до свидания.");
+                Log.logger.fatal(message + "Выключение...");
+
                 server.close();
                 break;
             case ERROR:
                 Log.logger.error(message + res.getMessage());
                 break;
-            case AUTH_SUCCESS: //check if auth command was invoked by server terminal
+            case AUTH_SUCCESS:
+
                 if (isGeneratedByServer) server.setHostUser(user);
             default:
                 Log.logger.info(message + res.getMessage());
