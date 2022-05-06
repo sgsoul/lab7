@@ -74,6 +74,7 @@ public class Server extends Thread implements SenderReceiver {
 
     private void host(int p) throws ConnectionException {
         try {
+            if (channel != null && channel.isOpen()) channel.close();
             port = p;
             channel = DatagramChannel.open();
             channel.configureBlocking(false);
@@ -103,6 +104,7 @@ public class Server extends Thread implements SenderReceiver {
         Request request = null;
         try {
             clientAddress = (InetSocketAddress) channel.receive(buf);
+            if (clientAddress == null) return;
             Log.logger.trace("Получение запроса от " + clientAddress.toString());
         } catch (ClosedChannelException e) {
             throw new ClosedConnectionException();
@@ -115,7 +117,6 @@ public class Server extends Thread implements SenderReceiver {
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             throw new InvalidReceivedDataException();
         }
-        //     request.offer(new AbstractMap.SimpleEntry<>(clientAddress, request));
     }
 
     /**
@@ -162,7 +163,6 @@ public class Server extends Thread implements SenderReceiver {
             answerMsg.error(e.getMessage());
             Log.logger.error(e.getMessage());
         }
-        //    response.offer(new AbstractMap.SimpleEntry<>(address, answerMsg));
     }
 
 
@@ -170,6 +170,15 @@ public class Server extends Thread implements SenderReceiver {
      * Запуск сервера.
      */
 
+    public void run() {
+        while (running) {
+            try {
+                selector.select();
+            } catch (IOException e) {
+                continue;
+            }
+        }
+    }
 
     public void consoleMode() {
         commandManager.consoleMode();
@@ -244,7 +253,6 @@ public class Server extends Thread implements SenderReceiver {
             response = responseEntry.getValue();
             address = responseEntry.getKey();
         }
-
 
 
         public void run() {

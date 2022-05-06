@@ -22,7 +22,7 @@ public class Main {
         String strPort = "4445";
         String dbHost = "pg";
         String user = "s340384";
-        String password = "pzg218";
+        String password = "lolkek";
         String url = "jdbc:postgresql://" + dbHost + ":5432/studs"; // использование базы данной
 
         try {

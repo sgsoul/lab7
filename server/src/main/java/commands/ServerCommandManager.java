@@ -15,12 +15,12 @@ import common.exceptions.*;
 public class ServerCommandManager extends CommandManager {
     private final Server server;
 
-   // private final UserManager userManager;
+    private final UserManager userManager;
 
     public ServerCommandManager(Server serv) {
         server = serv;
         HumanManager collectionManager = server.getCollectionManager();
-        //UserManager = server.getUserManager();
+        userManager = server.getUserManager();
         addCommand(new ExitCommand());
         addCommand(new HelpCommand());
         addCommand(new ExecuteScriptCommand(this));
@@ -37,9 +37,9 @@ public class ServerCommandManager extends CommandManager {
         addCommand(new PrintAverageOfMinutesOfWaiting(collectionManager));
         addCommand(new PrintUniqueImpactSpeedCommand(collectionManager));
 
-       // addCommand(new LoginCommand(userManager));
-      //  addCommand(new RegisterCommand(userManager));
-       // addCommand(new ShowUsersCommand(userManager));
+        addCommand(new LoginCommand(userManager));
+        addCommand(new RegisterCommand(userManager));
+        addCommand(new ShowUsersCommand(userManager));
     }
 
     public Server getServer() {
@@ -60,7 +60,7 @@ public class ServerCommandManager extends CommandManager {
                     msg.setUser(user);
                 }
                 if (user == null) throw new AuthException();
-                //          if (!userManager.isValid(user)) throw new AuthException();
+                if (!userManager.isValid(user)) throw new AuthException();
 
                 HumanBeing worker = msg.getHuman();
                 if (worker != null) worker.setUser(user);
