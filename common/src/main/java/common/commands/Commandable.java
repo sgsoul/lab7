@@ -2,7 +2,9 @@ package common.commands;
 
 import common.connection.Request;
 import common.connection.Response;
+import common.exceptions.ConnectionException;
 import common.exceptions.FileException;
+import common.exceptions.InvalidDataException;
 
 public interface Commandable {
 
@@ -16,7 +18,7 @@ public interface Commandable {
      * Запускает команду.
      */
 
-    public Response runCommand(Request req);
+    public Response runCommand(Request req) throws FileException, InvalidDataException, ConnectionException;
 
     public Command getCommand(String key);
 
@@ -34,11 +36,11 @@ public interface Commandable {
      * Выполнение в консоли.
      */
 
-    public void consoleMode();
+    public void consoleMode() throws FileException, InvalidDataException, ConnectionException;
 
     /**
      * Выполнение скрипта.
      */
 
-    public void fileMode(String path) throws FileException;
+    public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
 }

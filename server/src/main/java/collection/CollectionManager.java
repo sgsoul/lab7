@@ -1,8 +1,6 @@
 package collection;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -45,6 +43,7 @@ public interface CollectionManager<T> {
 
     /**
      * Удаляет элемент по идентификатору.
+     * @return
      */
 
     public boolean removeByID(Integer id);

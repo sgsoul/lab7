@@ -36,16 +36,9 @@ public abstract class CommandImpl implements Command {
      * Выполнение -> ответ.
      */
 
-    public Response run() {
+    public Response run() throws InvalidDataException, CommandException, FileException, ConnectionException {
         AnswerMsg res = new AnswerMsg();
-        try {
-            res.info(execute());
-        } catch (ExitException e) {
-            res.info(e.getMessage());
-            res.setStatus(Status.EXIT);
-        } catch (InvalidDataException | CommandException | FileException | ConnectionException e) {
-            res.error(e.getMessage());
-        }
+        res.info(execute());
         return res;
     }
 

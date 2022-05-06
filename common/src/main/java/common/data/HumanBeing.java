@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.Date;
+import common.utils.*;
 
 /**
  * Класс HumanBeing.
@@ -21,6 +22,7 @@ public class HumanBeing implements Collectionable, Serializable {
     private float minutesOfWaiting;
     private WeaponType weaponType; //Поле не может быть null
     private Car car; //Поле не может быть null
+    private String userLogin;
 
     /**
      * New human
@@ -64,6 +66,19 @@ public class HumanBeing implements Collectionable, Serializable {
         this.minutesOfWaiting = minutesOfWaiting;
         this.weaponType = weaponType;
         this.car = new Car(carName, coolCar);
+    }
+
+    //todo wtf
+    public String getUserLogin() {
+        return getUserLogin();
+    }
+
+    public void setUserLogin(String login) {
+        userLogin = login;
+    }
+
+    public void setUser(User user) {
+        userLogin = user.getLogin();
     }
 
     /**
@@ -261,8 +276,16 @@ public class HumanBeing implements Collectionable, Serializable {
         return Integer.compare(impactSpeed, human.getImpactSpeed());
     }
 
+    //че))0
     @Override
     public boolean validate() {
-        return false;
+        return (
+                coordinates != null && coordinates.validate() &&
+                        (car == null) &&
+                        (impactSpeed > 0) && (id > 0) &&
+                        name != null && !name.equals("") &&
+                        weaponType != null &&
+                        creationDate != null
+        );
     }
 }

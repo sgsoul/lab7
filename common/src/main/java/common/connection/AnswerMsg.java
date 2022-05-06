@@ -10,6 +10,7 @@ public class AnswerMsg implements Response {
     private static final long serialVersionUID = 666;
     private String msg;
     private Status status;
+
     public AnswerMsg(){
         msg = "";
         status = Status.FINE;
@@ -73,9 +74,10 @@ public class AnswerMsg implements Response {
     public String toString(){
         switch (getStatus()){
             case ERROR:
-                return "Err: " + getMessage();
+                return "Error: " + getMessage();
             default:
                 return getMessage();
         }
     }
+
 }

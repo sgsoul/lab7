@@ -83,6 +83,7 @@ public class HumanCollectionManager implements CollectionManager<HumanBeing> {
 
     /**
      * Удалить элемент по идентификатору.
+     * @return
      */
 
     public boolean removeByID(Integer id) {
@@ -92,7 +93,6 @@ public class HumanCollectionManager implements CollectionManager<HumanBeing> {
         if (human.isPresent()) {
             collection.remove(human.get());
             uniqueIds.remove(id);
-            return true;
         }
         return false;
     }
@@ -244,5 +244,9 @@ public class HumanCollectionManager implements CollectionManager<HumanBeing> {
                 .setPrettyPrinting().create();
         String json = gson.toJson(collection);
         return json;
+    }
+
+    //todo
+    protected void addWithoutIdGeneration(HumanBeing humanBeing) {
     }
 }

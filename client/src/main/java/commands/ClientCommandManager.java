@@ -29,7 +29,7 @@ public class ClientCommandManager extends CommandManager {
     }
 
     @Override
-    public AnswerMsg runCommand(Request msg) {
+    public AnswerMsg runCommand(Request msg) throws FileException, InvalidDataException, ConnectionException {
         AnswerMsg res = new AnswerMsg();
         if (hasCommand(msg)) {
             Command cmd = getCommand(msg);
@@ -39,8 +39,8 @@ public class ClientCommandManager extends CommandManager {
             try {
                 client.send(msg);
                 res = (AnswerMsg) client.receive();
-            } catch (ConnectionTimeoutException e) {
-                res.info("котёнок умер").setStatus(Status.EXIT); // =(
+            //} catch (ConnectionTimeoutException e) {
+                //res.info("котёнок умер").setStatus(Response.Status.EXIT); // =(
             } catch (InvalidDataException | ConnectionException e) {
                 res.error(e.getMessage());
             }

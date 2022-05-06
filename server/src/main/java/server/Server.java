@@ -12,7 +12,12 @@ import java.nio.channels.AlreadyBoundException;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.DatagramChannel;
 
+import java.sql.DatabaseMetaData;
 import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import collection.CollectionManager;
 import collection.HumanCollectionManager;
@@ -26,6 +31,12 @@ import common.data.*;
 import common.file.FileManager;
 import common.file.ReaderWriter;
 
+import common.utils.User;
+import database.DBManager;
+import database.HumanDBManager;
+import database.UserDBManager;
+import database.UserManager;
+import exceptions.DataBaseException;
 import exceptions.ServerOnlyCommandException;
 import log.Log;
 import common.exceptions.*;
@@ -44,19 +55,33 @@ public class Server extends Thread implements SenderReceiver {
     private int port;
     private InetSocketAddress clientAddress;
     private DatagramChannel channel;
+    private DBManager dbManager;
+    private UserDBManager userManager;
+    private User hostUser;
+    private Queue<Map.Entry<InetSocketAddress, Request>> requestQueue;
+    private Queue<Map.Entry<InetSocketAddress, Response>> responseQueue;
 
     private volatile boolean running;
 
-    private void init(int p, String path) throws ConnectionException {
+    private void init(int port, Properties properties) throws ConnectionException, DataBaseException {
         running = true;
-        port = p;
-        collectionManager = new HumanCollectionManager();
-        fileManager = new FileManager(path);
+        port = port;
+
+        hostUser = null;
+
+        requestQueue = new ConcurrentLinkedQueue<>();
+        responseQueue = new ConcurrentLinkedQueue<>();
+
+        dbManager = new DBManager(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+        userManager = new UserDBManager(dbManager);
+        collectionManager = new HumanDBManager(dbManager, userManager);
         commandManager = new ServerCommandManager(this);
+
+
         try {
-            collectionManager.deserializeCollection(fileManager.read());
-        } catch (FileException e) {
-            logger.error(e.getMessage());
+            collectionManager.deserializeCollection("");
+        } catch (RuntimeException e) {
+            Log.logger.error(e.getMessage());
         }
         host(port);
         setName("Поток сервера.");
@@ -77,8 +102,8 @@ public class Server extends Thread implements SenderReceiver {
         }
     }
 
-    public Server(int p, String path) throws ConnectionException {
-        init(p, path);
+    public Server(int port, Properties properties) throws ConnectionException, DataBaseException {
+        init(port, properties);
     }
 
     /**
@@ -138,8 +163,8 @@ public class Server extends Thread implements SenderReceiver {
                     if (commandManager.getCommand(commandMsg).getType() == CommandType.SERVER_ONLY) {
                         throw new ServerOnlyCommandException();
                     }
-                    answerMsg = commandManager.runCommand(commandMsg);
-                    if (answerMsg.getStatus() == Status.EXIT) {
+                    answerMsg = (AnswerMsg) commandManager.runCommand(commandMsg);
+                    if (answerMsg.getStatus().equals(Status.EXIT)) {
                         close();
                     }
                 } catch (CommandException e) {
@@ -153,7 +178,7 @@ public class Server extends Thread implements SenderReceiver {
         }
     }
 
-    public void consoleMode() {
+    public void consoleMode() throws FileException, InvalidDataException, ConnectionException {
         commandManager.consoleMode();
     }
 
@@ -182,4 +207,15 @@ public class Server extends Thread implements SenderReceiver {
         return collectionManager;
     }
 
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public User getHostUser() {
+        return hostUser;
+    }
+
+    public void setHostUser(User usr) {
+        hostUser = usr;
+    }
 }

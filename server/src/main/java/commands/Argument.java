@@ -2,7 +2,7 @@ package commands;
 
 import common.data.HumanBeing;
 
-public class Argument implements common.connection.Request {
+public abstract class Argument implements common.connection.Request {
     private String arg;
     private HumanBeing human;
 

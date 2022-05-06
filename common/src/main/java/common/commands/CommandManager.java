@@ -56,27 +56,27 @@ public abstract class CommandManager implements Commandable, Closeable {
         return map.containsKey(s);
     }
 
-    public void consoleMode() {
+    public void consoleMode() throws FileException, InvalidDataException, ConnectionException {
         inputManager = new ConsoleInputManager();
         isRunning = true;
         while (isRunning) {
             print(new String("Введите команду. 'help' - список команд: ".getBytes(), StandardCharsets.UTF_8));
             CommandMsg commandMsg = inputManager.readCommand();
             Response answerMsg = runCommand(commandMsg);
-            if (answerMsg.getStatus() == Status.EXIT) {
+            if (answerMsg.getStatus().equals(Status.EXIT)) {
                 close();
             }
         }
     }
 
-    public void fileMode(String path) throws FileException {
+    public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException {
         currentScriptFileName = path;
         inputManager = new FileInputManager(path);
         isRunning = true;
         while (isRunning && inputManager.getScanner().hasNextLine()) {
             CommandMsg commandMsg = inputManager.readCommand();
             Response answerMsg = runCommand(commandMsg);
-            if (answerMsg.getStatus() == Status.EXIT) {
+            if (answerMsg.getStatus().equals(Status.EXIT)) {
                 close();
             }
         }
