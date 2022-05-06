@@ -18,7 +18,7 @@ public abstract class InputManagerImpl implements InputManager {
     private Scanner scanner;
 
     public InputManagerImpl(Scanner sc) {
-        this.scanner = scanner;
+        this.scanner = sc;
     }
 
     private String read() {

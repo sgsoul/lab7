@@ -1,7 +1,8 @@
 package database;
 
+import auth.UserManager;
 import collection.HumanCollectionManager;
-import common.utils.User;
+import common.auth.User;
 import common.data.*;
 import exceptions.DataBaseException;
 import common.exceptions.InvalidDataException;
@@ -16,6 +17,8 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static groovyjarjarantlr4.v4.runtime.misc.Utils.removeAll;
 
 public class HumanDBManager extends HumanCollectionManager {
     //language=SQL
@@ -292,7 +295,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
     @Override
     public boolean deserializeCollection(String ignored) {
-        if (!getCollection().isEmpty()) super.clear();
+        if (!getCollection().isEmpty()) /*super.clear()*/;
         //language=SQL
         String query = "SELECT * FROM HUMANS";
         try (PreparedStatement selectAllStatement = dbManager.getPreparedStatement(query)) {

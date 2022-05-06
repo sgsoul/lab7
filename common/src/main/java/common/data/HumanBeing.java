@@ -291,15 +291,4 @@ public class HumanBeing implements Collectionable, Serializable {
         );
     }
 
-    public void setUserLogin(String login) {
-        userLogin = login;
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUser(User usr) {
-        userLogin = usr.getLogin();
-    }
 }

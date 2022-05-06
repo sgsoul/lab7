@@ -1,6 +1,7 @@
 package database;
 
-import common.utils.User;
+import auth.UserManager;
+import common.auth.User;
 import exceptions.DataBaseException;
 import log.Log;
 
@@ -75,7 +76,6 @@ public class UserDBManager implements UserManager {
             return false;
         }
     }
-
 
     public boolean isPresent(String username) {
         try {

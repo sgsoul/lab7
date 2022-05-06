@@ -1,12 +1,12 @@
 package auth;
 
 import common.auth.User;
-import common.exceptions.DatabaseException;
+import exceptions.DataBaseException;
 
 import java.util.List;
 
 public interface UserManager {
-    void add(User user) throws DatabaseException;
+    void add(User user) throws DataBaseException;
 
     boolean isValid(User user);
 

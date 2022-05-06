@@ -134,7 +134,15 @@ public class Client extends Thread implements SenderReceiver {
 
     @Override
     public void run() {
-        commandManager.consoleMode();
+        try {
+            commandManager.consoleMode();
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
         close();
     }
 
