@@ -39,25 +39,18 @@ public interface HumanManager {
 
     /**
      * Удаляет элемент по идентификатору.
-     *
-     * @return
      */
 
-    boolean removeByID(Integer id);
+    void removeByID(Integer id);
 
     /**
      * Обновляет элемент по идентификатору.
      */
 
-    boolean updateByID(Integer id, HumanBeing newElement);
+    void updateByID(Integer id, HumanBeing newElement);
 
-    /**
-     * Получение размера коллекции.
-     *
-     * @param user
-     */
 
-    void clear(User user);
+    void clear();
 
     void removeFirst();
 
@@ -65,13 +58,13 @@ public interface HumanManager {
      * Добавляет элемент, если он больше максимального.
      */
 
-    boolean addIfMax(HumanBeing element);
+    void addIfMax(HumanBeing element);
 
     /**
      * Добавляет элемент, если он меньше минимального.
      */
 
-    boolean addIfMin(HumanBeing element);
+    void addIfMin(HumanBeing element);
 
     /**
      * Вывод всех элементов, имя которых начинается с подстроки.

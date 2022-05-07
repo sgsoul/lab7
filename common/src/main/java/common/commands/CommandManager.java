@@ -48,21 +48,19 @@ public abstract class CommandManager implements Commandable, Closeable {
 
     public Command getCommand(String s) {
         if (!hasCommand(s)) throw new NoSuchCommandException();
-        Command cmd = map.get(s);
-        return cmd;
+        return map.get(s);
     }
 
     public boolean hasCommand(String s) {
         return map.containsKey(s);
     }
 
-    public void consoleMode() throws FileException, InvalidDataException, ConnectionException {
+    public void consoleMode()  {
         inputManager = new ConsoleInputManager();
         isRunning = true;
         while (isRunning) {
             Response answerMsg = new AnswerMsg();
             print(new String("Введите команду. 'help' - список команд: ".getBytes(), StandardCharsets.UTF_8));
-
             try {
                 CommandMsg commandMsg = inputManager.readCommand();
                 answerMsg = runCommand(commandMsg);
@@ -71,9 +69,7 @@ public abstract class CommandManager implements Commandable, Closeable {
                 print("Пользовательский ввод недоступен.");
                 break;
             }
-
             if (answerMsg.getStatus() == Response.Status.EXIT) {
-
                 close();
             }
         }
@@ -82,6 +78,7 @@ public abstract class CommandManager implements Commandable, Closeable {
     public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException {
         currentScriptFileName = path;
         inputManager = new FileInputManager(path);
+        isRunning = true;
         while (isRunning && inputManager.hasNextLine()) {
             CommandMsg commandMsg = inputManager.readCommand();
             Response answerMsg = runCommand(commandMsg);
@@ -91,13 +88,12 @@ public abstract class CommandManager implements Commandable, Closeable {
         }
     }
 
-    public Response runCommand(Request msg) throws InvalidDataException, ConnectionException {
+    public Response runCommand(Request msg)  {
         AnswerMsg res = new AnswerMsg();
         try {
             Command cmd = getCommand(msg);
             cmd.setArgument(msg);
             res = (AnswerMsg) cmd.run();
-
         } catch (ExitException e) {
             res.setStatus(Response.Status.EXIT);
         } catch (CommandException | InvalidDataException | ConnectionException | FileException | CollectionException e) {

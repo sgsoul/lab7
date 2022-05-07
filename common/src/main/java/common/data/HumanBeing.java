@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.Date;
+
 import common.utils.*;
 
 /**
@@ -79,8 +80,8 @@ public class HumanBeing implements Collectionable, Serializable {
         userLogin = login;
     }
 
-    public void setUser(User user) {
-        userLogin = user.getLogin();
+    public void setUser(User usr) {
+        userLogin = usr.getLogin();
     }
 
     /**
@@ -278,7 +279,6 @@ public class HumanBeing implements Collectionable, Serializable {
         return Integer.compare(impactSpeed, human.getImpactSpeed());
     }
 
-    //че))0
     @Override
     public boolean validate() {
         return (

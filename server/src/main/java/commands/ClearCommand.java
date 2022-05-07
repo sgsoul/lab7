@@ -4,13 +4,15 @@ import collection.HumanManager;
 import common.auth.User;
 import common.exceptions.*;
 import common.commands.*;
+import database.HumanDBManager;
+
 
 public class ClearCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanDBManager collectionManager;
 
     public ClearCommand(HumanManager cm) {
         super("clear", CommandType.NORMAL);
-   //     collectionManager = (HumanDatabaseManager) cm; //todo sgl
+        collectionManager = (HumanDBManager) cm;
     }
 
     @Override

@@ -143,7 +143,7 @@ public class HumanDBManager extends HumanCollectionManager {
     }
 
     @Override
-    public boolean removeByID(Integer id) {
+    public void removeByID(Integer id) {
         //language=SQL
         String query = "DELETE FROM HUMANS WHERE id = ?;";
         try (PreparedStatement statement = dbManager.getPreparedStatement(query)) {
@@ -153,7 +153,6 @@ public class HumanDBManager extends HumanCollectionManager {
             throw new DataBaseException("ошибка при удалении из датабазы... ну и кринж");
         }
         super.removeByID(id);
-        return false;
     }
 
     @Override
@@ -162,7 +161,7 @@ public class HumanDBManager extends HumanCollectionManager {
     }
 
     @Override
-    public boolean updateByID(Integer id, HumanBeing human) {
+    public void updateByID(Integer id, HumanBeing human) {
         dbManager.setCommitMode();
         dbManager.setSavepoint();
         //language = SQL;
@@ -192,17 +191,16 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.setNormalMode();
         }
         super.updateByID(id, human);
-        return false;
     }
 
     @Override
-    public boolean addIfMax(HumanBeing human) {
+    public void addIfMax(HumanBeing human) {
         //language=SQL
         String getMaxQuery = "SELECT MAX(impact_speed) FROM HUMANS";
 
         if (getCollection().isEmpty()) {
             add(human);
-            return false;
+            return;
         }
         dbManager.setCommitMode();
         dbManager.setSavepoint();
@@ -227,17 +225,16 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.setNormalMode();
         }
         super.addWithoutIdGeneration(human);
-        return false;
     }
     
     @Override
-    public boolean addIfMin(HumanBeing human) {
+    public void addIfMin(HumanBeing human) {
         //language=SQL
         String getMinQuery = "SELECT MIN(impact_speed) FROM HUMANS";
 
         if (getCollection().isEmpty()) {
             add(human);
-            return false;
+            return;
         }
         dbManager.setCommitMode();
         dbManager.setSavepoint();
@@ -262,7 +259,6 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.setNormalMode();
         }
         super.addWithoutIdGeneration(human);
-        return false;
     }
 
     public void clear(User user) {

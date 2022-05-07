@@ -3,7 +3,6 @@ package common.io;
 import java.util.Scanner;
 
 import common.exceptions.FileException;
-import common.exceptions.IncorrectInputInScriptException;
 import common.file.FileManager;
 
 /**

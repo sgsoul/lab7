@@ -6,9 +6,9 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
-import common.auth.User;
 import common.data.*;
 import common.exceptions.CollectionException;
+import common.exceptions.CannotAddException;
 import common.exceptions.EmptyCollectionException;
 import common.exceptions.NoSuchIdException;
 import json.*;
@@ -45,7 +45,7 @@ public class HumanCollectionManager implements HumanManager {
     }
 
     public void sort() {
-        Collections.sort(collection, new HumanBeing.SortingComparator());
+        collection.sort(new HumanBeing.SortingComparator());
     }
 
     /**
@@ -81,42 +81,41 @@ public class HumanCollectionManager implements HumanManager {
      */
 
     public boolean checkID(Integer ID) {
-        if (uniqueIds.contains(ID)) return true;
-        return false;
+        return uniqueIds.contains(ID);
     }
 
     /**
      * Удалить элемент по идентификатору.
      *
-     * @return
      */
 
-    public boolean removeByID(Integer id) {
+    public void removeByID(Integer id) {
+        assertNotEmpty();
         Optional<HumanBeing> human = collection.stream()
                 .filter(h -> h.getId() == id)
                 .findFirst();
         if (human.isPresent()) {
-            collection.remove(human.get());
-            uniqueIds.remove(id);
+            throw new NoSuchIdException(id);
         }
-        return false;
+        collection.remove(human.get());
+        uniqueIds.remove(id);
     }
 
     /**
      * Обновить элемент по идентификатору.
      */
 
-    public boolean updateByID(Integer id, HumanBeing newHuman) {
+    public void updateByID(Integer id, HumanBeing newHuman) {
+        assertNotEmpty();
         Optional<HumanBeing> human = collection.stream()
                 .filter(h -> h.getId() == id)
                 .findFirst();
-        if (human.isPresent()) {
-            collection.remove(human.get());
-            newHuman.setId(id);
-            collection.add(newHuman);
-            return true;
+        if (!human.isPresent()) {
+            throw new NoSuchIdException(id);
         }
-        return false;
+        collection.remove(human.get());
+        newHuman.setId(id);
+        collection.add(newHuman);
     }
 
     /**
@@ -129,11 +128,9 @@ public class HumanCollectionManager implements HumanManager {
 
     /**
      * Очистить коллекцию.
-     *
-     * @param user
      */
-
-    public void clear(User user) {
+// User user
+    public void clear() {
         collection.clear();
         uniqueIds.clear();
     }
@@ -143,6 +140,7 @@ public class HumanCollectionManager implements HumanManager {
      */
 
     public void removeFirst() {
+        assertNotEmpty();
         int id = collection.get(0).getId();
         collection.remove(0);
         uniqueIds.remove(id);
@@ -152,41 +150,38 @@ public class HumanCollectionManager implements HumanManager {
      * Добавить, если идентификатор элемента больше максимального в коллекции.
      */
 
-    public boolean addIfMax(HumanBeing human) {
+    public void addIfMax(HumanBeing human) {
         if (collection.stream()
                 .max(HumanBeing::compareTo)
                 .filter(h -> h.compareTo(human) == 1)
                 .isPresent()) {
-            return false;
+            throw new CannotAddException();
         }
         add(human);
-        return true;
     }
 
     /**
      * Добавить, если идентификатор элемента меньше минимального в коллекции.
      */
 
-    public boolean addIfMin(HumanBeing human) {
+    public void addIfMin(HumanBeing human) {
         if (collection.stream()
                 .min(HumanBeing::compareTo)
                 .filter(h -> h.compareTo(human) == -1)
                 .isPresent()) {
-            return false;
+            throw new CannotAddException();
         }
         add(human);
-        return true;
     }
 
     /**
      * Вывести элементы коллекции имя которых начинается с заданного значения
      */
     public List<HumanBeing> filterStartsWithName(String start) {
-
-        List<HumanBeing> list = collection.stream()
-                .filter(h -> h.getName().startsWith(start.trim()))
+        assertNotEmpty();
+        return collection.stream()
+                .filter(w -> w.getName().startsWith(start.trim()))
                 .collect(Collectors.toList());
-        return list;
     }
 
     /**
@@ -194,6 +189,7 @@ public class HumanCollectionManager implements HumanManager {
      */
 
     public List<Integer> getUniqueImpactSpeed() {
+        assertNotEmpty();
         List<Integer> impactSpeed = new LinkedList<>();
         impactSpeed = collection.stream()
                 .map(human -> human.getImpactSpeed())
@@ -260,11 +256,21 @@ public class HumanCollectionManager implements HumanManager {
                 .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
                 .registerTypeAdapter(Date.class, new DateSerializer())
                 .setPrettyPrinting().create();
-        String json = gson.toJson(collection);
-        return json;
+        return gson.toJson(collection);
     }
 
-    //todo
-    protected void addWithoutIdGeneration(HumanBeing humanBeing) {
+    protected void addWithoutIdGeneration(HumanBeing human) {
+        uniqueIds.add(human.getId());
+        collection.add(human);
     }
+
+    protected void removeAll(Collection<Integer> ids){
+        Iterator<Integer> iterator = ids.iterator();
+        while (iterator.hasNext()){
+            Integer id = iterator.next();
+            collection.removeIf(human -> human.getId()==id);
+            iterator.remove();
+        }
+    }
+
 }

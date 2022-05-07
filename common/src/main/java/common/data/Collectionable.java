@@ -6,15 +6,15 @@ package common.data;
 
 public interface Collectionable extends Comparable<Collectionable>, Validateable {
 
-    public int getId();
+    int getId();
 
-    public void setId(int ID);
+    void setId(int ID);
 
-    public Integer getImpactSpeed();
+    Integer getImpactSpeed();
 
-    public String getName();
+    String getName();
 
-    public int compareTo(Collectionable human);
+    int compareTo(Collectionable human);
 
-    public boolean validate();
+    boolean validate();
 }

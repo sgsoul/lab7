@@ -17,8 +17,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         String address = "localhost";
-        String strPort = "5432";
-        int port = 2222;
+        String strPort = "4445";
+        int port = 0;
         try {
             if (args.length == 2) {
                 address = args[0];

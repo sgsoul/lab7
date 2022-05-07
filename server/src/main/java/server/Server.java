@@ -40,17 +40,17 @@ public class Server extends Thread implements SenderReceiver {
 
     private HumanManager collectionManager;
     private ServerCommandManager commandManager;
-
+    private DBManager dbManager;
     private int port;
     private DatagramChannel channel;
 
-    private DBManager dbManager;
     private UserDBManager userDBManager;
     private User hostUser;
 
     private Selector selector;
     private volatile boolean running;
     private UserManager userManager;
+
     private Thread receiverThread;
     private Thread senderThread;
     private ExecutorService requestHandlerFixedThreadPool;
@@ -87,7 +87,6 @@ public class Server extends Thread implements SenderReceiver {
         try {
             collectionManager.deserializeCollection("");
         } catch (CollectionException e) {
-
             Log.logger.error(e.getMessage());
         }
         host(port);
@@ -158,6 +157,12 @@ public class Server extends Thread implements SenderReceiver {
         readThread.start();
     }
 
+    /* для ресивера
+            public void run() {
+            handleRequest(address, request);
+        }
+     */
+
     /**
      * Отправление ответа.
      */
@@ -183,11 +188,22 @@ public class Server extends Thread implements SenderReceiver {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            logger.trace("Ответ отправлен на " + address.toString());
+            logger.trace("Ответ отправлен на " + address);
+
+
         };
         Thread sendThread = new Thread(task);
         sendThread.start();
     }
+
+/* для сендера
+        public void run() {
+            try {
+                send(address, response);
+            } catch (ConnectionException e) {
+                Log.logger.error(e.getMessage());
+            }
+ */
 
     /**
      * Обработка запроса.
@@ -262,7 +278,7 @@ public class Server extends Thread implements SenderReceiver {
         }
     }
     */
-    public void consoleMode() throws FileException, InvalidDataException, ConnectionException {
+    public void consoleMode() {
         commandManager.consoleMode();
     }
 
@@ -276,7 +292,7 @@ public class Server extends Thread implements SenderReceiver {
             receiverThread.interrupt();
             requestHandlerFixedThreadPool.shutdown();
             senderThread.interrupt();
-            DBManager.closeConnection();
+            dbManager.closeConnection();
             channel.close();
         } catch (IOException e) {
             Log.logger.error("Не удалось закрыть канал.");
@@ -316,6 +332,5 @@ public class Server extends Thread implements SenderReceiver {
             handleRequest(address, request);
         }
     }
-
 
 }

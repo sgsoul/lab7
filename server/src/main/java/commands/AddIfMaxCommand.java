@@ -14,9 +14,8 @@ public class AddIfMaxCommand extends CommandImpl {
 
     @Override
     public String execute() {
-        boolean success = collectionManager.addIfMax(getHumanArg());
-        if (success) return ("Добавлен элемент: " + getHumanArg().toString());
-        else throw new CommandException("Не удалось добавить.");
+        collectionManager.addIfMax(getHumanArg());
+        return ("Добавлен элемент: " + getHumanArg().toString());
     }
 
 }

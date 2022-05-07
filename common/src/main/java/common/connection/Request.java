@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import common.auth.User;
 import common.data.HumanBeing;
-//import common.utils.User;
+
 
 public interface Request extends Serializable {
     String getStringArg();

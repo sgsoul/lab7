@@ -1,6 +1,5 @@
 package common.connection;
 
-import common.io.OutputManager;
 
 /**
  * Сообщение с сервера отправляется клиенту.
@@ -78,5 +77,4 @@ public class AnswerMsg implements Response {
         }
         return getMessage();
     }
-
 }

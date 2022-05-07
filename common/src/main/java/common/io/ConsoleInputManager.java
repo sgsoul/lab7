@@ -2,11 +2,9 @@ package common.io;
 
 import java.util.Scanner;
 
-import java.time.LocalDate;
 
 import common.auth.User;
 import common.data.*;
-import common.exceptions.IncorrectInputInScriptException;
 
 import static common.io.OutputManager.*;
 

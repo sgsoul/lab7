@@ -17,11 +17,15 @@ public class ExecuteScriptCommand extends CommandImpl {
         if (commandManager.getStack().contains(getStringArg())) throw new RecursiveScriptExecuteException();
         commandManager.getStack().add(getStringArg());
         ClientCommandManager process = new ClientCommandManager(commandManager.getClient());
-//        try {
-//            //process.fileMode(getStringArg());
-//        } catch (FileException e) {
-//            throw new CommandException("Файл не найден.");
-//        }
+        try {
+            process.fileMode(getStringArg());
+        } catch (FileException e) {
+            throw new CommandException("Файл не найден.");
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
         commandManager.getStack().pop();
         return "Успешно!";
     }

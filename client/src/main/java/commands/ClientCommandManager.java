@@ -28,7 +28,7 @@ public class ClientCommandManager extends CommandManager {
     }
 
     @Override
-    public AnswerMsg runCommand(Request msg) throws InvalidDataException, ConnectionException {
+    public AnswerMsg runCommand(Request msg)  {
         AnswerMsg res = new AnswerMsg();
         if (hasCommand(msg)) {
             res = (AnswerMsg) super.runCommand(msg);

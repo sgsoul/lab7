@@ -17,8 +17,8 @@ import common.exceptions.*;
 public abstract class InputManagerImpl implements InputManager {
     private Scanner scanner;
 
-    public InputManagerImpl(Scanner sc) {
-        this.scanner = sc;
+    public InputManagerImpl(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     private String read() {
@@ -38,7 +38,7 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     public String readName() throws EmptyStringException {
-        String s = scanner.nextLine().trim();
+        String s = read();
         if (s.equals("")) {
             throw new EmptyStringException();
         }
@@ -46,7 +46,7 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     public String readFullName() {
-        String s = scanner.nextLine().trim();
+        String s = read();
         if (s.equals("")) {
             return null;
         }
@@ -56,7 +56,7 @@ public abstract class InputManagerImpl implements InputManager {
     public double readXCoord() throws InvalidNumberException {
         double x;
         try {
-            x = Double.parseDouble(scanner.nextLine());
+            x = Double.parseDouble(read());
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -67,7 +67,7 @@ public abstract class InputManagerImpl implements InputManager {
     public double readYCoord() throws InvalidNumberException {
         double y;
         try {
-            y = Double.parseDouble(scanner.nextLine());
+            y = Double.parseDouble(read());
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -85,7 +85,7 @@ public abstract class InputManagerImpl implements InputManager {
     public Integer readImpactSpeed() throws InvalidNumberException {
         Integer s;
         try {
-            s = Integer.parseInt(scanner.nextLine().trim());
+            s = Integer.parseInt(read());
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -93,7 +93,7 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     public WeaponType readWeaponType() throws InvalidEnumException {
-        String s = scanner.nextLine().trim();
+        String s = read();
         if (s.equals("")) {
             return null;
         } else {
@@ -106,7 +106,7 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     public String readSoundtrackName() throws EmptyStringException {
-        String soundtrackName = scanner.nextLine().trim();
+        String soundtrackName = read();
         if (soundtrackName.equals("")) {
             throw new EmptyStringException();
         }
@@ -116,7 +116,7 @@ public abstract class InputManagerImpl implements InputManager {
     //todo тут сделала другой вывод car (add cool check=true)
     public Car readCar() throws InvalidDataException {
         //Car car = null;
-        String name = scanner.nextLine().trim();
+        String name = read();
         if (name.equals("")) {
             return null;
         }
@@ -127,7 +127,7 @@ public abstract class InputManagerImpl implements InputManager {
     public float readMinutesOfWaiting() throws InvalidNumberException {
         float minutesOfWaiting;
         try {
-            minutesOfWaiting = Float.parseFloat(scanner.nextLine().trim());
+            minutesOfWaiting = Float.parseFloat(read());
         } catch (NumberFormatException e) {
             throw new InvalidNumberException();
         }
@@ -138,7 +138,7 @@ public abstract class InputManagerImpl implements InputManager {
     public boolean readRealHero() /*throws EmptyStringException*/ { /*InvalidDataException*/
         String strRealHero;
         boolean realHero;
-        strRealHero = scanner.nextLine().trim().toLowerCase();
+        strRealHero = read().toLowerCase();
         if (strRealHero.equalsIgnoreCase("yes") || strRealHero.equalsIgnoreCase("да")) {
             realHero = true;
         } else realHero = false;
@@ -152,7 +152,7 @@ public abstract class InputManagerImpl implements InputManager {
     public boolean readHasToothPick() /*throws InvalidDataException*/ {
         String strHasToothpick;
         boolean hasToothpick;
-        strHasToothpick = scanner.nextLine().trim().toLowerCase();
+        strHasToothpick = read().toLowerCase();
         if (strHasToothpick.equalsIgnoreCase("yes") || strHasToothpick.equalsIgnoreCase("да")) {
             hasToothpick = true;
         } else hasToothpick = false;

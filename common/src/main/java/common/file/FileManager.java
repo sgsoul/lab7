@@ -62,7 +62,6 @@ public class FileManager implements ReaderWriter {
             if (!file.exists()) {
                 create(file);
             }
-            ;
             if (!file.canWrite()) throw new FileWrongPermissionsException("Не удаётся записать файл.");
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(str);
