@@ -47,8 +47,6 @@ public class Server extends Thread implements SenderReceiver {
     private UserDBManager userDBManager;
     private User hostUser;
 
-    private Selector selector;
-    private volatile boolean running;
     private UserManager userManager;
 
     private Thread receiverThread;
@@ -73,7 +71,6 @@ public class Server extends Thread implements SenderReceiver {
 //        } catch (RuntimeException e) {
 
     private void init(int p, Properties properties) throws ConnectionException, DatabaseException {
-        running = true;
         port = p;
         hostUser = null;
 
@@ -101,7 +98,7 @@ public class Server extends Thread implements SenderReceiver {
             channel = DatagramChannel.open();
             channel.configureBlocking(false);
             channel.bind(new InetSocketAddress(port));
-            selector = Selector.open();
+            Selector selector = Selector.open();
             channel.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ);
         } catch (AlreadyBoundException e) {
             throw new PortAlreadyInUseException();
@@ -128,7 +125,7 @@ public class Server extends Thread implements SenderReceiver {
             try {
                 clientAddress = (InetSocketAddress) channel.receive(buf);
                 if (clientAddress == null) return;
-                Log.logger.trace("Получение запроса от " + clientAddress.toString());
+                Log.logger.trace("Получение запроса от " + clientAddress);
             } catch (ClosedChannelException e) {
                 try {
                     throw new ClosedConnectionException();
@@ -288,7 +285,6 @@ public class Server extends Thread implements SenderReceiver {
 
     public void close() {
         try {
-            running = false;
             receiverThread.interrupt();
             requestHandlerFixedThreadPool.shutdown();
             senderThread.interrupt();
