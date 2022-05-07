@@ -2680,3 +2680,17 @@ print_unique_impact_speed : выведите уникальные значени
 [23:00:11.224 TRACE] Запуск сервера!
 [23:48:48.479 ERROR] [] Неправильная команда.
 [23:49:06.493 ERROR] [add] Ошибка входа.
+[14:11:12.192 INFO ] collection successfully loaded
+[14:11:12.210 TRACE] Запуск сервера!
+[14:11:35.995 ERROR] [add] Ошибка входа.
+[14:11:55.167 ERROR] [show] Ошибка входа.
+[14:12:35.529 ERROR] [exit] Ошибка входа.
+[14:20:41.415 INFO ] collection successfully loaded
+[14:20:41.428 TRACE] Запуск сервера!
+[14:21:23.431 INFO ] collection successfully loaded
+[14:21:23.444 TRACE] Запуск сервера!
+[14:21:30.011 ERROR] [sjow] Неправильная команда.
+[14:21:36.050 ERROR] [show] Коллекция пуста!
+[14:25:01.163 INFO ] collection successfully loaded
+[14:25:01.177 TRACE] Запуск сервера!
+[14:25:20.049 ERROR] [show] Ошибка входа.

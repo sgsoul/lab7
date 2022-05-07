@@ -181,7 +181,7 @@ public class HumanDBManager extends HumanCollectionManager {
                 "WHERE id=?";
         try (PreparedStatement statement = dbManager.getPreparedStatement(sql)) {
             setHuman(statement, human);
-            statement.setInt(12, id);
+            statement.setInt(13, id);
             statement.execute();
             dbManager.commit();
         } catch (SQLException e) {
@@ -280,12 +280,12 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.setNormalMode();
         }
         //todo remove all
-        //removeAll(ids);
+        removeAll(ids);
     }
 
     @Override
     public void deserializeCollection(String ignored) {
-        if (!getCollection().isEmpty()) /*super.clear()*/ ;
+        if (!getCollection().isEmpty()) super.clear() ;
         //language=SQL
         String query = "SELECT * FROM HUMANS";
         try (PreparedStatement selectAllStatement = dbManager.getPreparedStatement(query)) {
@@ -300,7 +300,7 @@ public class HumanDBManager extends HumanCollectionManager {
                     damagedElements += 1;
                 }
             }
-            if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
+            //if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
             if (damagedElements == 0) Log.logger.info("collection successfully loaded");
             else Log.logger.warn(damagedElements + " elements are damaged");
         } catch (SQLException e) {

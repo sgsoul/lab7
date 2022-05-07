@@ -67,7 +67,7 @@ public class ServerCommandManager extends CommandManager {
                 if (human != null) human.setUser(user);
             }
             res = (AnswerMsg) super.runCommand(msg);
-        } catch (ConnectionException | CommandException | InvalidDataException e) {
+        } catch (ConnectionException | CommandException e) {
             res.error(e.getMessage());
         }
         String message = "";
