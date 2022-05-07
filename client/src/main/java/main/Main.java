@@ -1,4 +1,4 @@
-﻿package main;
+package main;
 
 
 import java.io.PrintStream;
@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         String address = "localhost";
-        String strPort = "4445";
+        String strPort = "5432";
         int port = 0;
         try {
             if (args.length == 2) {

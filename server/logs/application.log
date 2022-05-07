@@ -2698,3 +2698,8 @@ print_unique_impact_speed : выведите уникальные значени
 [16:52:27.312 ERROR] error during connection to database
 [16:54:32.015 ERROR] error during connection to database
 [16:55:10.519 ERROR] error during connection to database
+[17:18:45.998 ERROR] error during connection to database
+[17:26:34.081 ERROR] error during connection to database
+[17:28:12.535 INFO ] collection successfully loaded
+[17:28:12.548 TRACE] Запуск сервера!
+[17:29:49.862 ERROR] [exit] Ошибка входа.
