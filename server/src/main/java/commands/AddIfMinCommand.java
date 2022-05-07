@@ -1,11 +1,11 @@
 package commands;
 
 import collection.HumanManager;
-import common.exceptions.*;
-import common.commands.*;
+import common.commands.CommandImpl;
+import common.commands.CommandType;
 
 public class AddIfMinCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public AddIfMinCommand(HumanManager cm) {
         super("add_if_min", CommandType.NORMAL);

@@ -3,8 +3,8 @@ package common.data;
 import java.io.Serializable;
 
 public class Coordinates implements Validateable, Serializable {
-    private Double x;
-    private Double y; // Поле не может быть null
+    private final Double x;
+    private final Double y; // Поле не может быть null
     public Coordinates(double x, double y){
         this.x = x;
         this.y = y;
@@ -29,13 +29,13 @@ public class Coordinates implements Validateable, Serializable {
     @Override
     public String toString(){
         String s = "";
-        s += "{\"x\" : " + Double.toString(x) + ", ";
-        s += "\"y\" : " + Double.toString(y) + "}";
+        s += "{\"x\" : " + x + ", ";
+        s += "\"y\" : " + y + "}";
         return s;
     }
     
     public boolean validate(){
-        return !(y==null || x==null);
+        return true;
     }
 
 }

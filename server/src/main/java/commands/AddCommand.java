@@ -6,7 +6,7 @@ import common.commands.*;
 
 
 public class AddCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public AddCommand(HumanManager cm) {
         super("add", CommandType.NORMAL);

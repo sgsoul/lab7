@@ -3,11 +3,8 @@ package common.data;
 import common.auth.User;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.Date;
-
-import common.utils.*;
 
 /**
  * Класс HumanBeing.
@@ -16,7 +13,7 @@ import common.utils.*;
 public class HumanBeing implements Collectionable, Serializable {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
+    private final Coordinates coordinates; //Поле не может быть null
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Boolean realHero; //Поле не может быть null
     private Boolean hasToothpick; //Поле не может быть null
@@ -44,7 +41,7 @@ public class HumanBeing implements Collectionable, Serializable {
     public HumanBeing(String name, Coordinates coordinates,
                       Boolean realHero, Boolean hasToothpick, Integer impactSpeed, String soundtrackName,
                       float minutesOfWaiting, WeaponType weaponType, Car car) {
-        this.id = id;
+
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
@@ -55,20 +52,6 @@ public class HumanBeing implements Collectionable, Serializable {
         this.minutesOfWaiting = minutesOfWaiting;
         this.weaponType = weaponType;
         this.car = car;
-    }
-
-    public HumanBeing(int id, String name, double x, double y, boolean realHero, boolean hasToothpick, Integer impactSpeed, String soundtrackName, float minutesOfWaiting, WeaponType weaponType, String carName, boolean coolCar) {
-        this.id = id;
-        this.name = name;
-        this.coordinates = new Coordinates(x, y);
-        this.creationDate = creationDate;
-        this.realHero = realHero;
-        this.hasToothpick = hasToothpick;
-        this.impactSpeed = impactSpeed;
-        this.soundtrackName = soundtrackName;
-        this.minutesOfWaiting = minutesOfWaiting;
-        this.weaponType = weaponType;
-        this.car = new Car(carName, coolCar);
     }
 
     //todo wtf

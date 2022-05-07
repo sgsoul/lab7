@@ -1,6 +1,5 @@
 package common.connection;
 
-import java.io.Serializable;
 
 import common.auth.User;
 import common.data.HumanBeing;

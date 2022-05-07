@@ -5,7 +5,7 @@ import common.exceptions.*;
 import common.commands.*;
 
 public class ShowCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public ShowCommand(HumanManager cm) {
         super("show", CommandType.NORMAL);

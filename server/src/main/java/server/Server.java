@@ -120,7 +120,7 @@ public class Server extends Thread implements SenderReceiver {
      * Получение запроса от клиента.
      */
 
-    public void receive() throws ConnectionException, InvalidDataException {
+    public void receive() {
         Runnable task = () -> {
             ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE);
             InetSocketAddress clientAddress = null;

@@ -35,7 +35,7 @@ public abstract class CommandManager implements Commandable, Closeable {
     public CommandManager() {
         isRunning = false;
         currentScriptFileName = "";
-        map = new HashMap<String, Command>();
+        map = new HashMap<>();
     }
 
     public void addCommand(Command c) {
@@ -55,7 +55,7 @@ public abstract class CommandManager implements Commandable, Closeable {
         return map.containsKey(s);
     }
 
-    public void consoleMode()  {
+    public void consoleMode() {
         inputManager = new ConsoleInputManager();
         isRunning = true;
         while (isRunning) {
@@ -75,7 +75,7 @@ public abstract class CommandManager implements Commandable, Closeable {
         }
     }
 
-    public void fileMode(String path) throws FileException, InvalidDataException, ConnectionException {
+    public void fileMode(String path) throws FileException {
         currentScriptFileName = path;
         inputManager = new FileInputManager(path);
         isRunning = true;
@@ -88,12 +88,13 @@ public abstract class CommandManager implements Commandable, Closeable {
         }
     }
 
-    public Response runCommand(Request msg)  {
+    public Response runCommand(Request msg) {
         AnswerMsg res = new AnswerMsg();
         try {
             Command cmd = getCommand(msg);
             cmd.setArgument(msg);
             res = (AnswerMsg) cmd.run();
+
         } catch (ExitException e) {
             res.setStatus(Response.Status.EXIT);
         } catch (CommandException | InvalidDataException | ConnectionException | FileException | CollectionException e) {

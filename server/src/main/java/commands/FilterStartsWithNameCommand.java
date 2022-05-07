@@ -9,7 +9,7 @@ import common.data.*;
 import common.exceptions.*;
 
 public class FilterStartsWithNameCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public FilterStartsWithNameCommand(HumanManager cm) {
         super("filter_starts_with_name", CommandType.NORMAL);
@@ -18,7 +18,7 @@ public class FilterStartsWithNameCommand extends CommandImpl {
 
     @Override
     public String execute() {
-        if (!hasStringArg()) throw new MissedCommandArgumentException();
+        if (hasStringArg()) throw new MissedCommandArgumentException();
         String start = getStringArg();
         List<HumanBeing> list = collectionManager.filterStartsWithName(getStringArg());
         if (list.isEmpty()) return "Ни один из элементов не имеет имени, начинающегося с " + start;

@@ -54,7 +54,7 @@ public abstract class CommandImpl implements Command {
     }
 
     public boolean hasStringArg() {
-        return arg != null && arg.getStringArg() != null && !arg.getStringArg().equals("");
+        return arg == null || arg.getStringArg() == null || arg.getStringArg().equals("");
     }
 
     public boolean hasHumanArg() {

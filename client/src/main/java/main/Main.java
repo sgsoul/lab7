@@ -1,14 +1,12 @@
-package main;
+﻿package main;
 
 
 import java.io.PrintStream;
-import java.util.NoSuchElementException;
 
 import client.Client;
 import common.exceptions.ConnectionException;
 import common.exceptions.EndOfInputException;
 import common.exceptions.InvalidPortException;
-import common.exceptions.InvalidProgramArgumentsException;
 
 import static common.io.OutputManager.*;
 

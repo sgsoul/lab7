@@ -1,14 +1,14 @@
 package common.io;
 
-import java.util.Scanner;
-
 import common.auth.User;
 import common.connection.CommandMsg;
-
-import java.time.LocalDate;
-
 import common.data.*;
-import common.exceptions.*;
+import common.exceptions.EmptyStringException;
+import common.exceptions.InvalidDataException;
+import common.exceptions.InvalidEnumException;
+import common.exceptions.InvalidNumberException;
+
+import java.util.Scanner;
 
 /**
  * Реализация диспетчера ввода.
@@ -76,14 +76,13 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     public Coordinates readCoords() throws InvalidNumberException {
-        Double x = readXCoord();
-        Double y = readYCoord();
-        Coordinates coord = new Coordinates(x, y);
-        return coord;
+        double x = readXCoord();
+        double y = readYCoord();
+        return new Coordinates(x, y);
     }
 
     public Integer readImpactSpeed() throws InvalidNumberException {
-        Integer s;
+        int s;
         try {
             s = Integer.parseInt(read());
         } catch (NumberFormatException e) {
@@ -114,14 +113,13 @@ public abstract class InputManagerImpl implements InputManager {
     }
 
     //todo тут сделала другой вывод car (add cool check=true)
-    public Car readCar() throws InvalidDataException {
+    public Car readCar() {
         //Car car = null;
         String name = read();
         if (name.equals("")) {
             return null;
         }
-        Car car = new Car(name, true);
-        return car;
+        return new Car(name, true);
     }
 
     public float readMinutesOfWaiting() throws InvalidNumberException {
@@ -139,9 +137,7 @@ public abstract class InputManagerImpl implements InputManager {
         String strRealHero;
         boolean realHero;
         strRealHero = read().toLowerCase();
-        if (strRealHero.equalsIgnoreCase("yes") || strRealHero.equalsIgnoreCase("да")) {
-            realHero = true;
-        } else realHero = false;
+        realHero = strRealHero.equalsIgnoreCase("yes") || strRealHero.equalsIgnoreCase("да");
         /*if (strRealHero.equals("")){
             throw new EmptyStringException();
         };*/
@@ -153,14 +149,12 @@ public abstract class InputManagerImpl implements InputManager {
         String strHasToothpick;
         boolean hasToothpick;
         strHasToothpick = read().toLowerCase();
-        if (strHasToothpick.equalsIgnoreCase("yes") || strHasToothpick.equalsIgnoreCase("да")) {
-            hasToothpick = true;
-        } else hasToothpick = false;
+        hasToothpick = strHasToothpick.equalsIgnoreCase("yes") || strHasToothpick.equalsIgnoreCase("да");
         return hasToothpick;
     }
 
     public HumanBeing readHuman() throws InvalidDataException {
-        HumanBeing human = null;
+        HumanBeing human;
 
         String name = readName();
         Coordinates coords = readCoords();
@@ -168,7 +162,7 @@ public abstract class InputManagerImpl implements InputManager {
         Boolean hasToothpick = readHasToothPick();
         Integer impactSpeed = readImpactSpeed();
         String soundtrackName = readSoundtrackName();
-        Float minutesOfWaiting = readMinutesOfWaiting();
+        float minutesOfWaiting = readMinutesOfWaiting();
         WeaponType weaponType = readWeaponType();
         Car car = readCar();
         human = new DefaultHuman(name, coords, realHero, hasToothpick, impactSpeed, soundtrackName, minutesOfWaiting, weaponType, car);

@@ -5,7 +5,7 @@ import common.exceptions.*;
 import common.commands.*;
 
 public class InfoCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public InfoCommand(HumanManager cm) {
         super("info", CommandType.NORMAL);

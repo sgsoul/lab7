@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 import java.nio.ByteBuffer;
-import java.util.NoSuchElementException;
 
 import commands.ClientCommandManager;
 import common.auth.User;
@@ -16,7 +15,6 @@ import common.connection.Response;
 import common.connection.SenderReceiver;
 import common.exceptions.*;
 
-import static common.io.OutputManager.print;
 import static common.io.OutputManager.printErr;
 
 /**
@@ -134,15 +132,7 @@ public class Client extends Thread implements SenderReceiver {
 
     @Override
     public void run() {
-        try {
-            commandManager.consoleMode();
-        } catch (FileException e) {
-            e.printStackTrace();
-        } catch (InvalidDataException e) {
-            e.printStackTrace();
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        }
+        commandManager.consoleMode();
         close();
     }
 

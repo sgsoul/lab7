@@ -14,7 +14,7 @@ import log.Log;
  */
 
 public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBeing>> {
-    private Set<Integer> uniqueIds;
+    private final Set<Integer> uniqueIds;
 
     public CollectionDeserializer(Set<Integer> uniqueIds) {
         this.uniqueIds = uniqueIds;

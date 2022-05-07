@@ -14,8 +14,8 @@ import common.exceptions.InvalidDateFormatException;
  */
 
 public class DateConverter {
-    private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy' 'HH:mm:ss");
-    private static DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy' 'HH:mm:ss");
+    private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy' 'HH:mm:ss");
+    private static final DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy' 'HH:mm:ss");
 
     public static String dateToString(Date date) {
         return dateFormatter.format(date);

@@ -1,9 +1,9 @@
 package collection;
 
-import common.auth.User;
 import common.data.HumanBeing;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Интерфейс для хранения элементов.

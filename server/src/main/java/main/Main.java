@@ -2,17 +2,7 @@
 
 
 import common.exceptions.*;
-import database.ConnectionManager;
-import org.postgresql.Driver;
 import server.*;
-
-import java.awt.*;
-import java.io.UnsupportedEncodingException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import log.Log;
 

@@ -2,13 +2,14 @@ package database;
 
 import exceptions.DataBaseException;
 import log.Log;
-import org.postgresql.Driver;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBManager {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
-    private String url;
     ConnectionManager connectionManager;
     Connection connection;
 
@@ -19,7 +20,6 @@ public class DBManager {
 
     public DBManager(String url, String user, String password) throws DataBaseException {
         user = user;
-        this.url = url;
         password = password;
         connectToDataBase();
     }

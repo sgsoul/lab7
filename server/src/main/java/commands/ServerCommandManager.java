@@ -3,7 +3,6 @@ package commands;
 
 import auth.UserManager;
 import common.auth.User;
-import common.file.ReaderWriter;
 import collection.HumanManager;
 import server.*;
 import log.*;
@@ -14,9 +13,9 @@ import common.exceptions.*;
 
 
 public class ServerCommandManager extends CommandManager {
-    private Server server;
+    private final Server server;
     //private CollectionManager<HumanBeing> collectionManager;
-    private UserManager userManager;
+    private final UserManager userManager;
 
     public ServerCommandManager(Server serv) {
         server = serv;
@@ -67,7 +66,7 @@ public class ServerCommandManager extends CommandManager {
                 if (human != null) human.setUser(user);
             }
             res = (AnswerMsg) super.runCommand(msg);
-        } catch (ConnectionException | CommandException | InvalidDataException e) {
+        } catch (ConnectionException | CommandException e) {
             res.error(e.getMessage());
         }
         String message = "";

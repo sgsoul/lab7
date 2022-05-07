@@ -1,16 +1,15 @@
 package commands;
 
 
-import common.commands.*;
+import collection.HumanManager;
+import common.commands.CommandImpl;
+import common.commands.CommandType;
+import common.exceptions.EmptyCollectionException;
 
 import java.util.List;
 
-import collection.*;
-import common.data.*;
-import common.exceptions.*;
-
 public class PrintUniqueImpactSpeedCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public PrintUniqueImpactSpeedCommand(HumanManager cm) {
         super("print_unique_impact_speed", CommandType.NORMAL);

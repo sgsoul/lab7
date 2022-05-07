@@ -1,6 +1,5 @@
 package database;
 
-import org.postgresql.Driver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -7,7 +7,7 @@ import common.commands.*;
 
 
 public class RemoveFirstCommand extends CommandImpl {
-    private HumanManager collectionManager;
+    private final HumanManager collectionManager;
 
     public RemoveFirstCommand(HumanManager cm) {
         super("remove_first", CommandType.NORMAL);

@@ -23,8 +23,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class HumanCollectionManager implements HumanManager {
     private Vector<HumanBeing> collection;
-    private java.time.LocalDateTime initDate;
-    private Set<Integer> uniqueIds;
+    private final java.time.LocalDateTime initDate;
+    private final Set<Integer> uniqueIds;
 
     public HumanCollectionManager() {
         uniqueIds = new HashSet<>();
@@ -36,7 +36,7 @@ public class HumanCollectionManager implements HumanManager {
         if (collection.isEmpty())
             return 1;
         else {
-            Integer id = collection.lastElement().getId() + 1;
+            int id = collection.lastElement().getId() + 1;
             if (uniqueIds.contains(id)) {
                 while (uniqueIds.contains(id)) id += 1;
             }
@@ -61,7 +61,7 @@ public class HumanCollectionManager implements HumanManager {
      */
 
     public void add(HumanBeing human) {
-        Integer id = generateNextId();
+        int id = generateNextId();
         uniqueIds.add(id);
         human.setId(id);
         collection.add(human);
@@ -192,7 +192,7 @@ public class HumanCollectionManager implements HumanManager {
         assertNotEmpty();
         List<Integer> impactSpeed = new LinkedList<>();
         impactSpeed = collection.stream()
-                .map(human -> human.getImpactSpeed())
+                .map(HumanBeing::getImpactSpeed)
                 .distinct()
                 .collect(Collectors.toList());
         return impactSpeed;
@@ -204,7 +204,7 @@ public class HumanCollectionManager implements HumanManager {
 
     public double getAverageMinutesOfWaiting() {
         OptionalDouble minutes = collection.stream()
-                .mapToDouble(humanBeing -> humanBeing.getMinutesOfWaiting())
+                .mapToDouble(HumanBeing::getMinutesOfWaiting)
                 .average();
         return minutes.getAsDouble();
     }
