@@ -2,12 +2,8 @@ package main;
 
 import common.exceptions.*;
 import server.*;
-
 import log.Log;
-
-
 import java.io.PrintStream;
-
 import java.util.Properties;
 
 
@@ -18,14 +14,14 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws Exception {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
-        args = new String[]{"4445", "localhost"};
+        args = new String[]{"5432", "localhost"};
         /*args[0] = "4445";
         args[1] = "C:\\Users\\79006\\OneDrive\\Рабочий стол\\lab6\\server\\humans.json";*/
         int port = 0;
-        String strPort = "4445";
+        String strPort = "5432";
         //String path = "";
         String dbHost = "localhost";
-        String user = "s336815";
+        String user = "postgres";
         String password = "qwerty";
         String url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
 

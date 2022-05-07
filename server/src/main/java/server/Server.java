@@ -273,8 +273,8 @@ public class Server extends Thread implements SenderReceiver {
                 continue;
             }
         }
-    }
-    */
+    }*/
+
     public void consoleMode() {
         commandManager.consoleMode();
     }
