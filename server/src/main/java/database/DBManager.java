@@ -1,35 +1,41 @@
 package database;
 
+import common.exceptions.DatabaseException;
 import exceptions.DataBaseException;
 import log.Log;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DBManager {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
-    ConnectionManager connectionManager;
-    Connection connection;
+    //ConnectionManager connectionManager;
+    //Connection connection;
+
+    private final String user;
+    private final String password;
+    private final String url;
+    private Connection connection;
 
 /*    public DBManager(ConnectionManager connection) throws DataBaseException {
         this.connectionManager = connectionManager;
         connectToDataBase();
     }*/
 
-    public DBManager(String url, String user, String password) throws DataBaseException {
-        user = user;
-        password = password;
+    public DBManager(String url, String u, String p) throws DataBaseException {
+        user = u;
+        password = p;
+        this.url = url;
         connectToDataBase();
     }
 
     private void connectToDataBase() throws DataBaseException {
         try {
             Class.forName(JDBC_DRIVER);
-            connection = connectionManager.open();
+            connection = DriverManager.getConnection(url, user, password);
+        } catch (SQLException exception) {
+            throw new DatabaseException("error during connection to database");
         } catch (ClassNotFoundException exception) {
-            throw new DataBaseException("data driver not found");
+            throw new DatabaseException("data driver not found");
         }
     }
 

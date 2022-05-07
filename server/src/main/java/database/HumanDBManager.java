@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import static groovyjarjarantlr4.v4.runtime.misc.Utils.removeAll;
 
 public class HumanDBManager extends HumanCollectionManager {
     //language=SQL
@@ -91,7 +90,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
     private HumanBeing getHuman(ResultSet resultSet) throws SQLException, InvalidDataException {
         Coordinates coordinates = new Coordinates(resultSet.getFloat("coordinates_x"), resultSet.getLong("coordinates_y"));
-        Integer id = resultSet.getInt("id");
+        int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
 
         Date creationDate = DateConverter.parseDate(resultSet.getString("creation_date"));
@@ -279,7 +278,6 @@ public class HumanDBManager extends HumanCollectionManager {
         } finally {
             dbManager.setNormalMode();
         }
-        //todo remove all
         removeAll(ids);
     }
 
@@ -300,7 +298,7 @@ public class HumanDBManager extends HumanCollectionManager {
                     damagedElements += 1;
                 }
             }
-            //if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
+            if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
             if (damagedElements == 0) Log.logger.info("collection successfully loaded");
             else Log.logger.warn(damagedElements + " elements are damaged");
         } catch (SQLException e) {
