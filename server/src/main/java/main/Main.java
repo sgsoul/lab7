@@ -1,5 +1,4 @@
-﻿package main;
-
+package main;
 
 import common.exceptions.*;
 import server.*;
