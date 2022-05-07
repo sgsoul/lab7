@@ -209,9 +209,9 @@ public class HumanDBManager extends HumanCollectionManager {
             ResultSet resultSet = getStatement.executeQuery(getMaxQuery);
             if (!resultSet.next()) throw new DataBaseException("unable to add");
 
-            long maxSpeed = resultSet.getLong(1);
-            if (human.getImpactSpeed() < maxSpeed)
-                throw new DataBaseException("unable to add, max salary is " + maxSpeed + " current salary is " + human.getImpactSpeed());
+            long impactspeed = resultSet.getLong(1);
+            if (human.getImpactSpeed() < impactspeed)
+                throw new DataBaseException("unable to add, max impact speed is " + impactspeed + " current impact speed is " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 
@@ -243,9 +243,9 @@ public class HumanDBManager extends HumanCollectionManager {
             ResultSet resultSet = getStatement.executeQuery(getMinQuery);
             if (!resultSet.next()) throw new DataBaseException("unable to add");
 
-            long minSalary = resultSet.getLong(1);
-            if (human.getImpactSpeed() > minSalary)
-                throw new DataBaseException("unable to add, min salary is " + minSalary + " current salary is " + human.getImpactSpeed());
+            long impactSpeed = resultSet.getLong(1);
+            if (human.getImpactSpeed() > impactSpeed)
+                throw new DataBaseException("unable to add, min impact speed is " + impactSpeed + " current impact speed is " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 

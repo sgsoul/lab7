@@ -24,7 +24,7 @@ public class Main {
         int port = 0;
         String strPort = "4445";
         //String path = "";
-        String dbHost = "pg";
+        String dbHost = "localhost";
         String user = "s336815";
         String password = "qwerty";
         String url = "jdbc:postgresql://" + dbHost + ":5432/postgres";

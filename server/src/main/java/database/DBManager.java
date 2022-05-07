@@ -9,12 +9,12 @@ import java.sql.*;
 public class DBManager {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
     //ConnectionManager connectionManager;
-    //Connection connection;
+    Connection connection;
 
     private final String user;
     private final String password;
     private final String url;
-    private Connection connection;
+    //private Connection connection;
 
 /*    public DBManager(ConnectionManager connection) throws DataBaseException {
         this.connectionManager = connectionManager;

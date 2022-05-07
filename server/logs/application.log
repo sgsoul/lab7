@@ -2694,3 +2694,7 @@ print_unique_impact_speed : выведите уникальные значени
 [14:25:01.163 INFO ] collection successfully loaded
 [14:25:01.177 TRACE] Запуск сервера!
 [14:25:20.049 ERROR] [show] Ошибка входа.
+[16:50:33.220 ERROR] error during connection to database
+[16:52:27.312 ERROR] error during connection to database
+[16:54:32.015 ERROR] error during connection to database
+[16:55:10.519 ERROR] error during connection to database
