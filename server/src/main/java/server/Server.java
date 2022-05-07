@@ -44,7 +44,6 @@ public class Server extends Thread implements SenderReceiver {
     private int port;
     private DatagramChannel channel;
 
-    private UserDBManager userDBManager;
     private User hostUser;
 
     private UserManager userManager;

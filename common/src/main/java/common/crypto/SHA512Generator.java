@@ -12,7 +12,7 @@ public class SHA512Generator {
             byte[] messageDigest = md.digest(str.getBytes());
             BigInteger no = new BigInteger(1, messageDigest);
             StringBuilder hashtext = new StringBuilder(no.toString(16));
-            while (hashtext.length() < 32) {
+            while (32 > hashtext.length()) {
                 hashtext.insert(0, "0");
             }
             return hashtext.toString();

@@ -57,7 +57,7 @@ public class HumanCollectionManager implements HumanManager {
     }
 
     /**
-     * Добавление эллемента в коллекцию.
+     * Добавление элемента в коллекцию.
      */
 
     public void add(HumanBeing human) {
@@ -250,6 +250,7 @@ public class HumanCollectionManager implements HumanManager {
     /**
      * Сериализация коллекции
      */
+
     public String serializeCollection() {
         if (collection == null || collection.isEmpty()) return "";
         Gson gson = new GsonBuilder()

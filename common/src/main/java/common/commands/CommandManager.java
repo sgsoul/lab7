@@ -42,9 +42,6 @@ public abstract class CommandManager implements Commandable, Closeable {
         map.put(c.getName(), c);
     }
 
-    public void addCommand(String key, Command c) {
-        map.put(key, c);
-    }
 
     public Command getCommand(String s) {
         if (!hasCommand(s)) throw new NoSuchCommandException();
@@ -60,7 +57,7 @@ public abstract class CommandManager implements Commandable, Closeable {
         isRunning = true;
         while (isRunning) {
             Response answerMsg = new AnswerMsg();
-            print(new String("Введите команду. 'help' - список команд: ".getBytes(), StandardCharsets.UTF_8));
+            print("Введите команду. 'help' - список команд: ");
             try {
                 CommandMsg commandMsg = inputManager.readCommand();
                 answerMsg = runCommand(commandMsg);
