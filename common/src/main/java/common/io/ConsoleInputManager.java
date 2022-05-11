@@ -6,6 +6,7 @@ import java.util.Scanner;
 import common.auth.User;
 import common.data.*;
 
+import static common.io.ConsoleOutputter.print;
 import static common.io.OutputManager.*;
 
 public class ConsoleInputManager extends InputManagerImpl {

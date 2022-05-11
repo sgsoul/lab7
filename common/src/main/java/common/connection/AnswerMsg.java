@@ -1,6 +1,10 @@
 package common.connection;
 
 
+import common.data.HumanBeing;
+
+import java.util.Collection;
+
 /**
  * Сообщение с сервера отправляется клиенту.
  */
@@ -9,6 +13,7 @@ public class AnswerMsg implements Response {
     private static final long serialVersionUID = 666;
     private String msg;
     private Status status;
+    private Collection<HumanBeing> collection;
 
 
     public AnswerMsg() {
@@ -69,6 +74,9 @@ public class AnswerMsg implements Response {
         return status;
     }
 
+    public Collection<HumanBeing> getCollection() {
+        return collection;
+    }
 
     @Override
     public String toString() {

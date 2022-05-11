@@ -1,5 +1,6 @@
 package common.commands;
 
+import static common.io.ConsoleOutputter.print;
 import static common.io.OutputManager.*;
 
 import java.io.Closeable;
@@ -35,13 +36,16 @@ public abstract class CommandManager implements Commandable, Closeable {
     public CommandManager() {
         isRunning = false;
         currentScriptFileName = "";
-        map = new HashMap<>();
+        map = new HashMap<String, Command>();
     }
 
     public void addCommand(Command c) {
         map.put(c.getName(), c);
     }
 
+    public void addCommand(String key, Command c) {
+        map.put(key, c);
+    }
 
     public Command getCommand(String s) {
         if (!hasCommand(s)) throw new NoSuchCommandException();

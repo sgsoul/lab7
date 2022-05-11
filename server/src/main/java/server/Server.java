@@ -43,7 +43,7 @@ public class Server extends Thread implements SenderReceiver {
     private DBManager dbManager;
     private int port;
     private DatagramChannel channel;
-
+    private volatile boolean running;
     private User hostUser;
 
     private UserManager userManager;
@@ -72,9 +72,9 @@ public class Server extends Thread implements SenderReceiver {
     private void init(int p, Properties properties) throws ConnectionException, DatabaseException {
         port = p;
         hostUser = null;
-
+        running = true;
         requestHandlerFixedThreadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
-
+        setDaemon(true);
         dbManager = new DBManager(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
         userManager = new UserDBManager(dbManager);
         collectionManager = new HumanDBManager(dbManager, userManager);
@@ -163,30 +163,23 @@ public class Server extends Thread implements SenderReceiver {
      * Отправление ответа.
      */
 
-    public void send(InetSocketAddress address, Response response) throws ConnectionException {
-
-        if (address == null) throw new InvalidAddressException("Адрес клиента не найден.");
+    public void send(InetSocketAddress clientAddress, Response response) throws ConnectionException {
+        if (clientAddress == null) throw new InvalidAddressException("Адрес клиента не найден.");
         Runnable task = () -> {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
-            ObjectOutputStream objectOutputStream = null;
             try {
-                objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
                 objectOutputStream.writeObject(response);
+                channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), clientAddress);
+                Log.logger.trace("Ответ отправлен на " + clientAddress.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    throw new ConnectionException("Что-то пошло не так во время отправки ответа.");
+                } catch (ConnectionException ex) {
+                    ex.printStackTrace();
+                }
             }
-            try {
-                channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), address);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            logger.trace("Ответ отправлен на " + address);
-
-
         };
         Thread sendThread = new Thread(task);
         sendThread.start();
@@ -273,7 +266,6 @@ public class Server extends Thread implements SenderReceiver {
             }
         }
     }*/
-
     public void consoleMode() {
         commandManager.consoleMode();
     }
