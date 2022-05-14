@@ -106,7 +106,11 @@ public abstract class CommandManager implements Commandable, Closeable {
 
     public static String getHelp() {
         // TODO: eto pizdec
-        return "\n" +
+        return " \n" +
+                "register {user} : register a new user\n" +
+                "\n" +
+                "login {user} : login user\n" +
+                "\n" +
                 "help : показать справку для доступных команд\n" +
                 "\n" +
                 "info : запись в стандартный вывод информации о коллекции (тип,\n" +
