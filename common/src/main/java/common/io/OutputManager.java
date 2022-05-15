@@ -2,15 +2,11 @@ package common.io;
 
 
 /**
- * Класс со статическими методами для печати.
+ * Интерфейс с методами для печати.
  */
 
 public interface OutputManager {
-    static void print(Object o) {
-        System.out.println(o.toString());
-    }
+    void error(String s);
 
-    static void printErr(Object o) {
-        System.out.println("Error: " + o.toString());
-    }
+    void info(String s);
 }

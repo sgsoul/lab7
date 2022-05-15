@@ -10,12 +10,15 @@ import java.nio.ByteBuffer;
 
 import commands.ClientCommandManager;
 import common.auth.User;
+import common.connection.CommandMsg;
 import common.connection.Request;
 import common.connection.Response;
 import common.connection.SenderReceiver;
 import common.exceptions.*;
+import common.io.OutputManager;
 
-import static common.io.OutputManager.printErr;
+import static common.io.ConsoleOutputter.printErr;
+
 
 /**
  * Класс клиента.
@@ -24,11 +27,22 @@ import static common.io.OutputManager.printErr;
 public class Client extends Thread implements SenderReceiver {
     private SocketAddress address;
     private DatagramSocket socket;
-    public final int MAX_TIME_OUT = 1000;
+    public final int MAX_TIME_OUT = 500;
     public final int MAX_ATTEMPTS = 3;
-    private User user = null;
+    private User user;
+    private User attempt;
+    private OutputManager outputManager;
     private boolean running;
+    private volatile boolean receivedRequest;
+    private volatile boolean authSuccess;
     private ClientCommandManager commandManager;
+
+    private boolean connected;
+
+    //private HumanObservableManager collectionManager;
+    public boolean isReceivedRequest() {
+        return receivedRequest;
+    }
 
     /**
      * Инициализация клиента.
@@ -37,6 +51,8 @@ public class Client extends Thread implements SenderReceiver {
     private void init(String addr, int p) throws ConnectionException {
         connect(addr, p);
         running = true;
+        connected = false;
+        authSuccess = false;
         commandManager = new ClientCommandManager(this);
         setName("Клиентский поток.");
     }
@@ -51,6 +67,14 @@ public class Client extends Thread implements SenderReceiver {
 
     public User getUser() {
         return user;
+    }
+
+    public void setAttemptUser(User u) {
+        attempt = u;
+    }
+
+    public User getAttemptUser() {
+        return attempt;
     }
 
     /**
@@ -97,7 +121,11 @@ public class Client extends Thread implements SenderReceiver {
      */
 
     public Response receive() throws ConnectionException, InvalidDataException {
+        try {
+            socket.setSoTimeout(MAX_TIME_OUT);
+        } catch (SocketException ignored) {
 
+        }
         ByteBuffer bytes = ByteBuffer.allocate(BUFFER_SIZE);
         DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
         try {
@@ -126,14 +154,96 @@ public class Client extends Thread implements SenderReceiver {
         }
     }
 
+    private Response receiveWithoutTimeLimits() throws ConnectionException, InvalidDataException {
+        try {
+            socket.setSoTimeout(0);
+        } catch (SocketException ignored) {
+
+        }
+        ByteBuffer bytes = ByteBuffer.allocate(BUFFER_SIZE);
+        DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
+        try {
+            socket.receive(receivePacket);
+        } catch (IOException e) {
+            throw new ConnectionException("Что-то пошло не так при получении ответа.");
+        }
+
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
+            return (Response) objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            throw new InvalidReceivedDataException();
+        }
+    }
+
     /**
      * Запускает клиента.
      */
 
     @Override
     public void run() {
+        Request hello = new CommandMsg();
+        hello.setStatus(Request.Status.HELLO);
         commandManager.consoleMode();
         close();
+    }
+
+    /**
+     * Процесс идентификации
+     *
+     * @param login
+     * @param password
+     * @param register
+     */
+
+    public void processAuthentication(String login, String password, boolean register) {
+        attempt = new User(login, password);
+        CommandMsg msg = new CommandMsg();
+        if (register) {
+            msg = new CommandMsg("register").setStatus(Request.Status.DEFAULT).setUser(attempt);
+        } else {
+            msg = new CommandMsg("login").setStatus(Request.Status.DEFAULT).setUser(attempt);
+        }
+        try {
+            send(msg);
+            Response answer = receive();
+            connected = true;
+            authSuccess = (answer.getStatus() == Response.Status.AUTH_SUCCESS);
+            if (authSuccess) {
+                user = attempt;
+            } else {
+                outputManager.error("Неверный пароль.");
+            }
+        } catch (ConnectionTimeoutException e) {
+            outputManager.error("Тайм-аут соединения.");
+            connected = false;
+        } catch (ConnectionException | InvalidDataException e) {
+            connected = false;
+        }
+    }
+
+    public void consoleMode() {
+        commandManager.consoleMode();
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public boolean isAuthSuccess() {
+        return authSuccess;
+    }
+
+    public ClientCommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public OutputManager getOutputManager() {
+        return outputManager;
+    }
+
+    public void setOutputManager(OutputManager out) {
+        outputManager = out;
     }
 
     /**
@@ -141,8 +251,14 @@ public class Client extends Thread implements SenderReceiver {
      */
 
     public void close() {
+        try {
+            send(new CommandMsg().setStatus(Request.Status.EXIT));
+        } catch (ConnectionException ignored) {
+
+        }
         running = false;
         commandManager.close();
         socket.close();
     }
+
 }

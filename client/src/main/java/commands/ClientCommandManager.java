@@ -2,11 +2,15 @@ package commands;
 
 import client.Client;
 
+import static common.io.ConsoleOutputter.print;
 import static common.io.OutputManager.*;
 
 import common.exceptions.*;
 import common.commands.*;
 import common.connection.*;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -15,6 +19,7 @@ import common.connection.*;
 
 public class ClientCommandManager extends CommandManager {
     private final Client client;
+    public final Lock lock = new ReentrantLock();
 
     public ClientCommandManager(Client c) {
         client = c;
@@ -28,7 +33,7 @@ public class ClientCommandManager extends CommandManager {
     }
 
     @Override
-    public AnswerMsg runCommand(Request msg)  {
+    public AnswerMsg runCommand(Request msg) {
         AnswerMsg res = new AnswerMsg();
         if (hasCommand(msg)) {
             res = (AnswerMsg) super.runCommand(msg);
@@ -38,6 +43,7 @@ public class ClientCommandManager extends CommandManager {
         } else {
             try {
                 if (client.getUser() != null && msg.getUser() == null) msg.setUser(client.getUser());
+                else client.setAttemptUser(msg.getUser());
                 client.send(msg);
                 res = (AnswerMsg) client.receive();
                 if (res.getStatus() == Response.Status.AUTH_SUCCESS) {

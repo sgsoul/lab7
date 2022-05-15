@@ -8,7 +8,7 @@ import common.exceptions.ConnectionException;
 import common.exceptions.EndOfInputException;
 import common.exceptions.InvalidPortException;
 
-import static common.io.OutputManager.*;
+import static common.io.ConsoleOutputter.print;
 
 
 public class Main {
@@ -38,7 +38,7 @@ public class Main {
             try {
                 client.start();
             } catch (EndOfInputException e) {
-                printErr(e.getMessage());
+                print(e.getMessage());
             }
         } catch (ConnectionException e) {
             print(e.getMessage());

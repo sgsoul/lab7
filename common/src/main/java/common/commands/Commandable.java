@@ -43,7 +43,6 @@ public interface Commandable {
      * Выполнение скрипта.
      */
 
-
     void fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
 
 }

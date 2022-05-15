@@ -81,9 +81,9 @@ public class HumanDBManager extends HumanCollectionManager {
         statement.setLong(7, human.getImpactSpeed());
         statement.setString(8, human.getSoundtrackName());
         statement.setFloat(9, human.getMinutesOfWaiting());
-        statement.setString(10,human.getWeaponType().toString());
-        statement.setString(11,human.getCar().getName());
-        statement.setBoolean(12,human.getCar().checkCool());
+        statement.setString(10, human.getWeaponType().toString());
+        statement.setString(11, human.getCar().getName());
+        statement.setBoolean(12, human.getCar().checkCool());
         statement.setString(13, human.getUserLogin());
 
     }
@@ -225,7 +225,7 @@ public class HumanDBManager extends HumanCollectionManager {
         }
         super.addWithoutIdGeneration(human);
     }
-    
+
     @Override
     public void addIfMin(HumanBeing human) {
         //language=SQL
@@ -283,7 +283,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
     @Override
     public void deserializeCollection(String ignored) {
-        if (!getCollection().isEmpty()) super.clear() ;
+        if (!getCollection().isEmpty()) super.clear();
         //language=SQL
         String query = "SELECT * FROM HUMANS";
         try (PreparedStatement selectAllStatement = dbManager.getPreparedStatement(query)) {
