@@ -8,7 +8,6 @@ import java.sql.*;
 
 public class DBManager {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
-    //ConnectionManager connectionManager;
 
     private final String user;
     private final String password;

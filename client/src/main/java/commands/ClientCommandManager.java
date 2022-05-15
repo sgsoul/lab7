@@ -45,7 +45,7 @@ public class ClientCommandManager extends CommandManager {
                 if (client.getUser() != null && msg.getUser() == null) msg.setUser(client.getUser());
                 else client.setAttemptUser(msg.getUser());
                 client.send(msg);
-                res = (AnswerMsg) client.receive();
+                res = (AnswerMsg) client.receiveWithoutTimeLimits();
                 if (res.getStatus() == Response.Status.AUTH_SUCCESS) {
                     client.setUser(msg.getUser());
                 }
