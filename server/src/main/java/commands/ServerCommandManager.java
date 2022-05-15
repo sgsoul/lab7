@@ -59,6 +59,8 @@ public class ServerCommandManager extends CommandManager {
                     user = server.getHostUser();
                     msg.setUser(user);
                 }
+                Log.logger.info("is gbs: " + isGeneratedByServer);
+                Log.logger.info("host user: " + server.getHostUser() );
                 if (user == null) throw new AuthException();
                 if (!userManager.isValid(user)) throw new AuthException();
 
