@@ -26,7 +26,7 @@ public class Main {
         //String path = "";
         String dbHost = "localhost";
         String user = "postgres";
-        String password = "qwerty";
+        String password = "arina";
         String url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
 
         try {
