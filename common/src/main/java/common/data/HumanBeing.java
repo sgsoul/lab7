@@ -56,7 +56,7 @@ public class HumanBeing implements Collectionable, Serializable {
 
     //todo wtf
     public String getUserLogin() {
-        return getUserLogin();
+        return userLogin;
     }
 
     public void setUserLogin(String login) {

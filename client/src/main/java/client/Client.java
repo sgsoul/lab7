@@ -17,7 +17,6 @@ import common.connection.SenderReceiver;
 import common.exceptions.*;
 import common.io.OutputManager;
 
-import static common.io.ConsoleOutputter.print;
 import static common.io.ConsoleOutputter.printErr;
 
 
@@ -131,21 +130,11 @@ public class Client extends Thread implements SenderReceiver {
         DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
         try {
             socket.receive(receivePacket);
-        } catch (SocketTimeoutException e) {
-            for (int attempts = MAX_ATTEMPTS; attempts > 0; attempts--) {
-                printErr("Превышен тайм-аут ответа сервера." + attempts + " попытки всё...");
-                try {
-                    socket.receive(receivePacket);
-                    break;
-                } catch (IOException ignored) {
-
-                }
-            }
-
-            throw new ConnectionTimeoutException();
         } catch (IOException e) {
-            throw new ConnectionException("Что-то пошло не так при получении ответа.");
+            e.printStackTrace();
         }
+
+
 
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
@@ -176,7 +165,6 @@ public class Client extends Thread implements SenderReceiver {
             throw new InvalidReceivedDataException();
         }
     }
-
     /**
      * Запускает клиента.
      */
@@ -185,24 +173,9 @@ public class Client extends Thread implements SenderReceiver {
     public void run() {
         Request hello = new CommandMsg();
         hello.setStatus(Request.Status.HELLO);
-//        while (running) {
-        //           try {
-/*                      receivedRequest = false;
-        try {
-            Response response = receiveWithoutTimeLimits();
-            print(response.getMessage());
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        } catch (InvalidDataException e) {
-            e.printStackTrace();
-        }
-        receivedRequest = true;*/
-        //         } catch (InvalidDataException | ConnectionException e) {
-        //          e.printStackTrace();
         commandManager.consoleMode();
         close();
     }
-
 
     /**
      * Процесс идентификации
@@ -222,7 +195,7 @@ public class Client extends Thread implements SenderReceiver {
         }
         try {
             send(msg);
-            Response answer = receiveWithoutTimeLimits();
+            Response answer = receive();
             connected = true;
             authSuccess = (answer.getStatus() == Response.Status.AUTH_SUCCESS);
             if (authSuccess) {

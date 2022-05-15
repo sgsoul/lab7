@@ -22,13 +22,14 @@ import java.util.Set;
 public class HumanDBManager extends HumanCollectionManager {
     //language=SQL
     private final static String INSERT_HUMANS_QUERY = "INSERT INTO WORKERS (name, coordinates_x, coordinates_y, creation_date, real_hero, has_toothpick, impact_speed, soundtrack_name, minutes_of_waiting, weapon_type, car_name, car_coolcheck, user_login,id)" +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT) RETURNING id; ";
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT) RETURNING id; ";
     private final DBManager dbManager;
     private final UserManager userManager;
 
     public HumanDBManager(DBManager c, UserManager userManager) throws DataBaseException {
         super();
         dbManager = c;
+
         this.userManager = userManager;
         create();
     }
@@ -133,6 +134,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
             dbManager.commit();
         } catch (SQLException | DataBaseException e) {
+            e.printStackTrace();
             dbManager.rollback();
             throw new DataBaseException("cannot add to database");
         } finally {
