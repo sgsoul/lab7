@@ -61,7 +61,7 @@ public class Server extends Thread implements SenderReceiver {
         commandManager = new ServerCommandManager(this);
         try {
             collectionManager.deserializeCollection("");
-        } catch (CollectionException e) {
+        } catch (CollectionException | DataBaseException e) {
             Log.logger.error(e.getMessage());
         }
         host(port);
