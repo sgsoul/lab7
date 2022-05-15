@@ -9,12 +9,11 @@ import java.sql.*;
 public class DBManager {
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
     //ConnectionManager connectionManager;
-    Connection connection;
 
     private final String user;
     private final String password;
     private final String url;
-    //private Connection connection;
+    private Connection connection;
 
 /*    public DBManager(ConnectionManager connection) throws DataBaseException {
         this.connectionManager = connectionManager;
@@ -33,7 +32,7 @@ public class DBManager {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException exception) {
-            throw new DatabaseException("error during connection to database");
+            throw new DatabaseException("Ошибка при подключении к базе данных.");
         } catch (ClassNotFoundException exception) {
             throw new DatabaseException("data driver not found");
         }
@@ -75,9 +74,9 @@ public class DBManager {
         if (sqlStatement == null) return;
         try {
             sqlStatement.close();
-            //App.logger.info("Закрыт SQL запрос '" + sqlStatement + "'.");
+            Log.logger.info("Закрыт SQL запрос '" + sqlStatement + "'.");
         } catch (SQLException exception) {
-            //App.logger.error("Произошла ошибка при закрытии SQL запроса '" + sqlStatement + "'.");
+            Log.logger.error("Произошла ошибка при закрытии SQL запроса '" + sqlStatement + "'.");
         }
     }
 

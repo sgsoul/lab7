@@ -98,8 +98,11 @@ public class Server extends Thread implements SenderReceiver {
     public void requestHandle() throws ConnectionException, InvalidDataException {
         ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE * 2);
         buf.clear();
+        InetSocketAddress clientAddress = null;
+        Request request = null;
         try {
             clientAddress = (InetSocketAddress) channel.receive(buf);
+            if (clientAddress == null) return; //no data to read
             logger.trace("Получение запроса от " + clientAddress.toString());
         } catch (ClosedChannelException e) {
             try {
@@ -114,6 +117,8 @@ public class Server extends Thread implements SenderReceiver {
                 ex.printStackTrace();
             }
         }
+        // Pizda
+        int a  = 54;
 
         Runnable task = () -> {
             try {

@@ -2096,3 +2096,8 @@ print_unique_impact_speed : выведите уникальные значени
 [17:29:49.862 ERROR] [exit] Ошибка входа.
 [16:05:42.601 ERROR] error during connection to database
 [16:22:31.001 ERROR] error during connection to database
+[15:04:33.585 ERROR] error during connection to database
+[15:09:56.729 ERROR] Ошибка при подключении к базе данных.
+[15:14:35.186 ERROR] Ошибка при подключении к базе данных.
+[15:18:20.933 ERROR] Ошибка при подключении к базе данных.
+[15:21:03.017 ERROR] Ошибка при подключении к базе данных.

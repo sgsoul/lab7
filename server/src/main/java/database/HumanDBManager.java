@@ -298,7 +298,7 @@ public class HumanDBManager extends HumanCollectionManager {
                     damagedElements += 1;
                 }
             }
-            //if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
+            if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
             if (damagedElements == 0) Log.logger.info("collection successfully loaded");
             else Log.logger.warn(damagedElements + " elements are damaged");
         } catch (SQLException e) {
