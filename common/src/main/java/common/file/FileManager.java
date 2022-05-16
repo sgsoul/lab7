@@ -19,15 +19,11 @@ public class FileManager implements ReaderWriter {
         path = pth;
     }
 
-    public FileManager() {
-        path = null;
-    }
-
     public String read() throws FileException {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         try {
             if (path == null) throw new EmptyPathException();
-            InputStreamReader reader = null;
+            InputStreamReader reader;
 
             File file = new File(path);
             if (!file.exists()) throw new FileNotExistsException();
@@ -36,13 +32,13 @@ public class FileManager implements ReaderWriter {
             reader = new InputStreamReader(inputStream);
             int currectSymbol;
             while ((currectSymbol = reader.read()) != -1) {
-                str += ((char) currectSymbol);
+                str.append((char) currectSymbol);
             }
             reader.close();
         } catch (IOException e) {
             throw new FileException("Не удаётся открыть файл.");
         }
-        return str;
+        return str.toString();
     }
 
     private void create(File file) throws CannotCreateFileException {

@@ -27,10 +27,10 @@ public class LoginCommand extends CommandImpl {
         User user = getArgument().getUser();
         if (user != null && user.getLogin() != null && user.getPassword() != null) {
             if (userManager.isValid(user)) {
-                return new AnswerMsg().info("Р’С…РѕРґ РІ СЃРёСЃС‚РµРјСѓ РїСЂРѕС€РµР» СѓСЃРїРµС€РЅРѕ.").setStatus(Response.Status.AUTH_SUCCESS);
+                return new AnswerMsg().info("Вход в систему прошел успешно.").setStatus(Response.Status.AUTH_SUCCESS);
             }
         }
-        throw new AuthorizationException("РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ.");
+        throw new AuthorizationException("Неверный логин или пароль.");
 
     }
 }

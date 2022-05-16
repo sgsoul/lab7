@@ -10,7 +10,7 @@ import log.Log;
 
 
 /**
- * Р”РµСЃРµСЂРёР°Р»РёР·Р°С‚РѕСЂ.
+ * Десериализатор.
  */
 
 public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBeing>> {
@@ -29,24 +29,24 @@ public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBein
             HumanBeing human = null;
             try {
                 if (jsonHuman.getAsJsonObject().entrySet().isEmpty()) {
-                    Log.logger.error("РќР°Р№РґРµРЅ РїСѓСЃС‚РѕР№ С‡РµР»РѕРІРµРє.");
-                    throw new JsonParseException("РџСѓСЃС‚РѕР№ С‡РµР»РѕРІРµРє.");
+                    Log.logger.error("Найден пустой человек.");
+                    throw new JsonParseException("Пустой человек.");
                 }
                 if (!jsonHuman.getAsJsonObject().has("id")) {
-                    Log.logger.error("РќР°Р№РґРµРЅ С‡РµР»РѕРІРµРє Р±РµР· id.");
-                    throw new JsonParseException("РќРµС‚ id");
+                    Log.logger.error("Найден человек без id.");
+                    throw new JsonParseException("Нет id");
                 }
                 human = context.deserialize(jsonHuman, HumanBeing.class);
 
                 Integer id = human.getId();
 
                 if (uniqueIds.contains(id)) {
-                    Log.logger.error("Р§РµР»РѕРІРµРє СЃ С‚Р°РєРёРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРј СѓР¶Рµ РµСЃС‚СЊ #" + id);
-                    throw new JsonParseException("Р­С‚РѕС‚ id РЅРµ СЏРІР»СЏРµС‚СЃСЏ СѓРЅРёРєР°Р»СЊРЅС‹Рј.");
+                    Log.logger.error("Человек с таким идентификатором уже есть #" + id);
+                    throw new JsonParseException("Этот id не является уникальным.");
                 }
                 if (!human.validate()) {
-                    Log.logger.error("human #" + id + " РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СѓСЃР»РѕРІРёСЏРј.");
-                    throw new JsonParseException("РќРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ.");
+                    Log.logger.error("human #" + id + " не соответствует условиям.");
+                    throw new JsonParseException("Неверные данные.");
                 }
                 uniqueIds.add(id);
                 collection.add(human);
@@ -55,12 +55,12 @@ public class CollectionDeserializer implements JsonDeserializer<Vector<HumanBein
             }
         }
         if (collection.size() == 0) {
-            if (damagedElements == 0) Log.logger.error("Р‘Р°Р·Р° РїСѓСЃС‚Р°.");
-            else Log.logger.error("Р’СЃРµ СЌР»РµРјРµРЅС‚С‹ РїРѕРІСЂРµР¶РґРµРЅС‹.");
-            throw new JsonParseException("РќРµС‚ РґР°РЅРЅС‹С….");
+            if (damagedElements == 0) Log.logger.error("База пуста.");
+            else Log.logger.error("Все элементы повреждены.");
+            throw new JsonParseException("Нет данных.");
         }
         if (damagedElements != 0)
-            Log.logger.error(damagedElements + " СЌР»РµРјРµРЅС‚С‹ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С… РїРѕРІСЂРµР¶РґРµРЅС‹.");
+            Log.logger.error(damagedElements + " элементы в базе данных повреждены.");
         return collection;
     }
 }

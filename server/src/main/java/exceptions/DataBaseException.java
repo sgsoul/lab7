@@ -6,6 +6,6 @@ public class DataBaseException extends RuntimeException {
     }
 
     public DataBaseException() {
-        super("С‡С‚Рѕ РјС‹ С‚СѓС‚ Р»РѕРјР°РµРј Р°??");
+        super("что мы тут ломаем а??");
     }
 }

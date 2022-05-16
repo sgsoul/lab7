@@ -69,7 +69,4 @@ public abstract class CommandImpl implements Command {
         return getArgument().getHuman();
     }
 
-    public boolean hasUserArg() {
-        return arg != null && arg.getUser() != null && arg.getUser().getLogin() != null;
-    }
 }

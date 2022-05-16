@@ -33,12 +33,12 @@ public class RegisterCommand extends CommandImpl {
         if (user != null && user.getLogin() != null && user.getPassword() != null) {
             if (userManager.isPresent(user.getLogin())) {
 
-                throw new DataBaseException("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ " + user.getLogin() + " СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.");
+                throw new DataBaseException("Пользователь " + user.getLogin() + " уже существует.");
             }
             userManager.add(user);
-            return new AnswerMsg().info("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ " + user.getLogin() + " СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ.").setStatus(Response.Status.AUTH_SUCCESS);
+            return new AnswerMsg().info("Пользователь " + user.getLogin() + " успешно зарегистрирован.").setStatus(Response.Status.AUTH_SUCCESS);
         }
-        throw new DataBaseException("РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ Р·Р°Р±РѕР»РµР»...?");
+        throw new DataBaseException("пользователь заболел...?");
 
     }
 }

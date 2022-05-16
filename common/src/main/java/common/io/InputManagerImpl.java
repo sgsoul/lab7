@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 
 public abstract class InputManagerImpl implements InputManager {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public InputManagerImpl(Scanner scanner) {
         this.scanner = scanner;
@@ -31,10 +31,6 @@ public abstract class InputManagerImpl implements InputManager {
 
     public Scanner getScanner() {
         return scanner;
-    }
-
-    public void setScanner(Scanner sc) {
-        scanner = sc;
     }
 
     public String readName() throws EmptyStringException {
@@ -112,7 +108,6 @@ public abstract class InputManagerImpl implements InputManager {
         return soundtrackName;
     }
 
-    //todo тут сделала другой вывод car (add cool check=true)
     public Car readCar() {
         //Car car = null;
         String name = read();
@@ -132,20 +127,15 @@ public abstract class InputManagerImpl implements InputManager {
         return minutesOfWaiting;
     }
 
-    //todo тут первые 2 ошибки
-    public boolean readRealHero() /*throws EmptyStringException*/ { /*InvalidDataException*/
+    public boolean readRealHero() {
         String strRealHero;
         boolean realHero;
         strRealHero = read().toLowerCase();
         realHero = strRealHero.equalsIgnoreCase("yes") || strRealHero.equalsIgnoreCase("да");
-        /*if (strRealHero.equals("")){
-            throw new EmptyStringException();
-        };*/
         return realHero;
     }
 
-    //todo третья ошибка тут
-    public boolean readHasToothPick() /*throws InvalidDataException*/ {
+    public boolean readHasToothPick() {
         String strHasToothpick;
         boolean hasToothpick;
         strHasToothpick = read().toLowerCase();

@@ -3,21 +3,18 @@ package common.data;
 import java.io.Serializable;
 
 public class Car implements Serializable {
-    private String name; //Поле может быть null
-    private boolean cool;
+    private final String name; //Поле может быть null
+    private final boolean cool;
 
     public Car(String name, boolean cool) {
         this.name = name;
         this.cool = cool;
     }
 
-    public Car() {
-
-    }
-
     /**
      * @return Название машины.
      */
+
     public String getName() {
         return name;
     }

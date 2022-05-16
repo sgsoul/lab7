@@ -57,7 +57,7 @@ public class HumanDBManager extends HumanCollectionManager {
         try (PreparedStatement createStatement = dbManager.getPreparedStatement(create)) {
             createStatement.execute();
         } catch (SQLException e) {
-            throw new DataBaseException("cannot create worker database");
+            throw new DataBaseException("Не удается создать базу данных.");
         }
     }
 
@@ -115,7 +115,7 @@ public class HumanDBManager extends HumanCollectionManager {
         human.setCreationDate(creationDate);
         human.setId(id);
         human.setUserLogin(resultSet.getString("user_login"));
-        if (!userManager.isPresent(human.getUserLogin())) throw new DataBaseException("no user found");
+        if (!userManager.isPresent(human.getUserLogin())) throw new DataBaseException("Пользователь не найден.");
         return human;
     }
 
@@ -130,13 +130,13 @@ public class HumanDBManager extends HumanCollectionManager {
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (!resultSet.next()) throw new DataBaseException();
-            humanBeing.setId(resultSet.getInt(resultSet.getInt("id")));
+            humanBeing.setId(resultSet.getInt("id"));
 
             dbManager.commit();
         } catch (SQLException | DataBaseException e) {
             e.printStackTrace();
             dbManager.rollback();
-            throw new DataBaseException("cannot add to database");
+            throw new DataBaseException("Не удается добавить в базу данных.");
         } finally {
             dbManager.setNormalMode();
         }
@@ -151,7 +151,7 @@ public class HumanDBManager extends HumanCollectionManager {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new DataBaseException("ошибка при удалении из датабазы... ну и кринж");
+            throw new DataBaseException("Ошибка при удалении из датабазы... ну и кринж");
         }
         super.removeByID(id);
     }
@@ -187,7 +187,7 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("cannot update worker #" + human.getId() + " in database");
+            throw new DataBaseException("Не удалось обновить человека #" + human.getId() + " в базе данных.");
         } finally {
             dbManager.setNormalMode();
         }
@@ -209,11 +209,11 @@ public class HumanDBManager extends HumanCollectionManager {
              PreparedStatement insertStatement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY)) {
 
             ResultSet resultSet = getStatement.executeQuery(getMaxQuery);
-            if (!resultSet.next()) throw new DataBaseException("unable to add");
+            if (!resultSet.next()) throw new DataBaseException("Не удалось добавить.");
 
             long impactspeed = resultSet.getLong(1);
             if (human.getImpactSpeed() < impactspeed)
-                throw new DataBaseException("unable to add, max impact speed is " + impactspeed + " current impact speed is " + human.getImpactSpeed());
+                throw new DataBaseException("Невозможно добавить, максимальная скорость удара равна " + impactspeed + " текущая скорость удара составляет " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 
@@ -221,7 +221,7 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("cannot add due to internal error");
+            throw new DataBaseException("Не удается добавить из-за внутренней ошибки.");
         } finally {
             dbManager.setNormalMode();
         }
@@ -243,11 +243,11 @@ public class HumanDBManager extends HumanCollectionManager {
              PreparedStatement insertStatement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY)) {
 
             ResultSet resultSet = getStatement.executeQuery(getMinQuery);
-            if (!resultSet.next()) throw new DataBaseException("unable to add");
+            if (!resultSet.next()) throw new DataBaseException("Не удалось добавить.");
 
             long impactSpeed = resultSet.getLong(1);
             if (human.getImpactSpeed() > impactSpeed)
-                throw new DataBaseException("unable to add, min impact speed is " + impactSpeed + " current impact speed is " + human.getImpactSpeed());
+                throw new DataBaseException("Невозможно добавить, максимальная скорость удара равна " + impactSpeed + " текущая скорость удара составляет " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 
@@ -255,7 +255,7 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("cannot add due to internal error");
+            throw new DataBaseException("Не удается добавить из-за внутренней ошибки.");
         } finally {
             dbManager.setNormalMode();
         }
@@ -276,7 +276,7 @@ public class HumanDBManager extends HumanCollectionManager {
         } catch (SQLException | RuntimeException e) {
             dbManager.rollback();
             deserializeCollection("");
-            throw new DataBaseException("cannot clear database");
+            throw new DataBaseException("Не удается очистить базу данных.");
         } finally {
             dbManager.setNormalMode();
         }
@@ -294,17 +294,17 @@ public class HumanDBManager extends HumanCollectionManager {
             while (resultSet.next()) {
                 try {
                     HumanBeing human = getHuman(resultSet);
-                    if (!human.validate()) throw new InvalidDataException("element is damaged");
+                    if (!human.validate()) throw new InvalidDataException("Элемент повреждён.");
                     super.addWithoutIdGeneration(human);
                 } catch (InvalidDataException | SQLException e) {
                     damagedElements += 1;
                 }
             }
-            if (super.getCollection().isEmpty()) throw new DataBaseException("nothing to load");
-            if (damagedElements == 0) Log.logger.info("collection successfully loaded");
-            else Log.logger.warn(damagedElements + " elements are damaged");
+            if (super.getCollection().isEmpty()) throw new DataBaseException("Нечего загружать.");
+            if (damagedElements == 0) Log.logger.info("Коллекция успешно загружена.");
+            else Log.logger.warn(damagedElements + " элементы повреждены.");
         } catch (SQLException e) {
-            throw new DataBaseException("cannot load");
+            throw new DataBaseException("Не удаётся загрузить.");
         }
     }
 }

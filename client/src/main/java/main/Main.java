@@ -16,7 +16,7 @@ public class Main {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         String address = "localhost";
         String strPort = "5432";
-        int port = 0;
+        int port;
         try {
             if (args.length == 2) {
                 address = args[0];
@@ -24,10 +24,10 @@ public class Main {
             }
             if (args.length == 1) {
                 strPort = args[0];
-                print("РќРµС‚ Р°РґСЂРµСЃР°, РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°РјРё, СѓСЃС‚Р°РЅРѕРІРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + address);
+                print("Нет адреса, передаваемого аргументами, установка по умолчанию " + address);
             }
             if (args.length == 0) {
-                print("РќРµС‚ РїРѕСЂС‚Р° Рё Р°РґСЂРµСЃР°, РїРµСЂРµРґР°РІР°РµРјС‹С… Р°СЂРіСѓРјРµРЅС‚Р°РјРё, СѓСЃС‚Р°РЅРѕРІРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ :" + address + "/" + strPort);
+                print("Нет порта и адреса, передаваемых аргументами, установка по умолчанию :" + address + "/" + strPort);
             }
             try {
                 port = Integer.parseInt(strPort);
@@ -51,7 +51,7 @@ public class Main {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         String address = "localhost";
         String strPort = "5432";
-        int port = 0;
+        int port;
         try {
             if (args.length == 2) {
                 address = args[0];
@@ -59,10 +59,10 @@ public class Main {
             }
             if (args.length == 1) {
                 strPort = args[0];
-                print("РќРµС‚ Р°РґСЂРµСЃР°, РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°РјРё, СѓСЃС‚Р°РЅРѕРІРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ " + address);
+                print("Нет адреса, передаваемого аргументами, установка по умолчанию " + address);
             }
             if (args.length == 0) {
-                print("РќРµС‚ РїРѕСЂС‚Р° Рё Р°РґСЂРµСЃР°, РїРµСЂРµРґР°РІР°РµРјС‹С… Р°СЂРіСѓРјРµРЅС‚Р°РјРё, СѓСЃС‚Р°РЅРѕРІРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ :" + address + "/" + strPort);
+                print("Нет порта и адреса, передаваемых аргументами, установка по умолчанию :" + address + "/" + strPort);
             }
             try {
                 port = Integer.parseInt(strPort);

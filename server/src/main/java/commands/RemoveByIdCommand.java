@@ -23,15 +23,15 @@ public class RemoveByIdCommand extends CommandImpl {
         if (hasStringArg()) throw new MissedCommandArgumentException();
         Integer id = parseId(getStringArg());
         if (!collectionManager.checkID(id))
-            throw new InvalidCommandArgumentException("РќРµ РЅР°Р№РґРµРЅ ID #" + id);
+            throw new InvalidCommandArgumentException("Не найден ID #" + id);
 
         String owner = collectionManager.getByID(id).getUserLogin();
         String humanCreatorLogin = user.getLogin();
 
         if (humanCreatorLogin == null || !humanCreatorLogin.equals(owner))
-            throw new AuthException("РЈ РІР°СЃ РЅРµС‚ РґРѕСЃС‚СѓРїР°, СЌР»РµРјРµРЅС‚ Р±С‹Р» СЃРѕР·РґР°РЅ " + owner);
+            throw new AuthException("У вас нет доступа, элемент был создан " + owner);
         collectionManager.removeByID(id);
-        return "Р­Р»РµРјРµРЅС‚ #" + id + " СѓРґР°Р»С‘РЅ.";
+        return "Элемент #" + id + " удалён.";
     }
 
 }

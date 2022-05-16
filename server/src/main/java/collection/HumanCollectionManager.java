@@ -86,7 +86,6 @@ public class HumanCollectionManager implements HumanManager {
 
     /**
      * Удалить элемент по идентификатору.
-     *
      */
 
     public void removeByID(Integer id) {
@@ -119,17 +118,9 @@ public class HumanCollectionManager implements HumanManager {
     }
 
     /**
-     * Получить размер коллекции.
-     */
-
-    public int getSize() {
-        return collection.size();
-    }
-
-    /**
      * Очистить коллекцию.
      */
-// User user
+
     public void clear() {
         collection.clear();
         uniqueIds.clear();
@@ -153,7 +144,7 @@ public class HumanCollectionManager implements HumanManager {
     public void addIfMax(HumanBeing human) {
         if (collection.stream()
                 .max(HumanBeing::compareTo)
-                .filter(h -> h.compareTo(human) == 1)
+                .filter(h -> h.compareTo(human) > 0)
                 .isPresent()) {
             throw new CannotAddException();
         }
@@ -167,7 +158,7 @@ public class HumanCollectionManager implements HumanManager {
     public void addIfMin(HumanBeing human) {
         if (collection.stream()
                 .min(HumanBeing::compareTo)
-                .filter(h -> h.compareTo(human) == -1)
+                .filter(h -> h.compareTo(human) < 0)
                 .isPresent()) {
             throw new CannotAddException();
         }
@@ -190,7 +181,7 @@ public class HumanCollectionManager implements HumanManager {
 
     public List<Integer> getUniqueImpactSpeed() {
         assertNotEmpty();
-        List<Integer> impactSpeed = new LinkedList<>();
+        List<Integer> impactSpeed;
         impactSpeed = collection.stream()
                 .map(HumanBeing::getImpactSpeed)
                 .distinct()
@@ -231,7 +222,7 @@ public class HumanCollectionManager implements HumanManager {
     public void deserializeCollection(String json) {
         try {
             if (json == null || json.equals("")) {
-                collection = new Vector<HumanBeing>();
+                collection = new Vector<>();
             } else {
                 Type collectionType = new TypeToken<Vector<HumanBeing>>() {
                 }.getType();
@@ -265,11 +256,11 @@ public class HumanCollectionManager implements HumanManager {
         collection.add(human);
     }
 
-    protected void removeAll(Collection<Integer> ids){
+    protected void removeAll(Collection<Integer> ids) {
         Iterator<Integer> iterator = ids.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Integer id = iterator.next();
-            collection.removeIf(human -> human.getId()==id);
+            collection.removeIf(human -> human.getId() == id);
             iterator.remove();
         }
     }

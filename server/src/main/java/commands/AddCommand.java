@@ -16,6 +16,6 @@ public class AddCommand extends CommandImpl {
     @Override
     public String execute() throws InvalidDataException, CommandException {
         collectionManager.add(getHumanArg());
-        return "Р”РѕР±Р°РІР»РµРЅ СЌР»РµРјРµРЅС‚: " + getHumanArg().toString();
+        return "Добавлен элемент: " + getHumanArg().toString();
     }
 }
