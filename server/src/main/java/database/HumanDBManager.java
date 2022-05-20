@@ -10,10 +10,7 @@ import common.exceptions.InvalidEnumException;
 import common.utils.DateConverter;
 import log.Log;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +22,12 @@ public class HumanDBManager extends HumanCollectionManager {
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT) RETURNING id; ";
     private final DBManager dbManager;
     private final UserManager userManager;
+    private Connection connection;
+    private static final String url = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String user = "postgres";
+    private static final String password = "qwerty";
+
+
 
     public HumanDBManager(DBManager c, UserManager userManager) throws DataBaseException {
         super();
@@ -46,7 +49,7 @@ public class HumanDBManager extends HumanCollectionManager {
                         "real_hero BOOLEAN," +
                         "has_toothpick BOOLEAN," +
                         "impact_speed INTEGER ," +
-                        "soundtrack_name VARCHAR (1000) NOT NULL CHECK (soundtrack_name <> '')," +
+                        "soundtrack_name TEXT NOT NULL CHECK (soundtrack_name <> '')," +
                         "minutes_of_waiting FLOAT NOT NULL," +
                         "weapon_type TEXT NOT NULL," +
                         "car_name TEXT NOT NULL," +
@@ -126,11 +129,12 @@ public class HumanDBManager extends HumanCollectionManager {
         dbManager.setSavepoint();
         try (PreparedStatement statement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY, true)) {
             setHuman(statement, humanBeing);
-            if (statement.executeUpdate() == 0) throw new DataBaseException();
+            if (statement.executeUpdate() == 0)
+                throw new DataBaseException();
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (!resultSet.next()) throw new DataBaseException();
-            humanBeing.setId(resultSet.getInt(resultSet.getInt("id")));
+            humanBeing.setId(resultSet.getInt("id"));
 
             dbManager.commit();
         } catch (SQLException | DataBaseException e) {
@@ -143,17 +147,32 @@ public class HumanDBManager extends HumanCollectionManager {
         super.addWithoutIdGeneration(humanBeing);
     }
 
+
     @Override
     public void removeByID(Integer id) {
+        //dbManager.setCommitMode();
+        //dbManager.setSavepoint();
         //language=SQL
-        String query = "DELETE FROM HUMANS WHERE id = ?;";
-        try (PreparedStatement statement = dbManager.getPreparedStatement(query)) {
+        Connection connection = dbManager.connectToDataBase();
+        String query = "DELETE FROM humans WHERE id = ?";
+        /*try (PreparedStatement statement = dbManager.getPreparedStatement(query)) {
             statement.setInt(1, id);
-            statement.execute();
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DataBaseException("ошибка при удалении из датабазы... ну и кринж");
+        }*/
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            //return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        //return false;
         super.removeByID(id);
+        //dbManager.commit();
+        //dbManager.setNormalMode();
     }
 
     @Override

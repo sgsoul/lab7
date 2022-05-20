@@ -2808,3 +2808,758 @@ print_unique_impact_speed : выведите уникальные значени
 [16:50:48.743 INFO ] host user: null
 [16:50:48.761 ERROR] [show] РћС€РёР±РєР° РІС…РѕРґР°.
 [16:50:48.761 ERROR] Адрес клиента не найден.
+[19:31:09.592 ERROR] nothing to load
+[19:31:09.603 TRACE] Запуск сервера!
+[19:31:27.974 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[19:32:10.322 INFO ] is gbs: true
+[19:32:10.323 INFO ] host user: qwerty
+[19:54:35.028 ERROR] nothing to load
+[19:54:35.042 TRACE] Запуск сервера!
+[19:55:18.452 TRACE] Получение запроса от /127.0.0.1:60279
+[19:55:18.486 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[19:55:18.510 TRACE] Ответ отправлен на /127.0.0.1:60279
+[19:55:58.789 TRACE] Получение запроса от /127.0.0.1:60279
+[19:55:58.800 INFO ] is gbs: true
+[19:55:58.800 INFO ] host user: qwerty
+[19:55:58.847 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 5
+ name: mike
+ coordinates: {"x" : 6.0, "y" : 9.0}
+ creationDate: Mon May 16 19:55:58 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 999
+ soundtrackName: hatelove
+ minutesOfWaiting: 1.0
+ weaponType: AXE
+ Car: Name:niva Cool:true
+
+
+[19:55:58.848 TRACE] Ответ отправлен на /127.0.0.1:60279
+[20:02:46.200 TRACE] Получение запроса от /127.0.0.1:60279
+[20:02:46.203 ERROR] Неправильная команда.
+[20:02:46.207 TRACE] Ответ отправлен на /127.0.0.1:60279
+[08:22:53.711 ERROR] nothing to load
+[08:22:53.725 TRACE] Запуск сервера!
+[08:23:45.507 TRACE] Получение запроса от /127.0.0.1:54281
+[08:23:45.564 INFO ] [ ] [register] Пользователь   успешно зарегистрирован.
+[08:23:45.568 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:23:49.513 TRACE] Получение запроса от /127.0.0.1:54281
+[08:23:49.518 INFO ] is gbs: true
+[08:23:49.518 INFO ] host user:  
+[08:23:49.519 ERROR] [ ] [show] Коллекция пуста!
+[08:23:49.521 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:24:24.883 TRACE] Получение запроса от /127.0.0.1:54281
+[08:24:24.896 INFO ] is gbs: true
+[08:24:24.896 INFO ] host user:  
+[08:24:24.939 INFO ] [ ] [add] 
+Добавлен элемент: id: 6
+ name: ytyty
+ coordinates: {"x" : 8.0, "y" : 8.0}
+ creationDate: Tue May 17 08:24:24 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 8
+ soundtrackName: 8
+ minutesOfWaiting: 8.0
+ weaponType: AXE
+ Car: Name:uu Cool:true
+
+
+[08:24:24.941 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:24:31.968 TRACE] Получение запроса от /127.0.0.1:54281
+[08:24:31.970 INFO ] is gbs: true
+[08:24:31.971 INFO ] host user:  
+[08:24:32.047 INFO ] [ ] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:24:32.048 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:26:26.190 TRACE] Получение запроса от /127.0.0.1:51075
+[08:27:18.889 TRACE] Получение запроса от /127.0.0.1:61481
+[08:27:18.891 ERROR] [qwerty] [login] Неверный логин или пароль.
+[08:27:18.893 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:27:30.983 TRACE] Получение запроса от /127.0.0.1:61481
+[08:27:30.984 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[08:27:30.985 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:27:39.076 TRACE] Получение запроса от /127.0.0.1:61481
+[08:27:39.078 INFO ] is gbs: true
+[08:27:39.078 INFO ] host user: qwerty
+[08:27:39.080 INFO ] [qwerty] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:27:39.081 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:27:47.133 TRACE] Получение запроса от /127.0.0.1:61481
+[08:27:47.134 INFO ] is gbs: true
+[08:27:47.134 INFO ] host user: qwerty
+[08:27:47.174 ERROR] [qwerty] [remove_by_id] У вас нет доступа, элемент был создан  
+[08:27:47.175 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:27:59.254 TRACE] Получение запроса от /127.0.0.1:61481
+[08:27:59.255 INFO ] is gbs: true
+[08:27:59.256 INFO ] host user: qwerty
+[08:27:59.258 INFO ] [qwerty] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:27:59.261 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:28:35.573 TRACE] Получение запроса от /127.0.0.1:61481
+[08:28:35.575 INFO ] is gbs: true
+[08:28:35.575 INFO ] host user: qwerty
+[08:28:35.576 ERROR] [qwerty] [update] Нет прав. Элемент создан:  
+[08:28:35.578 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:28:58.805 TRACE] Получение запроса от /127.0.0.1:61481
+[08:28:58.806 INFO ] is gbs: true
+[08:28:58.806 INFO ] host user: qwerty
+[08:28:58.844 INFO ] [qwerty] [clear] Коллекция очищена.
+[08:28:58.845 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:29:03.848 TRACE] Получение запроса от /127.0.0.1:61481
+[08:29:03.849 INFO ] is gbs: true
+[08:29:03.850 INFO ] host user: qwerty
+[08:29:03.851 INFO ] [qwerty] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:29:03.855 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:29:19.696 TRACE] Получение запроса от /127.0.0.1:61481
+[08:29:19.698 ERROR] Неправильная команда.
+[08:29:19.699 TRACE] Ответ отправлен на /127.0.0.1:61481
+[08:29:35.131 TRACE] Получение запроса от /127.0.0.1:61485
+[08:29:35.136 INFO ] [ ] [login] Вход в систему прошел успешно.
+[08:29:35.138 TRACE] Ответ отправлен на /127.0.0.1:61485
+[08:29:41.173 TRACE] Получение запроса от /127.0.0.1:61485
+[08:29:41.220 INFO ] is gbs: true
+[08:29:41.221 INFO ] host user:  
+[08:29:41.225 INFO ] [ ] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:29:41.231 TRACE] Ответ отправлен на /127.0.0.1:61485
+[08:29:57.295 TRACE] Получение запроса от /127.0.0.1:54281
+[08:29:57.296 INFO ] is gbs: true
+[08:29:57.296 INFO ] host user:  
+[08:29:57.332 ERROR] [ ] [remove_by_id] Элемент #6 не найден.
+[08:29:57.335 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:30:12.609 TRACE] Получение запроса от /127.0.0.1:61485
+[08:30:12.611 INFO ] is gbs: true
+[08:30:12.611 INFO ] host user:  
+[08:30:12.613 INFO ] [ ] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:30:12.614 TRACE] Ответ отправлен на /127.0.0.1:61485
+[08:30:25.459 TRACE] Получение запроса от /127.0.0.1:54281
+[08:30:25.460 INFO ] is gbs: true
+[08:30:25.460 INFO ] host user:  
+[08:30:25.462 ERROR] [ ] [remove_by_id] Элемент #6 не найден.
+[08:30:25.463 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:31:02.821 TRACE] Получение запроса от /127.0.0.1:54281
+[08:31:02.823 INFO ] is gbs: true
+[08:31:02.823 INFO ] host user:  
+[08:31:02.826 INFO ] [ ] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:31:02.826 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:35:09.207 TRACE] Получение запроса от /127.0.0.1:61485
+[08:35:09.209 INFO ] is gbs: true
+[08:35:09.209 INFO ] host user:  
+[08:47:13.101 TRACE] Получение запроса от /127.0.0.1:54281
+[08:47:13.102 ERROR] Неправильная команда.
+[08:47:13.104 TRACE] Получение запроса от /127.0.0.1:54281
+[08:47:13.103 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:47:13.105 INFO ] is gbs: true
+[08:47:13.105 INFO ] host user:  
+[08:47:13.107 INFO ] [ ] [show] 
+[
+  {
+    "id": 6,
+    "name": "ytyty",
+    "coordinates": {
+      "x": 8.0,
+      "y": 8.0
+    },
+    "creationDate": "17-05-2022 08:24:24",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 8,
+    "soundtrackName": "8",
+    "minutesOfWaiting": 8.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "uu",
+      "cool": true
+    },
+    "userLogin": " "
+  }
+]
+[08:47:13.109 TRACE] Ответ отправлен на /127.0.0.1:54281
+[08:53:30.713 TRACE] Получение запроса от /127.0.0.1:54281
+[08:53:30.770 ERROR] Неправильная команда.
+[08:53:39.633 ERROR] nothing to load
+[08:53:39.649 TRACE] Запуск сервера!
+[08:54:32.421 TRACE] Получение запроса от /127.0.0.1:57217
+[08:54:32.435 ERROR] Неправильная команда.
+[08:54:32.440 TRACE] Ответ отправлен на /127.0.0.1:57217
+[08:54:45.511 TRACE] Получение запроса от /127.0.0.1:57217
+[08:54:53.185 ERROR] nothing to load
+[08:54:53.196 TRACE] Запуск сервера!
+[08:55:14.625 TRACE] Получение запроса от /127.0.0.1:57221
+[08:55:14.643 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[08:55:14.653 TRACE] Ответ отправлен на /127.0.0.1:57221
+[08:55:32.787 TRACE] Получение запроса от /127.0.0.1:57221
+[08:55:32.799 INFO ] is gbs: true
+[08:55:32.800 INFO ] host user: qwerty
+[08:55:32.862 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 7
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 08:55:32 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[08:55:32.863 TRACE] Ответ отправлен на /127.0.0.1:57221
+[08:56:13.332 TRACE] Получение запроса от /127.0.0.1:57221
+[08:56:13.333 INFO ] is gbs: true
+[08:56:13.336 INFO ] host user: qwerty
+[08:56:13.347 ERROR] [qwerty] [remove_by_id] Элемент #7 не найден.
+[08:56:13.348 TRACE] Ответ отправлен на /127.0.0.1:57221
+[09:02:13.202 TRACE] Получение запроса от /127.0.0.1:57221
+[09:02:24.133 ERROR] nothing to load
+[09:02:24.143 TRACE] Запуск сервера!
+[09:02:31.383 TRACE] Получение запроса от /127.0.0.1:49696
+[09:02:31.396 ERROR] Неправильная команда.
+[09:02:31.402 TRACE] Ответ отправлен на /127.0.0.1:49696
+[09:02:37.169 TRACE] Получение запроса от /127.0.0.1:49696
+[09:02:42.806 ERROR] nothing to load
+[09:02:42.815 TRACE] Запуск сервера!
+[09:02:54.589 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:02:57.603 INFO ] is gbs: true
+[09:02:57.603 INFO ] host user: qwerty
+[09:02:57.605 ERROR] [qwerty] [show] Коллекция пуста!
+[09:03:35.782 INFO ] is gbs: true
+[09:03:35.783 INFO ] host user: qwerty
+[09:03:35.838 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 8
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 09:03:35 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[09:03:47.853 INFO ] is gbs: true
+[09:03:47.853 INFO ] host user: qwerty
+[09:03:47.861 ERROR] [qwerty] [remove_by_id] Элемент #8 не найден.
+[09:04:09.091 INFO ] is gbs: true
+[09:04:09.091 INFO ] host user: qwerty
+[09:04:09.092 FATAL] [qwerty] [exit] Выключение...
+[09:04:09.093 INFO ] connection to database is interrupted
+[09:05:15.865 ERROR] nothing to load
+[09:05:15.876 TRACE] Запуск сервера!
+[09:05:25.528 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:06:05.896 INFO ] is gbs: true
+[09:06:05.896 INFO ] host user: qwerty
+[09:06:05.942 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 9
+ name: 4
+ coordinates: {"x" : 4.0, "y" : 4.0}
+ creationDate: Tue May 17 09:06:05 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 4
+ soundtrackName: 4
+ minutesOfWaiting: 4.0
+ weaponType: AXE
+ Car: Name:4 Cool:true
+
+
+[09:06:50.357 TRACE] Получение запроса от /127.0.0.1:59411
+[09:06:50.376 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:06:50.387 TRACE] Ответ отправлен на /127.0.0.1:59411
+[09:09:01.120 TRACE] Получение запроса от /127.0.0.1:59411
+[09:09:01.131 INFO ] is gbs: true
+[09:09:01.131 INFO ] host user: qwerty
+[09:27:24.021 ERROR] nothing to load
+[09:27:24.032 TRACE] Запуск сервера!
+[09:28:10.764 INFO ] is gbs: true
+[09:28:10.764 INFO ] host user: null
+[09:28:10.765 ERROR] [add] Ошибка входа.
+[09:31:22.241 ERROR] nothing to load
+[09:31:22.253 TRACE] Запуск сервера!
+[09:31:43.015 INFO ] [qwerty] [register] Пользователь qwerty уже существует.
+[09:32:27.276 TRACE] Получение запроса от /127.0.0.1:64543
+[09:32:27.289 INFO ] [qwerty] [register] Пользователь qwerty уже существует.
+[09:32:27.294 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:32:39.325 TRACE] Получение запроса от /127.0.0.1:64543
+[09:32:39.327 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:32:39.329 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:01.535 TRACE] Получение запроса от /127.0.0.1:64543
+[09:33:01.545 INFO ] is gbs: true
+[09:33:01.545 INFO ] host user: qwerty
+[09:33:01.590 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 10
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 09:33:01 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[09:33:01.591 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:31.495 TRACE] Получение запроса от /127.0.0.1:64543
+[09:33:31.497 INFO ] is gbs: true
+[09:33:31.498 INFO ] host user: qwerty
+[09:33:31.536 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 11
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 09:33:31 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[09:33:31.537 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:35.522 TRACE] Получение запроса от /127.0.0.1:64543
+[09:33:35.523 INFO ] is gbs: true
+[09:33:35.523 INFO ] host user: qwerty
+[09:33:35.595 INFO ] [qwerty] [show] 
+[
+  {
+    "id": 10,
+    "name": "3",
+    "coordinates": {
+      "x": 3.0,
+      "y": 3.0
+    },
+    "creationDate": "17-05-2022 09:33:01",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 3,
+    "soundtrackName": "3",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "3",
+      "cool": true
+    },
+    "userLogin": "qwerty"
+  },
+  {
+    "id": 11,
+    "name": "3",
+    "coordinates": {
+      "x": 3.0,
+      "y": 3.0
+    },
+    "creationDate": "17-05-2022 09:33:31",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 3,
+    "soundtrackName": "3",
+    "minutesOfWaiting": 3.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "3",
+      "cool": true
+    },
+    "userLogin": "qwerty"
+  }
+]
+[09:33:35.597 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:39.560 TRACE] Получение запроса от /127.0.0.1:64543
+[09:33:39.562 INFO ] is gbs: true
+[09:33:39.562 INFO ] host user: qwerty
+[09:33:39.566 INFO ] [qwerty] [clear] Коллекция очищена.
+[09:33:39.567 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:43.588 TRACE] Получение запроса от /127.0.0.1:64543
+[09:33:43.597 INFO ] is gbs: true
+[09:33:43.597 INFO ] host user: qwerty
+[09:33:43.598 ERROR] [qwerty] [show] Коллекция пуста!
+[09:33:43.600 TRACE] Ответ отправлен на /127.0.0.1:64543
+[09:33:48.458 TRACE] Получение запроса от /127.0.0.1:64543
+[09:36:22.385 ERROR] nothing to load
+[09:36:22.395 TRACE] Запуск сервера!
+[09:36:49.415 TRACE] Получение запроса от /127.0.0.1:58123
+[09:36:49.439 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:36:49.443 TRACE] Ответ отправлен на /127.0.0.1:58123
+[09:37:38.783 TRACE] Получение запроса от /127.0.0.1:58123
+[09:37:38.797 INFO ] is gbs: true
+[09:37:38.797 INFO ] host user: qwerty
+[09:37:38.856 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 12
+ name: errfe
+ coordinates: {"x" : 1.0, "y" : 1.0}
+ creationDate: Tue May 17 09:37:38 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1
+ soundtrackName: 1
+ minutesOfWaiting: 1.0
+ weaponType: AXE
+ Car: Name:1 Cool:true
+
+
+[09:37:38.867 TRACE] Ответ отправлен на /127.0.0.1:58123
+[09:38:07.005 TRACE] Получение запроса от /127.0.0.1:58123
+[09:38:07.007 INFO ] is gbs: true
+[09:38:07.011 INFO ] host user: qwerty
+[09:38:07.054 ERROR] [qwerty] [remove_by_id] Элемент #12 не найден.
+[09:38:07.055 TRACE] Ответ отправлен на /127.0.0.1:58123
+[09:40:21.367 TRACE] Получение запроса от /127.0.0.1:58123
+[09:40:29.290 ERROR] nothing to load
+[09:40:29.302 TRACE] Запуск сервера!
+[09:40:40.287 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:40:54.373 INFO ] is gbs: true
+[09:40:54.374 INFO ] host user: qwerty
+[09:40:54.397 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 13
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 09:40:54 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[09:41:04.451 INFO ] is gbs: true
+[09:41:04.451 INFO ] host user: qwerty
+[09:41:04.493 ERROR] [qwerty] [remove_by_id] Элемент #13 не найден.
+[09:43:11.746 ERROR] nothing to load
+[09:43:11.756 TRACE] Запуск сервера!
+[09:43:26.923 TRACE] Получение запроса от /127.0.0.1:51791
+[09:43:26.945 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:43:26.952 TRACE] Ответ отправлен на /127.0.0.1:51791
+[09:43:28.912 TRACE] Получение запроса от /127.0.0.1:51791
+[09:43:28.916 ERROR] Неправильная команда.
+[09:43:28.918 TRACE] Ответ отправлен на /127.0.0.1:51791
+[09:43:32.180 TRACE] Получение запроса от /127.0.0.1:51791
+[09:43:32.184 ERROR] Неправильная команда.
+[09:43:32.195 TRACE] Ответ отправлен на /127.0.0.1:51791
+[09:43:44.888 TRACE] Получение запроса от /127.0.0.1:51793
+[09:43:44.890 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:43:44.891 TRACE] Ответ отправлен на /127.0.0.1:51793
+[09:44:06.004 TRACE] Получение запроса от /127.0.0.1:51793
+[09:44:06.020 INFO ] is gbs: true
+[09:44:06.020 INFO ] host user: qwerty
+[09:44:06.075 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 14
+ name: 1
+ coordinates: {"x" : 1.0, "y" : 1.0}
+ creationDate: Tue May 17 09:44:06 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1
+ soundtrackName: 1
+ minutesOfWaiting: 1.0
+ weaponType: AXE
+ Car: Name:1 Cool:true
+
+
+[09:44:06.076 TRACE] Ответ отправлен на /127.0.0.1:51793
+[09:44:17.046 TRACE] Получение запроса от /127.0.0.1:51793
+[09:44:17.050 INFO ] is gbs: true
+[09:44:17.052 INFO ] host user: qwerty
+[09:44:17.094 ERROR] [qwerty] [remove_by_id] Элемент #14 не найден.
+[09:44:17.097 TRACE] Ответ отправлен на /127.0.0.1:51793
+[09:57:17.144 ERROR] nothing to load
+[09:57:17.159 TRACE] Запуск сервера!
+[09:57:19.922 TRACE] Получение запроса от /127.0.0.1:51793
+[09:57:19.953 ERROR] Неправильная команда.
+[09:57:19.957 TRACE] Ответ отправлен на /127.0.0.1:51793
+[09:57:37.208 TRACE] Получение запроса от /127.0.0.1:58226
+[09:57:37.216 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[09:57:37.217 TRACE] Ответ отправлен на /127.0.0.1:58226
+[09:57:54.308 TRACE] Получение запроса от /127.0.0.1:58226
+[09:57:54.319 INFO ] is gbs: true
+[09:57:54.322 INFO ] host user: qwerty
+[09:57:54.378 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 15
+ name: 1
+ coordinates: {"x" : 1.0, "y" : 1.0}
+ creationDate: Tue May 17 09:57:54 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 1
+ soundtrackName: 1
+ minutesOfWaiting: 1.0
+ weaponType: AXE
+ Car: Name:1 Cool:true
+
+
+[09:57:54.379 TRACE] Ответ отправлен на /127.0.0.1:58226
+[09:58:04.381 TRACE] Получение запроса от /127.0.0.1:58226
+[09:58:04.382 INFO ] is gbs: true
+[09:58:04.384 INFO ] host user: qwerty
+[09:58:04.486 ERROR] [qwerty] [remove_by_id] Элемент #15 не найден.
+[09:58:04.495 TRACE] Ответ отправлен на /127.0.0.1:58226
+[10:15:14.623 TRACE] Получение запроса от /127.0.0.1:58226
+[10:15:14.646 ERROR] Неправильная команда.
+[10:15:14.648 TRACE] Ответ отправлен на /127.0.0.1:58226
+[10:15:26.164 TRACE] Получение запроса от /127.0.0.1:52256
+[10:15:26.168 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[10:15:26.169 TRACE] Ответ отправлен на /127.0.0.1:52256
+[10:15:31.194 TRACE] Получение запроса от /127.0.0.1:52256
+[10:15:31.196 INFO ] is gbs: true
+[10:15:31.196 INFO ] host user: qwerty
+[10:15:31.313 INFO ] [qwerty] [show] 
+[
+  {
+    "id": 15,
+    "name": "1",
+    "coordinates": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "creationDate": "17-05-2022 09:57:54",
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 1,
+    "soundtrackName": "1",
+    "minutesOfWaiting": 1.0,
+    "weaponType": "AXE",
+    "car": {
+      "name": "1",
+      "cool": true
+    },
+    "userLogin": "qwerty"
+  }
+]
+[10:15:31.314 TRACE] Ответ отправлен на /127.0.0.1:52256
+[10:15:48.405 TRACE] Получение запроса от /127.0.0.1:52256
+[10:15:48.407 INFO ] is gbs: true
+[10:15:48.407 INFO ] host user: qwerty
+[10:15:48.487 ERROR] [qwerty] [remove_by_id] Элемент #15 не найден.
+[10:15:48.489 TRACE] Ответ отправлен на /127.0.0.1:52256
+[10:17:14.957 TRACE] Получение запроса от /127.0.0.1:52256
+[10:17:14.975 ERROR] Неправильная команда.
+[10:17:14.989 TRACE] Ответ отправлен на /127.0.0.1:52256
+[10:25:52.863 ERROR] nothing to load
+[10:25:52.878 TRACE] Запуск сервера!
+[10:26:00.818 TRACE] Получение запроса от /127.0.0.1:61846
+[10:26:00.844 ERROR] [qwertyqwerty] [login] Неверный логин или пароль.
+[10:26:00.851 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:26:12.862 TRACE] Получение запроса от /127.0.0.1:61846
+[10:26:12.864 INFO ] is gbs: true
+[10:26:12.865 INFO ] host user: null
+[10:26:12.866 ERROR] [show] Ошибка входа.
+[10:26:12.870 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:26:29.998 TRACE] Получение запроса от /127.0.0.1:61846
+[10:26:30.001 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[10:26:30.005 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:26:33.011 TRACE] Получение запроса от /127.0.0.1:61846
+[10:26:33.014 INFO ] is gbs: true
+[10:26:33.014 INFO ] host user: qwerty
+[10:26:33.016 ERROR] [qwerty] [show] Коллекция пуста!
+[10:26:33.023 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:27:08.330 TRACE] Получение запроса от /127.0.0.1:61846
+[10:27:08.345 INFO ] is gbs: true
+[10:27:08.346 INFO ] host user: qwerty
+[10:27:08.405 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 16
+ name: testete
+ coordinates: {"x" : 4.0, "y" : 34.0}
+ creationDate: Tue May 17 10:27:08 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 23424
+ soundtrackName: gefgsdf
+ minutesOfWaiting: 24.0
+ weaponType: AXE
+ Car: Name:gywefgyfw Cool:true
+
+
+[10:27:08.407 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:27:18.425 TRACE] Получение запроса от /127.0.0.1:61846
+[10:27:18.426 ERROR] Неправильная команда.
+[10:27:18.428 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:27:31.558 TRACE] Получение запроса от /127.0.0.1:61846
+[10:27:31.560 ERROR] Неправильная команда.
+[10:27:31.561 TRACE] Ответ отправлен на /127.0.0.1:61846
+[10:27:37.617 TRACE] Получение запроса от /127.0.0.1:61846
+[10:27:37.618 INFO ] is gbs: true
+[10:27:37.618 INFO ] host user: qwerty
+[10:58:38.200 ERROR] nothing to load
+[10:58:38.263 TRACE] Запуск сервера!
+[10:58:50.842 INFO ] [qwerty] [login] Вход в систему прошел успешно.
+[10:59:07.955 INFO ] is gbs: true
+[10:59:07.955 INFO ] host user: qwerty
+[10:59:08.000 INFO ] [qwerty] [add] 
+Добавлен элемент: id: 22
+ name: 3
+ coordinates: {"x" : 3.0, "y" : 3.0}
+ creationDate: Tue May 17 10:59:07 MSK 2022
+ realHero: false
+ hasToothpick: false
+ impactSpeed: 3
+ soundtrackName: 3
+ minutesOfWaiting: 3.0
+ weaponType: AXE
+ Car: Name:3 Cool:true
+
+
+[10:59:20.021 INFO ] is gbs: true
+[10:59:20.021 INFO ] host user: qwerty
+[10:59:20.160 INFO ] [qwerty] [remove_by_id] Элемент #22 удалён.
+[10:59:58.356 INFO ] is gbs: true
+[10:59:58.357 INFO ] host user: qwerty
+[10:59:58.362 FATAL] [qwerty] [exit] Выключение...
+[10:59:58.363 INFO ] connection to database is interrupted

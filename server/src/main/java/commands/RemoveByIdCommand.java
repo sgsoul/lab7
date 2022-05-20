@@ -4,6 +4,7 @@ import collection.HumanManager;
 import common.auth.User;
 import common.exceptions.*;
 import common.commands.*;
+import database.HumanDBManager;
 
 import static common.utils.Parser.*;
 
@@ -13,6 +14,7 @@ public class RemoveByIdCommand extends CommandImpl {
     public RemoveByIdCommand(HumanManager cm) {
         super("remove_by_id", CommandType.NORMAL);
         collectionManager = cm;
+
     }
 
 
@@ -30,7 +32,8 @@ public class RemoveByIdCommand extends CommandImpl {
 
         if (humanCreatorLogin == null || !humanCreatorLogin.equals(owner))
             throw new AuthException("У вас нет доступа, элемент был создан " + owner);
-        collectionManager.removeByID(id);
+        collectionManager.removeByID(id) ;
+        //dbManager.removeByID(id);
         return "Элемент #" + id + " удалён.";
     }
 

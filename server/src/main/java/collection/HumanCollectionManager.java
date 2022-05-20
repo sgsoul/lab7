@@ -21,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
  * Управление коллекцией.
  */
 
-public class HumanCollectionManager implements HumanManager {
+public abstract class HumanCollectionManager implements HumanManager {
     private Vector<HumanBeing> collection;
     private final java.time.LocalDateTime initDate;
     private final Set<Integer> uniqueIds;
@@ -84,17 +84,13 @@ public class HumanCollectionManager implements HumanManager {
         return uniqueIds.contains(ID);
     }
 
-    /**
-     * Удалить элемент по идентификатору.
-     *
-     */
 
     public void removeByID(Integer id) {
         assertNotEmpty();
         Optional<HumanBeing> human = collection.stream()
                 .filter(h -> h.getId() == id)
                 .findFirst();
-        if (human.isPresent()) {
+        if (!human.isPresent()) {
             throw new NoSuchIdException(id);
         }
         collection.remove(human.get());
@@ -134,6 +130,8 @@ public class HumanCollectionManager implements HumanManager {
         collection.clear();
         uniqueIds.clear();
     }
+
+
 
     /**
      * Удалить первого.

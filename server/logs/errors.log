@@ -2145,3 +2145,53 @@ print_unique_impact_speed : выведите уникальные значени
 [16:47:27.496 ERROR] Адрес клиента не найден.
 [16:50:48.761 ERROR] [show] РћС€РёР±РєР° РІС…РѕРґР°.
 [16:50:48.761 ERROR] Адрес клиента не найден.
+[19:31:09.592 ERROR] nothing to load
+[19:54:35.028 ERROR] nothing to load
+[20:02:46.203 ERROR] Неправильная команда.
+[08:22:53.711 ERROR] nothing to load
+[08:23:49.519 ERROR] [ ] [show] Коллекция пуста!
+[08:27:18.891 ERROR] [qwerty] [login] Неверный логин или пароль.
+[08:27:47.174 ERROR] [qwerty] [remove_by_id] У вас нет доступа, элемент был создан  
+[08:28:35.576 ERROR] [qwerty] [update] Нет прав. Элемент создан:  
+[08:29:19.698 ERROR] Неправильная команда.
+[08:29:57.332 ERROR] [ ] [remove_by_id] Элемент #6 не найден.
+[08:30:25.462 ERROR] [ ] [remove_by_id] Элемент #6 не найден.
+[08:47:13.102 ERROR] Неправильная команда.
+[08:53:30.770 ERROR] Неправильная команда.
+[08:53:39.633 ERROR] nothing to load
+[08:54:32.435 ERROR] Неправильная команда.
+[08:54:53.185 ERROR] nothing to load
+[08:56:13.347 ERROR] [qwerty] [remove_by_id] Элемент #7 не найден.
+[09:02:24.133 ERROR] nothing to load
+[09:02:31.396 ERROR] Неправильная команда.
+[09:02:42.806 ERROR] nothing to load
+[09:02:57.605 ERROR] [qwerty] [show] Коллекция пуста!
+[09:03:47.861 ERROR] [qwerty] [remove_by_id] Элемент #8 не найден.
+[09:04:09.092 FATAL] [qwerty] [exit] Выключение...
+[09:05:15.865 ERROR] nothing to load
+[09:27:24.021 ERROR] nothing to load
+[09:28:10.765 ERROR] [add] Ошибка входа.
+[09:31:22.241 ERROR] nothing to load
+[09:33:43.598 ERROR] [qwerty] [show] Коллекция пуста!
+[09:36:22.385 ERROR] nothing to load
+[09:38:07.054 ERROR] [qwerty] [remove_by_id] Элемент #12 не найден.
+[09:40:29.290 ERROR] nothing to load
+[09:41:04.493 ERROR] [qwerty] [remove_by_id] Элемент #13 не найден.
+[09:43:11.746 ERROR] nothing to load
+[09:43:28.916 ERROR] Неправильная команда.
+[09:43:32.184 ERROR] Неправильная команда.
+[09:44:17.094 ERROR] [qwerty] [remove_by_id] Элемент #14 не найден.
+[09:57:17.144 ERROR] nothing to load
+[09:57:19.953 ERROR] Неправильная команда.
+[09:58:04.486 ERROR] [qwerty] [remove_by_id] Элемент #15 не найден.
+[10:15:14.646 ERROR] Неправильная команда.
+[10:15:48.487 ERROR] [qwerty] [remove_by_id] Элемент #15 не найден.
+[10:17:14.975 ERROR] Неправильная команда.
+[10:25:52.863 ERROR] nothing to load
+[10:26:00.844 ERROR] [qwertyqwerty] [login] Неверный логин или пароль.
+[10:26:12.866 ERROR] [show] Ошибка входа.
+[10:26:33.016 ERROR] [qwerty] [show] Коллекция пуста!
+[10:27:18.426 ERROR] Неправильная команда.
+[10:27:31.560 ERROR] Неправильная команда.
+[10:58:38.200 ERROR] nothing to load
+[10:59:58.362 FATAL] [qwerty] [exit] Выключение...

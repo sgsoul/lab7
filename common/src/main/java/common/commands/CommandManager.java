@@ -14,6 +14,8 @@ import common.connection.*;
 import common.exceptions.*;
 import common.io.*;
 
+import javax.xml.crypto.Data;
+
 public abstract class CommandManager implements Commandable, Closeable {
     private final Map<String, Command> map;
     private InputManager inputManager;
@@ -89,7 +91,7 @@ public abstract class CommandManager implements Commandable, Closeable {
         }
     }
 
-    public Response runCommand(Request msg) {
+    public Response runCommand(Request msg) throws DatabaseException {
         AnswerMsg res = new AnswerMsg();
         try {
             Command cmd = getCommand(msg);

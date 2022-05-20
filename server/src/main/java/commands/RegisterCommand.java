@@ -33,7 +33,8 @@ public class RegisterCommand extends CommandImpl {
         if (user != null && user.getLogin() != null && user.getPassword() != null) {
             if (userManager.isPresent(user.getLogin())) {
 
-                throw new DataBaseException("Пользователь " + user.getLogin() + " уже существует.");
+                return new AnswerMsg().info("Пользователь " + user.getLogin() + " уже существует.");
+                //throw new DataBaseException("Пользователь " + user.getLogin() + " уже существует.");
             }
             userManager.add(user);
             return new AnswerMsg().info("Пользователь " + user.getLogin() + " успешно зарегистрирован.").setStatus(Response.Status.AUTH_SUCCESS);

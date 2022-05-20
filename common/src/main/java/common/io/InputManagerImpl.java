@@ -42,10 +42,13 @@ public abstract class InputManagerImpl implements InputManager {
         if (s.equals("")) {
             throw new EmptyStringException();
         }
+        if (s.length()>1000) {
+            throw new EmptyStringException("хватит баловаться");
+        }
         return s;
     }
 
-    public String readFullName() {
+    public String readFullName()  {
         String s = read();
         if (s.equals("")) {
             return null;
@@ -108,6 +111,9 @@ public abstract class InputManagerImpl implements InputManager {
         String soundtrackName = read();
         if (soundtrackName.equals("")) {
             throw new EmptyStringException();
+        }
+        if (soundtrackName.length()>1000) {
+            throw new EmptyStringException("хватит баловаться");
         }
         return soundtrackName;
     }

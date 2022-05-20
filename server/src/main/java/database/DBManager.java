@@ -26,7 +26,7 @@ public class DBManager {
         connectToDataBase();
     }
 
-    private void connectToDataBase() throws DataBaseException {
+    public Connection connectToDataBase() throws DataBaseException {
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(url, user, password);
@@ -35,7 +35,9 @@ public class DBManager {
         } catch (ClassNotFoundException exception) {
             throw new DatabaseException("data driver not found");
         }
+        return connection;
     }
+
 
     /**
      * @param sqlStatement SQL statement to be prepared.
