@@ -22,14 +22,14 @@ public class UpdateCommand extends CommandImpl {
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
         if (hasStringArg() || !hasHumanArg()) throw new MissedCommandArgumentException();
         Integer id = parseId(getStringArg());
-        if (!collectionManager.checkID(id)) throw new InvalidCommandArgumentException("ID РЅРµ РЅР°Р№РґРµРЅ.");
+        if (!collectionManager.checkID(id)) throw new InvalidCommandArgumentException("ID не найден.");
         String owner = collectionManager.getByID(id).getUserLogin();
         String workerCreatorLogin = user.getLogin();
         if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
-            throw new AuthException("РќРµС‚ РїСЂР°РІ. Р­Р»РµРјРµРЅС‚ СЃРѕР·РґР°РЅ: " + owner);
+            throw new AuthException("Нет прав. Элемент создан: " + owner);
 
         collectionManager.updateByID(id, getHumanArg());
-        return "Р­Р»РµРјРµРЅС‚ #" + id + " РѕР±РЅРѕРІР»С‘РЅ.";
+        return "Элемент #" + id + " обновлён.";
     }
 
 }

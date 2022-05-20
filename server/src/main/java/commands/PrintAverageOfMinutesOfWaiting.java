@@ -22,6 +22,6 @@ public class PrintAverageOfMinutesOfWaiting extends CommandImpl {
         OptionalDouble minutes = collectionManager.getCollection().stream()
                 .mapToDouble(HumanBeing::getMinutesOfWaiting)
                 .average();
-        return "РЎСЂРµРґРЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ: " + minutes.getAsDouble() + " РјРёРЅСѓС‚.";
+        return "Среднее время ожидания: " + minutes.getAsDouble() + " минут.";
     }
 }

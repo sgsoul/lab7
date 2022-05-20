@@ -15,7 +15,7 @@ public class AddIfMinCommand extends CommandImpl {
     @Override
     public String execute() {
         collectionManager.addIfMin(getHumanArg());
-        return ("Р”РѕР±Р°РІР»РµРЅ СЌР»РµРјРµРЅС‚: " + getHumanArg().toString());
+        return ("Добавлен элемент: " + getHumanArg().toString());
     }
 
 }

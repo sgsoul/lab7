@@ -10,8 +10,8 @@ import common.data.HumanBeing;
 
 public class CommandMsg implements Request {
     private final String commandName;
-    private String commandStringArgument;
-    private HumanBeing human;
+    private final String commandStringArgument;
+    private final HumanBeing human;
     private User user;
     private Request.Status status;
 
@@ -25,13 +25,6 @@ public class CommandMsg implements Request {
 
     public CommandMsg() {
         commandName = null;
-        commandStringArgument = null;
-        human = null;
-        status = Status.DEFAULT;
-    }
-
-    public CommandMsg(String s) {
-        commandName = s;
         commandStringArgument = null;
         human = null;
         status = Status.DEFAULT;
@@ -58,17 +51,6 @@ public class CommandMsg implements Request {
         user = usr;
         return this;
     }
-
-    public CommandMsg setHuman(HumanBeing h) {
-        human = h;
-        return this;
-    }
-
-    public CommandMsg setArgument(String s) {
-        commandStringArgument = s;
-        return this;
-    }
-
 
     /**
      * @return Название команды.

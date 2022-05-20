@@ -12,7 +12,7 @@ import java.util.Properties;
 
 
 /**
- * РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ РґР»СЏ Р·Р°РїСѓСЃРєР° СЃРµСЂРІРµСЂР° СЃ Р°СЂРіСѓРјРµРЅС‚Р°РјРё.
+ * Основной класс для запуска сервера с аргументами.
  */
 
 public class Main {
@@ -20,13 +20,13 @@ public class Main {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         args = new String[]{"5432", "localhost"};
         /*args[0] = "4445";
-        args[1] = "C:\\Users\\79006\\OneDrive\\Р Р°Р±РѕС‡РёР№ СЃС‚РѕР»\\lab6\\server\\humans.json";*/
+        args[1] = "C:\\Users\\79006\\OneDrive\\Рабочий стол\\lab6\\server\\humans.json";*/
         int port = 0;
         String strPort = "5432";
         //String path = "";
         String dbHost = "localhost";
         String user = "postgres";
-        String password = "qwerty";
+        String password = "arina";
         String url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
 
         try {
@@ -40,7 +40,7 @@ public class Main {
             }
 
             if (args.length == 1) strPort = args[0];
-            if (args.length == 0) Log.logger.info("РќРµС‚ РїРѕСЂС‚Р°, РїРµСЂРµРґР°РЅРЅРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚РѕРј, СЂР°Р·РјРµС‰РµРЅРЅРѕРіРѕ РЅР° " + strPort);
+            if (args.length == 0) Log.logger.info("Нет порта, переданного аргументом, размещенного на " + strPort);
             try {
                 port = Integer.parseInt(strPort);
             } catch (NumberFormatException e) {
@@ -55,7 +55,7 @@ public class Main {
             server.start();
             server.consoleMode();
 //        } catch (NoSuchElementException e) {
-//            print("С‡С‚Рѕ Р·Р° Р»РѕРІСѓС€РєРё РґР¶РѕРєРµСЂР°??");
+//            print("что за ловушки джокера??");
         } catch (ConnectionException | DatabaseException e) {
             Log.logger.error(e.getMessage());
         }

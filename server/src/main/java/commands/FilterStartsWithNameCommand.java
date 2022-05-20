@@ -21,7 +21,7 @@ public class FilterStartsWithNameCommand extends CommandImpl {
         if (hasStringArg()) throw new MissedCommandArgumentException();
         String start = getStringArg();
         List<HumanBeing> list = collectionManager.filterStartsWithName(getStringArg());
-        if (list.isEmpty()) return "ÐÐ¸ Ð¾Ð´Ð¸Ð½ Ð¸Ð· ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð½Ðµ Ð¸Ð¼ÐµÐµÑ‚ Ð¸Ð¼ÐµÐ½Ð¸, Ð½Ð°Ñ‡Ð¸Ð½Ð°ÑŽÑ‰ÐµÐ³Ð¾ÑÑ Ñ " + start;
+        if (list.isEmpty()) return "Íè îäèí èç ýëåìåíòîâ íå èìååò èìåíè, íà÷èíàþùåãîñÿ ñ " + start;
         return list.stream()
                 .sorted(new HumanBeing.SortingComparator())
                 .map(HumanBeing::toString).reduce("", (a, b) -> a + b + "\n");

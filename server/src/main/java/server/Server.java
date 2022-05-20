@@ -31,7 +31,7 @@ import common.exceptions.*;
 import static log.Log.logger;
 
 /**
- * РљР»Р°СЃСЃ СЃРµСЂРІРµСЂР°.
+ * Класс сервера.
  */
 
 public class Server extends Thread implements SenderReceiver {
@@ -65,8 +65,8 @@ public class Server extends Thread implements SenderReceiver {
             Log.logger.error(e.getMessage());
         }
         host(port);
-        setName("РџРѕС‚РѕРє СЃРµСЂРІРµСЂР°.");
-        Log.logger.trace("Р—Р°РїСѓСЃРє СЃРµСЂРІРµСЂР°!");
+        setName("Поток сервера.");
+        Log.logger.trace("Запуск сервера!");
     }
 
     private void host(int p) throws ConnectionException {
@@ -83,7 +83,7 @@ public class Server extends Thread implements SenderReceiver {
         } catch (IllegalArgumentException e) {
             throw new InvalidPortException();
         } catch (IOException e) {
-            throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃРµСЂРІРµСЂР°.");
+            throw new ConnectionException("Что-то пошло не так во время инициализации сервера.");
         }
     }
 
@@ -92,19 +92,18 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РѕС‚ РєР»РёРµРЅС‚Р°.
+     * Получение запроса от клиента.
      */
 
     public void requestHandle() throws ConnectionException, InvalidDataException {
         ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE * 2);
         buf.clear();
 
-        Request request = null;
         try {
             InetSocketAddress clientAddress = (InetSocketAddress) channel.receive(buf);
             if (clientAddress == null) return; //no data to read
             this.clientAddress = clientAddress;
-            logger.trace("РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РѕС‚ " + clientAddress.toString());
+            logger.trace("Получение запроса от " + clientAddress);
         } catch (ClosedChannelException e) {
             try {
                 throw new ClosedConnectionException();
@@ -113,7 +112,7 @@ public class Server extends Thread implements SenderReceiver {
             }
         } catch (IOException e) {
             try {
-                throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р·Р°РїСЂРѕСЃР°.");
+                throw new ConnectionException("Что-то пошло не так во время получения запроса.");
             } catch (ConnectionException ex) {
                 ex.printStackTrace();
             }
@@ -166,22 +165,22 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * РћС‚РїСЂР°РІР»РµРЅРёРµ РѕС‚РІРµС‚Р°.
+     * Отправление ответа.
      */
 
     public void send(Response response) throws ConnectionException {
 
-        if (clientAddress == null) throw new InvalidAddressException("РђРґСЂРµСЃ РєР»РёРµРЅС‚Р° РЅРµ РЅР°Р№РґРµРЅ.");
+        if (clientAddress == null) throw new InvalidAddressException("Адрес клиента не найден.");
         Runnable task = () -> {
             try {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
                 objectOutputStream.writeObject(response);
                 channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), clientAddress);
-                logger.trace("РћС‚РІРµС‚ РѕС‚РїСЂР°РІР»РµРЅ РЅР° " + clientAddress.toString());
+                logger.trace("Ответ отправлен на " + clientAddress.toString());
             } catch (IOException e) {
                 try {
-                    throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РѕС‚РїСЂР°РІРєРё РѕС‚РІРµС‚Р°.");
+                    throw new ConnectionException("Что-то пошло не так во время отправки ответа.");
                 } catch (ConnectionException ex) {
                     ex.printStackTrace();
                 }
@@ -192,7 +191,7 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Р—Р°РїСѓСЃРє СЃРµСЂРІРµСЂР°.
+     * Запуск сервера.
      */
 
     public void run() {
@@ -210,7 +209,7 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Р—Р°РєСЂС‹С‚РёРµ СЃРµСЂРІРµСЂР° Рё СЃРѕРµРґРёРЅРµРЅРёСЏ.
+     * Закрытие сервера и соединения.
      */
 
     public void close() {
@@ -219,7 +218,7 @@ public class Server extends Thread implements SenderReceiver {
             dbManager.closeConnection();
             channel.close();
         } catch (IOException e) {
-            Log.logger.error("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РєСЂС‹С‚СЊ РєР°РЅР°Р».");
+            Log.logger.error("Не удалось закрыть канал.");
         }
     }
 
@@ -233,10 +232,6 @@ public class Server extends Thread implements SenderReceiver {
 
     public void setHostUser(User usr) {
         hostUser = usr;
-    }
-
-    public Commandable getCommandManager() {
-        return commandManager;
     }
 
     public HumanManager getCollectionManager() {

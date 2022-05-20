@@ -1,13 +1,13 @@
 package common.io;
 
+import common.auth.User;
+import common.data.Car;
+import common.data.Coordinates;
+import common.data.WeaponType;
+
 import java.util.Scanner;
 
-
-import common.auth.User;
-import common.data.*;
-
 import static common.io.ConsoleOutputter.print;
-import static common.io.OutputManager.*;
 
 public class ConsoleInputManager extends InputManagerImpl {
 
@@ -18,77 +18,76 @@ public class ConsoleInputManager extends InputManagerImpl {
 
     @Override
     public String readName() {
-        return new Question<String>("Р’РІРµРґРёС‚Рµ РёРјСЏ:", super::readName).getAnswer();
+        return new Question<>("Введите имя:", super::readName).getAnswer();
     }
 
     @Override
     public String readFullName() {
-        return new Question<String>("Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ:", super::readFullName).getAnswer();
+        return new Question<>("Введите фамилию:", super::readFullName).getAnswer();
     }
 
     @Override
     public double readXCoord() {
-        return new Question<Double>("Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ С…:", super::readXCoord).getAnswer();
+        return new Question<>("Введите координату х:", super::readXCoord).getAnswer();
     }
 
     @Override
     public double readYCoord() {
-        return new Question<Double>("Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ Сѓ:", super::readYCoord).getAnswer();
+        return new Question<>("Введите координату у:", super::readYCoord).getAnswer();
     }
 
     @Override
     public Coordinates readCoords() {
-        print("Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹.");
+        print("Введите координаты.");
         double x = readXCoord();
         double y = readYCoord();
-        Coordinates coord = new Coordinates(x, y);
-        return coord;
+        return new Coordinates(x, y);
     }
 
     @Override
     public boolean readRealHero() {
-        return new Question<Boolean>("Р“РµСЂРѕР№ СЂРµР°Р»СЊРЅС‹Р№? (true/false): ", super::readRealHero).getAnswer();
+        return new Question<>("Герой реальный? (true/false): ", super::readRealHero).getAnswer();
     }
 
     @Override
     public boolean readHasToothPick() {
-        return new Question<Boolean>("РЈ РЅРµРіРѕ РµСЃС‚СЊ Р·СѓР±РѕС‡РёСЃС‚РєР°? (true/false):", super::readHasToothPick).getAnswer();
+        return new Question<>("У него есть зубочистка? (true/false):", super::readHasToothPick).getAnswer();
     }
 
     @Override
     public Integer readImpactSpeed() {
-        return new Question<Integer>("Р’РІРµРґРёС‚Рµ СЃРєРѕСЂРѕСЃС‚СЊ СѓРґР°СЂР°:", super::readImpactSpeed).getAnswer();
+        return new Question<>("Введите скорость удара:", super::readImpactSpeed).getAnswer();
     }
 
 
     @Override
     public String readSoundtrackName() {
-        return new Question<String>("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїРµСЃРЅРё:", super::readSoundtrackName).getAnswer();
+        return new Question<>("Введите название песни:", super::readSoundtrackName).getAnswer();
     }
 
     @Override
     public float readMinutesOfWaiting() {
-        return new Question<Float>("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РјРёРЅСѓС‚ РѕР¶РёРґР°РЅРёСЏ:", super::readMinutesOfWaiting).getAnswer();
+        return new Question<>("Введите количество минут ожидания:", super::readMinutesOfWaiting).getAnswer();
     }
 
     @Override
     public WeaponType readWeaponType() {
-        return new Question<WeaponType>("Р’РІРµРґРёС‚Рµ С‚РёРї РѕСЂСѓР¶РёСЏ (AXE, PISTOL, SHOTGUN):", super::readWeaponType).getAnswer();
+        return new Question<>("Введите тип оружия (AXE, PISTOL, SHOTGUN):", super::readWeaponType).getAnswer();
     }
 
     @Override
     public Car readCar() {
-        return new Question<Car>("Р’РІРµРґРёС‚Рµ РјР°С€РёРЅСѓ:", super::readCar).getAnswer();
+        return new Question<>("Введите машину:", super::readCar).getAnswer();
     }
 
     @Override
     public String readLogin() {
-        return new Question<String>("enter login:", super::readLogin).getAnswer();
+        return new Question<>("Введите логин:", super::readLogin).getAnswer();
     }
 
     @Override
     public String readPassword() {
-        return new Question<String>("enter password:", super::readPassword).getAnswer();
+        return new Question<>("Введите пароль:", super::readPassword).getAnswer();
     }
 
     @Override

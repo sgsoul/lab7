@@ -1,13 +1,5 @@
 package client;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.*;
-import java.nio.ByteBuffer;
-
 import commands.ClientCommandManager;
 import common.auth.User;
 import common.connection.CommandMsg;
@@ -15,46 +7,36 @@ import common.connection.Request;
 import common.connection.Response;
 import common.connection.SenderReceiver;
 import common.exceptions.*;
-import common.io.OutputManager;
 
-import static common.io.ConsoleOutputter.printErr;
+import java.io.*;
+import java.net.*;
+import java.nio.ByteBuffer;
 
 
 /**
- * РљР»Р°СЃСЃ РєР»РёРµРЅС‚Р°.
+ * Класс клиента.
  */
 
 public class Client extends Thread implements SenderReceiver {
     private SocketAddress address;
     private DatagramSocket socket;
     public final int MAX_TIME_OUT = 500;
-    public final int MAX_ATTEMPTS = 3;
     private User user;
     private User attempt;
-    private OutputManager outputManager;
-    private boolean running;
-    private volatile boolean receivedRequest;
     private volatile boolean authSuccess;
     private ClientCommandManager commandManager;
-
     private boolean connected;
 
-    //private HumanObservableManager collectionManager;
-    public boolean isReceivedRequest() {
-        return receivedRequest;
-    }
-
     /**
-     * РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР»РёРµРЅС‚Р°.
+     * Инициализация клиента.
      */
 
     private void init(String addr, int p) throws ConnectionException {
         connect(addr, p);
-        running = true;
         connected = false;
         authSuccess = false;
         commandManager = new ClientCommandManager(this);
-        setName("РљР»РёРµРЅС‚СЃРєРёР№ РїРѕС‚РѕРє.");
+        setName("Клиентский поток.");
     }
 
     public Client(String addr, int p) throws ConnectionException {
@@ -73,12 +55,8 @@ public class Client extends Thread implements SenderReceiver {
         attempt = u;
     }
 
-    public User getAttemptUser() {
-        return attempt;
-    }
-
     /**
-     * РЎРѕРµРґРёРЅРµРЅРёРµ РєР»РёРµРЅС‚Р° СЃ СЃРµСЂРІРµСЂРѕРј.
+     * Соединение клиента с сервером.
      */
 
     public void connect(String addr, int p) throws ConnectionException {
@@ -93,12 +71,12 @@ public class Client extends Thread implements SenderReceiver {
             socket = new DatagramSocket();
             socket.setSoTimeout(MAX_TIME_OUT);
         } catch (IOException e) {
-            throw new ConnectionException("РќРµ СѓРґР°РµС‚СЃСЏ РѕС‚РєСЂС‹С‚СЊ СЃРѕРєРµС‚.");
+            throw new ConnectionException("Не удается открыть сокет.");
         }
     }
 
     /**
-     * РћС‚РїСЂР°РІР»РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РЅР° СЃРµСЂРІРµСЂ.
+     * Отправление запроса на сервер.
      */
 
     public void send(Request request) throws ConnectionException {
@@ -111,38 +89,14 @@ public class Client extends Thread implements SenderReceiver {
             socket.send(requestPacket);
             byteArrayOutputStream.close();
         } catch (IOException e) {
-            throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РїСЂРё РѕС‚РїСЂР°РІРєРµ Р·Р°РїСЂРѕСЃР°.");
+            throw new ConnectionException("Что-то пошло не так при отправке запроса.");
         }
 
     }
 
     /**
-     * РџРѕР»СѓС‡РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚ СЃРµСЂРІРµСЂР°.
+     * Получение сообщения от сервера.
      */
-
-    public Response receive() throws ConnectionException, InvalidDataException {
-        try {
-            socket.setSoTimeout(MAX_TIME_OUT);
-        } catch (SocketException ignored) {
-
-        }
-        ByteBuffer bytes = ByteBuffer.allocate(BUFFER_SIZE);
-        DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
-        try {
-            socket.receive(receivePacket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
-            return (Response) objectInputStream.readObject();
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            throw new InvalidReceivedDataException();
-        }
-    }
 
     public Response receiveWithoutTimeLimits() throws ConnectionException, InvalidDataException {
         try {
@@ -155,7 +109,7 @@ public class Client extends Thread implements SenderReceiver {
         try {
             socket.receive(receivePacket);
         } catch (IOException e) {
-            throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РїСЂРё РїРѕР»СѓС‡РµРЅРёРё РѕС‚РІРµС‚Р°.");
+            throw new ConnectionException("Что-то пошло не так при получении ответа.");
         }
 
         try {
@@ -165,8 +119,9 @@ public class Client extends Thread implements SenderReceiver {
             throw new InvalidReceivedDataException();
         }
     }
+
     /**
-     * Р—Р°РїСѓСЃРєР°РµС‚ РєР»РёРµРЅС‚Р°.
+     * Запускает клиента.
      */
 
     @Override
@@ -177,67 +132,11 @@ public class Client extends Thread implements SenderReceiver {
         close();
     }
 
-    /**
-     * РџСЂРѕС†РµСЃСЃ РёРґРµРЅС‚РёС„РёРєР°С†РёРё
-     *
-     * @param login
-     * @param password
-     * @param register
-     */
-
-    public void processAuthentication(String login, String password, boolean register) {
-        attempt = new User(login, password);
-        CommandMsg msg = new CommandMsg();
-        if (register) {
-            msg = new CommandMsg("register").setStatus(Request.Status.DEFAULT).setUser(attempt);
-        } else {
-            msg = new CommandMsg("login").setStatus(Request.Status.DEFAULT).setUser(attempt);
-        }
-        try {
-            send(msg);
-            Response answer = receive();
-            connected = true;
-            authSuccess = (answer.getStatus() == Response.Status.AUTH_SUCCESS);
-            if (authSuccess) {
-                user = attempt;
-            } else {
-                outputManager.error("РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ.");
-            }
-        } catch (ConnectionTimeoutException e) {
-            outputManager.error("РўР°Р№Рј-Р°СѓС‚ СЃРѕРµРґРёРЅРµРЅРёСЏ.");
-            connected = false;
-        } catch (ConnectionException | InvalidDataException e) {
-            connected = false;
-        }
-    }
-
-    public void consoleMode() {
-        commandManager.consoleMode();
-    }
-
-    public boolean isConnected() {
-        return connected;
-    }
-
-    public boolean isAuthSuccess() {
-        return authSuccess;
-    }
-
-    public ClientCommandManager getCommandManager() {
-        return commandManager;
-    }
-
-    public OutputManager getOutputManager() {
-        return outputManager;
-    }
-
-    public void setOutputManager(OutputManager out) {
-        outputManager = out;
-    }
 
     /**
-     * Р—Р°РєСЂС‹РІР°РµС‚ РєР»РёРµРЅС‚Р°.
+     * Закрывает клиента.
      */
+
 
     public void close() {
         try {
@@ -245,9 +144,8 @@ public class Client extends Thread implements SenderReceiver {
         } catch (ConnectionException ignored) {
 
         }
-        running = false;
         commandManager.close();
         socket.close();
     }
-
 }
+

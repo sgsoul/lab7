@@ -3,23 +3,18 @@ package commands;
 import client.Client;
 
 import static common.io.ConsoleOutputter.print;
-import static common.io.OutputManager.*;
 
 import common.exceptions.*;
 import common.commands.*;
 import common.connection.*;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 
 /**
- * РњРµРЅРµРґР¶РµСЂ РєРѕРјР°РЅРґ РґР»СЏ РєР»РёРµРЅС‚Р°.
+ * Менеджер команд для клиента.
  */
 
 public class ClientCommandManager extends CommandManager {
     private final Client client;
-    public final Lock lock = new ReentrantLock();
 
     public ClientCommandManager(Client c) {
         client = c;
@@ -38,7 +33,7 @@ public class ClientCommandManager extends CommandManager {
         if (hasCommand(msg)) {
             res = (AnswerMsg) super.runCommand(msg);
             if (res.getStatus() == Response.Status.EXIT) {
-                res.info("РћС‚РєР»СЋС‡РµРЅРёРµ...");
+                res.info("Отключение...");
             }
         } else {
             try {
@@ -50,7 +45,7 @@ public class ClientCommandManager extends CommandManager {
                     client.setUser(msg.getUser());
                 }
             } catch (ConnectionTimeoutException e) {
-                res.info("РџРѕРїС‹С‚РєРё РІСЃС‘...bye").setStatus(Response.Status.EXIT);
+                res.info("Попытки всё...bye").setStatus(Response.Status.EXIT);
             } catch (InvalidDataException | ConnectionException e) {
                 res.error(e.getMessage());
             }
