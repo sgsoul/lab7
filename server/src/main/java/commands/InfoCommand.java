@@ -1,6 +1,6 @@
 package commands;
 
-import collection.HumanManager;
+import common.collection.HumanManager;
 import common.exceptions.*;
 import common.commands.*;
 
@@ -13,7 +13,7 @@ public class InfoCommand extends CommandImpl {
     }
 
     @Override
-    public String execute() throws InvalidDataException {
+    public String execute() {
         return collectionManager.getInfo();
     }
 

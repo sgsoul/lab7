@@ -6,6 +6,6 @@ package common.exceptions;
 
 public class MissedCommandArgumentException extends InvalidCommandArgumentException {
     public MissedCommandArgumentException() {
-        super("Неверный аргумент команды.");
+        super("[MissedCommandArgumentException] Неверный аргумент команды.");
     }
 }

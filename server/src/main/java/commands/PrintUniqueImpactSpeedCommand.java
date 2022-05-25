@@ -1,7 +1,7 @@
 package commands;
 
 
-import collection.HumanManager;
+import common.collection.HumanManager;
 import common.commands.CommandImpl;
 import common.commands.CommandType;
 import common.exceptions.EmptyCollectionException;

@@ -1,42 +1,64 @@
 package client;
 
-import commands.ClientCommandManager;
-import common.auth.User;
-import common.connection.CommandMsg;
-import common.connection.Request;
-import common.connection.Response;
-import common.connection.SenderReceiver;
-import common.exceptions.*;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
 import java.nio.ByteBuffer;
 
+import collection.HumanObservableManager;
+import commands.ClientCommandManager;
+import common.auth.User;
+import common.connection.*;
+import common.exceptions.*;
+import common.io.OutputManager;
+import controllers.tools.ObservableResourceFactory;
+
+import static common.io.ConsoleOutputter.print;
+import static common.io.ConsoleOutputter.printErr;
+
 
 /**
- *  Î‡ÒÒ ÍÎËÂÌÚ‡.
+ * –ö–ª–∞—Å—Å –∫–ª–∏–µ–Ω—Ç–∞.
  */
 
 public class Client extends Thread implements SenderReceiver {
     private SocketAddress address;
+    private InetSocketAddress host;
     private DatagramSocket socket;
+    private DatagramSocket broadcastSocket;
     public final int MAX_TIME_OUT = 500;
+    public final int MAX_ATTEMPTS = 3;
     private User user;
     private User attempt;
+    private OutputManager outputManager;
+    private boolean running;
+    private volatile boolean receivedRequest;
     private volatile boolean authSuccess;
     private ClientCommandManager commandManager;
+
     private boolean connected;
+    private HumanObservableManager collectionManager;
+    private ObservableResourceFactory resourceFactory;
+
+    public boolean isReceivedRequest() {
+        return receivedRequest;
+    }
 
     /**
-     * »ÌËˆË‡ÎËÁ‡ˆËˇ ÍÎËÂÌÚ‡.
+     * –ò–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏—è –∫–ª–∏–µ–Ω—Ç–∞.
      */
 
     private void init(String addr, int p) throws ConnectionException {
         connect(addr, p);
+        running = true;
         connected = false;
         authSuccess = false;
         commandManager = new ClientCommandManager(this);
-        setName(" ÎËÂÌÚÒÍËÈ ÔÓÚÓÍ.");
+        collectionManager = new HumanObservableManager();
+        setName("–ö–ª–∏–µ–Ω—Ç—Å–∫–∏–π –ø–æ—Ç–æ–∫.");
     }
 
     public Client(String addr, int p) throws ConnectionException {
@@ -55,8 +77,12 @@ public class Client extends Thread implements SenderReceiver {
         attempt = u;
     }
 
+    public User getAttemptUser() {
+        return attempt;
+    }
+
     /**
-     * —ÓÂ‰ËÌÂÌËÂ ÍÎËÂÌÚ‡ Ò ÒÂ‚ÂÓÏ.
+     * –°–æ–µ–¥–∏–Ω–µ–Ω–∏–µ –∫–ª–∏–µ–Ω—Ç–∞ —Å —Å–µ—Ä–≤–µ—Ä–æ–º.
      */
 
     public void connect(String addr, int p) throws ConnectionException {
@@ -69,19 +95,21 @@ public class Client extends Thread implements SenderReceiver {
         }
         try {
             socket = new DatagramSocket();
+            broadcastSocket = new DatagramSocket();
+            host = new InetSocketAddress(InetAddress.getByName("localhost"), broadcastSocket.getLocalPort());
             socket.setSoTimeout(MAX_TIME_OUT);
         } catch (IOException e) {
-            throw new ConnectionException("ÕÂ Û‰‡ÂÚÒˇ ÓÚÍ˚Ú¸ ÒÓÍÂÚ.");
+            throw new ConnectionException("–ù–µ —É–¥–∞–µ—Ç—Å—è –æ—Ç–∫—Ä—ã—Ç—å —Å–æ–∫–µ—Ç.");
         }
     }
 
     /**
-     * ŒÚÔ‡‚ÎÂÌËÂ Á‡ÔÓÒ‡ Ì‡ ÒÂ‚Â.
+     * –û—Ç–ø—Ä–∞–≤–ª–µ–Ω–∏–µ –∑–∞–ø—Ä–æ—Å–∞ –Ω–∞ —Å–µ—Ä–≤–µ—Ä.
      */
 
     public void send(Request request) throws ConnectionException {
         try {
-            request.setStatus(Request.Status.SENT_FROM_CLIENT);
+            request.setBroadcastAddress(host);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
             ObjectOutputStream objOutput = new ObjectOutputStream(byteArrayOutputStream);
             objOutput.writeObject(request);
@@ -89,16 +117,50 @@ public class Client extends Thread implements SenderReceiver {
             socket.send(requestPacket);
             byteArrayOutputStream.close();
         } catch (IOException e) {
-            throw new ConnectionException("◊ÚÓ-ÚÓ ÔÓ¯ÎÓ ÌÂ Ú‡Í ÔË ÓÚÔ‡‚ÍÂ Á‡ÔÓÒ‡.");
+            throw new ConnectionException("–ß—Ç–æ-—Ç–æ –ø–æ—à–ª–æ –Ω–µ —Ç–∞–∫ –ø—Ä–∏ –æ—Ç–ø—Ä–∞–≤–∫–µ –∑–∞–ø—Ä–æ—Å–∞.");
         }
 
     }
 
     /**
-     * œÓÎÛ˜ÂÌËÂ ÒÓÓ·˘ÂÌËˇ ÓÚ ÒÂ‚Â‡.
+     * –ü–æ–ª—É—á–µ–Ω–∏–µ —Å–æ–æ–±—â–µ–Ω–∏—è –æ—Ç —Å–µ—Ä–≤–µ—Ä–∞.
      */
 
+    public Response receive() throws ConnectionException, InvalidDataException {
+        connected = false;
+        try {
+            socket.setSoTimeout(MAX_TIME_OUT);
+        } catch (SocketException ignored) {
+
+        }
+        ByteBuffer bytes = ByteBuffer.allocate(BUFFER_SIZE);
+        DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
+        try {
+            socket.receive(receivePacket);
+        } catch (SocketTimeoutException e) {
+            for (int attempts = MAX_ATTEMPTS; attempts > 0; attempts--) {
+                printErr("–ü—Ä–µ–≤—ã—à–µ–Ω —Ç–∞–π–º-–∞—É—Ç –æ—Ç–≤–µ—Ç–∞ —Å–µ—Ä–≤–µ—Ä–∞ –ø—Ä–∏ –ø–æ–ø—ã—Ç–∫–µ –ø–æ–≤—Ç–æ—Ä–Ω–æ–≥–æ –ø–æ–¥–∫–ª—é—á–µ–Ω–∏—è. –û—Å—Ç–∞–ª–æ—Å—å " + attempts + " –ø–æ–ø—ã—Ç–∫–∏.");
+                try {
+                    socket.receive(receivePacket);
+                    break;
+                } catch (IOException ignored) {
+                }
+            }
+            throw new ConnectionTimeoutException();
+        } catch (IOException e) {
+            throw new ConnectionException("–ß—Ç–æ-—Ç–æ –ø–æ—à–ª–æ –Ω–µ —Ç–∞–∫ –ø—Ä–∏ –ø–æ–ª—É—á–µ–Ω–∏–∏ –æ—Ç–≤–µ—Ç–∞.");
+        }
+        connected = true;
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
+            return (Response) objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            throw new InvalidReceivedDataException();
+        }
+    }
+
     public Response receiveWithoutTimeLimits() throws ConnectionException, InvalidDataException {
+        connected = false;
         try {
             socket.setSoTimeout(0);
         } catch (SocketException ignored) {
@@ -109,9 +171,31 @@ public class Client extends Thread implements SenderReceiver {
         try {
             socket.receive(receivePacket);
         } catch (IOException e) {
-            throw new ConnectionException("◊ÚÓ-ÚÓ ÔÓ¯ÎÓ ÌÂ Ú‡Í ÔË ÔÓÎÛ˜ÂÌËË ÓÚ‚ÂÚ‡.");
+            throw new ConnectionException("–ß—Ç–æ-—Ç–æ –ø–æ—à–ª–æ –Ω–µ —Ç–∞–∫ –ø—Ä–∏ –ø–æ–ª—É—á–µ–Ω–∏–∏ –æ—Ç–≤–µ—Ç–∞.");
         }
+        connected = true;
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
+            return (Response) objectInputStream.readObject();
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            throw new InvalidReceivedDataException();
+        }
+    }
 
+    private Response receiveBroadcast() throws ConnectionException, InvalidDataException {
+        try {
+            broadcastSocket.setSoTimeout(0);
+        } catch (SocketException ignored) {
+
+        }
+        ByteBuffer bytes = ByteBuffer.allocate(BUFFER_SIZE);
+        DatagramPacket receivePacket = new DatagramPacket(bytes.array(), bytes.array().length);
+        try {
+            broadcastSocket.receive(receivePacket);
+        } catch (IOException e) {
+            throw new ConnectionException("–ß—Ç–æ-—Ç–æ –ø–æ—à–ª–æ –Ω–µ —Ç–∞–∫ –ø—Ä–∏ –ø–æ–ª—É—á–µ–Ω–∏–∏ –æ—Ç–≤–µ—Ç–∞.");
+        }
+        connected = true;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes.array()));
             return (Response) objectInputStream.readObject();
@@ -121,22 +205,153 @@ public class Client extends Thread implements SenderReceiver {
     }
 
     /**
-     * «‡ÔÛÒÍ‡ÂÚ ÍÎËÂÌÚ‡.
+     * –ó–∞–ø—É—Å–∫–∞–µ—Ç –∫–ª–∏–µ–Ω—Ç–∞.
      */
 
     @Override
     public void run() {
         Request hello = new CommandMsg();
         hello.setStatus(Request.Status.HELLO);
-        commandManager.consoleMode();
-        close();
+        try {
+            send(hello);
+            Response response = receive();
+            if (response.getStatus() == Response.Status.COLLECTION && response.getCollection() != null && response.getCollectionOperation() == CollectionOperation.ADD) {
+                collectionManager.applyChanges(response);
+            }
+        } catch (ConnectionException | InvalidDataException e) {
+            printErr("cannot load collection from server");
+        }
+        while (running) {
+            try {
+                receivedRequest = false;
+                Response response = receiveBroadcast();
+                String msg = response.getMessage();
+                switch (response.getStatus()) {
+                    case COLLECTION:
+                        collectionManager.applyChanges(response);
+                        print("–ö–æ–ª–ª–µ–∫—Ü–∏—è –∑–∞–≥—Ä—É–∂–µ–Ω–∞!!");
+                        break;
+                    case BROADCAST:
+                        //commandManager.condition.await();
+                        print("–ü—Ä—è–º–æ–µ —Å–æ–µ–¥–∏–Ω–µ–Ω–∏–µ!!");
+                        collectionManager.applyChanges(response);
+                        break;
+                    case AUTH_SUCCESS:
+                        user = attempt;
+                        authSuccess = true;
+                        break;
+                    case EXIT:
+                        connected = false;
+                        print("–°–µ—Ä–≤–µ—Ä –≤—ã–∫–ª—é—á–µ–Ω.");
+                        outputManager.error("[–°–µ—Ä–≤–µ—Ä –≤—ã–∫–ª—é—á–µ–Ω]");
+                        break;
+                    case FINE:
+                        outputManager.info(msg);
+                        break;
+                    case ERROR:
+                        outputManager.error(msg);
+                    default:
+                        print(msg);
+                        receivedRequest = true;
+                        break;
+                }
+
+            } catch (ConnectionException e) {
+
+            } catch (InvalidDataException ignored) {
+            }
+        }
     }
 
+    public void connectionTest() {
+        connected = false;
+        try {
+            send(new CommandMsg().setStatus(Request.Status.CONNECTION_TEST));
+            Response response = receive();
+
+            connected = (response.getStatus() == Response.Status.FINE);
+        } catch (ConnectionException | InvalidDataException ignored) {
+
+        }
+    }
 
     /**
-     * «‡Í˚‚‡ÂÚ ÍÎËÂÌÚ‡.
+     * –ü—Ä–æ—Ü–µ—Å—Å –∏–¥–µ–Ω—Ç–∏—Ñ–∏–∫–∞—Ü–∏–∏
+     *
+     * @param login
+     * @param password
+     * @param register
      */
 
+    public void processAuthentication(String login, String password, boolean register) {
+        attempt = new User(login, password);
+        CommandMsg msg = new CommandMsg();
+        if (register) {
+            msg = new CommandMsg("register").setStatus(Request.Status.DEFAULT).setUser(attempt);
+        } else {
+            msg = new CommandMsg("login").setStatus(Request.Status.DEFAULT).setUser(attempt);
+        }
+        try {
+            send(msg);
+            Response answer = receive();
+            connected = true;
+            authSuccess = (answer.getStatus() == Response.Status.AUTH_SUCCESS);
+            if (authSuccess) {
+                user = attempt;
+            } else {
+                outputManager.error(!register ? "[AuthException]" : "[RegisterException] " + "[" + getAttemptUser() + "]");
+            }
+        } catch (ConnectionTimeoutException e) {
+            outputManager.error("–¢–∞–π–º-–∞—É—Ç —Å–æ–µ–¥–∏–Ω–µ–Ω–∏—è.");
+            connected = false;
+        } catch (ConnectionException | InvalidDataException e) {
+            connected = false;
+        }
+    }
+
+    public void consoleMode() {
+        commandManager.consoleMode();
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public boolean isAuthSuccess() {
+        return authSuccess;
+    }
+
+    public void setAuthSuccess(boolean f){
+        authSuccess = f;
+    }
+
+    public HumanObservableManager getHumanManager() {
+        return collectionManager;
+    }
+
+    public ClientCommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public OutputManager getOutputManager() {
+        return outputManager;
+    }
+
+    public void setOutputManager(OutputManager out) {
+        outputManager = out;
+    }
+
+    public ObservableResourceFactory getResourceFactory() {
+        return resourceFactory;
+    }
+
+    public void setResourceFactory(ObservableResourceFactory rf) {
+        resourceFactory = rf;
+    }
+
+    /**
+     * –ó–∞–∫—Ä—ã–≤–∞–µ—Ç –∫–ª–∏–µ–Ω—Ç–∞.
+     */
 
     public void close() {
         try {
@@ -144,8 +359,10 @@ public class Client extends Thread implements SenderReceiver {
         } catch (ConnectionException ignored) {
 
         }
+        running = false;
         commandManager.close();
         socket.close();
+        broadcastSocket.close();
     }
-}
 
+}

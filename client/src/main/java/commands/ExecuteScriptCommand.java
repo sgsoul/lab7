@@ -12,18 +12,14 @@ public class ExecuteScriptCommand extends CommandImpl {
     }
 
     @Override
-    public String execute() {
-        if (hasStringArg()) throw new MissedCommandArgumentException();
+    public String execute() throws FileException,InvalidDataException,ConnectionException{
+        if (!hasStringArg()) throw new MissedCommandArgumentException();
         if (commandManager.getStack().contains(getStringArg())) throw new RecursiveScriptExecuteException();
         commandManager.getStack().add(getStringArg());
         ClientCommandManager process = new ClientCommandManager(commandManager.getClient());
-        try {
-            process.fileMode(getStringArg());
-        } catch (FileException e) {
-            throw new CommandException("Файл не найден.");
-        }
+        process.fileMode(getStringArg());
         commandManager.getStack().pop();
-        return "Успешно!";
+        return "Скрипт успешно выполнен!";
     }
 }
 

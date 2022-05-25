@@ -7,7 +7,7 @@ public class ExecuteScriptCommand extends CommandImpl {
     ServerCommandManager commandManager;
 
     public ExecuteScriptCommand(ServerCommandManager cm) {
-        super("execute_script", CommandType.NORMAL);
+        super("execute_script", CommandType.SPECIAL);
         commandManager = cm;
     }
 

@@ -12,35 +12,29 @@ import java.util.Properties;
 
 
 /**
- * Основной класс для запуска сервера с аргументами.
+ * РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ РґР»СЏ Р·Р°РїСѓСЃРєР° СЃРµСЂРІРµСЂР° СЃ Р°СЂРіСѓРјРµРЅС‚Р°РјРё.
  */
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.setOut(new PrintStream(System.out, true, "UTF-8"));
-        args = new String[]{"5432", "localhost"};
-        /*args[0] = "4445";
-        args[1] = "C:\\Users\\79006\\OneDrive\\Рабочий стол\\lab6\\server\\humans.json";*/
+        args = new String[]{"5432", "localhost", "postgres", "s"};
         int port = 0;
         String strPort = "5432";
-        //String path = "";
         String dbHost = "localhost";
         String user = "postgres";
         String password = "arina";
         String url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
 
         try {
-            if (args.length >= 4) {
-                //path = args[1];
+            if (args.length == 4) {
                 strPort = args[0];
                 dbHost = args[1];
                 user = args[2];
                 password = args[3];
-                url = "jdbc:postgresql://" + dbHost + ":5432/postgres";
             }
 
             if (args.length == 1) strPort = args[0];
-            if (args.length == 0) Log.logger.info("Нет порта, переданного аргументом, размещенного на " + strPort);
+            if (args.length == 0) Log.logger.info("РќРµС‚ РїРѕСЂС‚Р°, РїРµСЂРµРґР°РЅРЅРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚РѕРј, СЂР°Р·РјРµС‰РµРЅРЅРѕРіРѕ РЅР° " + strPort);
             try {
                 port = Integer.parseInt(strPort);
             } catch (NumberFormatException e) {
@@ -54,12 +48,12 @@ public class Main {
 
             server.start();
             server.consoleMode();
-//        } catch (NoSuchElementException e) {
-//            print("что за ловушки джокера??");
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                if (server.isRunning()) server.close();
+            }, "shutdown thread"));
         } catch (ConnectionException | DatabaseException e) {
             Log.logger.error(e.getMessage());
         }
-
     }
 }
 

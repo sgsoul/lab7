@@ -1,0 +1,4 @@
+[23:41:24.261 TRACE] Запуск сервера!
+[12:13:17.769 INFO ] Нет порта, переданного аргументом, размещенного на 5432
+[18:12:06.975 ERROR] error during connection to database
+[18:38:25.642 ERROR] error during connection to database

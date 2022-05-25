@@ -4,8 +4,11 @@ package collection;
 import java.util.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
 
+import common.collection.HumanManagerImpl;
 import common.data.*;
 import common.exceptions.CollectionException;
 import common.exceptions.CannotAddException;
@@ -21,14 +24,14 @@ import com.google.gson.reflect.TypeToken;
  * Управление коллекцией.
  */
 
-public abstract class HumanCollectionManager implements HumanManager {
-    private Vector<HumanBeing> collection;
+public class HumanCollectionManager extends HumanManagerImpl<ConcurrentLinkedDeque<HumanBeing>> {
+    private Deque<HumanBeing> collection;
     private final java.time.LocalDateTime initDate;
     private final Set<Integer> uniqueIds;
 
     public HumanCollectionManager() {
-        uniqueIds = new HashSet<>();
-        collection = new Vector<>();
+        uniqueIds = new ConcurrentSkipListSet<>();
+        collection = new ConcurrentLinkedDeque<>();
         initDate = java.time.LocalDateTime.now();
     }
 
@@ -36,7 +39,7 @@ public abstract class HumanCollectionManager implements HumanManager {
         if (collection.isEmpty())
             return 1;
         else {
-            int id = collection.lastElement().getId() + 1;
+            int id = collection.element().getId() + 1;
             if (uniqueIds.contains(id)) {
                 while (uniqueIds.contains(id)) id += 1;
             }
@@ -44,16 +47,13 @@ public abstract class HumanCollectionManager implements HumanManager {
         }
     }
 
-    public void sort() {
-        collection.sort(new HumanBeing.SortingComparator());
+    @Override
+    public Deque<HumanBeing> getCollection() {
+        return collection;
     }
 
-    /**
-     * Возвращает коллекцию.
-     */
-
-    public Vector<HumanBeing> getCollection() {
-        return collection;
+    public void sort() {
+        collection = collection.stream().sorted(new HumanBeing.SortingComparator()).collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
     }
 
     /**
@@ -66,7 +66,6 @@ public abstract class HumanCollectionManager implements HumanManager {
         human.setId(id);
         collection.add(human);
     }
-
 
     /**
      * Получение информации о коллекции.
@@ -125,12 +124,11 @@ public abstract class HumanCollectionManager implements HumanManager {
     /**
      * Очистить коллекцию.
      */
-// User user
+
     public void clear() {
         collection.clear();
         uniqueIds.clear();
     }
-
 
 
     /**
@@ -139,8 +137,8 @@ public abstract class HumanCollectionManager implements HumanManager {
 
     public void removeFirst() {
         assertNotEmpty();
-        int id = collection.get(0).getId();
-        collection.remove(0);
+        int id = collection.getFirst().getId();
+        collection.removeFirst();
         uniqueIds.remove(id);
     }
 
@@ -209,13 +207,13 @@ public abstract class HumanCollectionManager implements HumanManager {
 
     public HumanBeing getByID(Integer id) {
         assertNotEmpty();
-        Optional<HumanBeing> worker = collection.stream()
-                .filter(w -> w.getId() == id)
+        Optional<HumanBeing> human = collection.stream()
+                .filter(h -> h.getId() == id)
                 .findFirst();
-        if (!worker.isPresent()) {
+        if (!human.isPresent()) {
             throw new NoSuchIdException(id);
         }
-        return worker.get();
+        return human.get();
     }
 
     public void assertNotEmpty() {
@@ -229,9 +227,9 @@ public abstract class HumanCollectionManager implements HumanManager {
     public void deserializeCollection(String json) {
         try {
             if (json == null || json.equals("")) {
-                collection = new Vector<HumanBeing>();
+                collection = new ConcurrentLinkedDeque<>();
             } else {
-                Type collectionType = new TypeToken<Vector<HumanBeing>>() {
+                Type collectionType = new TypeToken<Queue<HumanBeing>>() {
                 }.getType();
                 Gson gson = new GsonBuilder()
                         .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
@@ -263,13 +261,27 @@ public abstract class HumanCollectionManager implements HumanManager {
         collection.add(human);
     }
 
-    protected void removeAll(Collection<Integer> ids){
+    protected Collection<HumanBeing> getAll(Collection<Integer> ids){
         Iterator<Integer> iterator = ids.iterator();
+        Collection<HumanBeing> selected = new HashSet<>();
         while (iterator.hasNext()){
             Integer id = iterator.next();
-            collection.removeIf(human -> human.getId()==id);
+            selected.addAll(collection.stream().filter(w->w.getId()==id).collect(Collectors.toCollection(HashSet::new)));
+            iterator.remove();
+        }
+        return selected;
+    }
+
+    protected void removeAll(Collection<Integer> ids) {
+        Iterator<Integer> iterator = ids.iterator();
+        while (iterator.hasNext()) {
+            Integer id = iterator.next();
+            collection.removeIf(human -> human.getId() == id);
             iterator.remove();
         }
     }
 
+    public Set<Integer> getUniqueIds(){
+        return uniqueIds;
+    }
 }

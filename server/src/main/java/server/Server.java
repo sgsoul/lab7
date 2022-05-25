@@ -6,6 +6,8 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
@@ -14,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import auth.UserManager;
 
 
-import collection.HumanManager;
+import common.collection.HumanManager;
 import commands.ServerCommandManager;
 import common.auth.User;
 import common.commands.*;
@@ -31,7 +33,7 @@ import common.exceptions.*;
 import static log.Log.logger;
 
 /**
- * Класс сервера.
+ * РљР»Р°СЃСЃ СЃРµСЂРІРµСЂР°.
  */
 
 public class Server extends Thread implements SenderReceiver {
@@ -44,6 +46,10 @@ public class Server extends Thread implements SenderReceiver {
     private volatile boolean running;
     private User hostUser;
     private InetSocketAddress clientAddress;
+    private Set<InetSocketAddress> activeClients;
+    private Queue<Map.Entry<InetSocketAddress, Request>> requestQueue;
+    private Queue<Map.Entry<InetSocketAddress, Response>> responseQueue;
+
 
     private UserManager userManager;
 
@@ -55,9 +61,12 @@ public class Server extends Thread implements SenderReceiver {
         hostUser = null;
         running = true;
         setDaemon(true);
+        requestQueue = new ConcurrentLinkedQueue<>();
+        responseQueue = new ConcurrentLinkedQueue<>();
+        activeClients = ConcurrentHashMap.newKeySet();
         dbManager = new DBManager(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
         userManager = new UserDBManager(dbManager);
-        collectionManager = new HumanDBManager(dbManager, userManager);
+        collectionManager = (HumanManager) new HumanDBManager(dbManager, userManager);
         commandManager = new ServerCommandManager(this);
         try {
             collectionManager.deserializeCollection("");
@@ -65,8 +74,8 @@ public class Server extends Thread implements SenderReceiver {
             Log.logger.error(e.getMessage());
         }
         host(port);
-        setName("Поток сервера.");
-        Log.logger.trace("Запуск сервера!");
+        setName("РџРѕС‚РѕРє СЃРµСЂРІРµСЂР°.");
+        Log.logger.trace("Р—Р°РїСѓСЃРє СЃРµСЂРІРµСЂР°!");
     }
 
     private void host(int p) throws ConnectionException {
@@ -83,7 +92,7 @@ public class Server extends Thread implements SenderReceiver {
         } catch (IllegalArgumentException e) {
             throw new InvalidPortException();
         } catch (IOException e) {
-            throw new ConnectionException("Что-то пошло не так во время инициализации сервера.");
+            throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃРµСЂРІРµСЂР°.");
         }
     }
 
@@ -92,18 +101,19 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Получение запроса от клиента.
+     * РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РѕС‚ РєР»РёРµРЅС‚Р°.
      */
 
     public void requestHandle() throws ConnectionException, InvalidDataException {
         ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE * 2);
         buf.clear();
 
+        Request request = null;
         try {
             InetSocketAddress clientAddress = (InetSocketAddress) channel.receive(buf);
             if (clientAddress == null) return; //no data to read
             this.clientAddress = clientAddress;
-            logger.trace("Получение запроса от " + clientAddress);
+            logger.trace("РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РѕС‚ " + clientAddress.toString());
         } catch (ClosedChannelException e) {
             try {
                 throw new ClosedConnectionException();
@@ -112,7 +122,7 @@ public class Server extends Thread implements SenderReceiver {
             }
         } catch (IOException e) {
             try {
-                throw new ConnectionException("Что-то пошло не так во время получения запроса.");
+                throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р·Р°РїСЂРѕСЃР°.");
             } catch (ConnectionException ex) {
                 ex.printStackTrace();
             }
@@ -135,6 +145,7 @@ public class Server extends Thread implements SenderReceiver {
         };
         Thread thread = new Thread(task);
         thread.start();
+        requestQueue.offer(new AbstractMap.SimpleEntry<>(clientAddress, request));
     }
 
     private void commandEx(Request commandMsg) {
@@ -165,22 +176,22 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Отправление ответа.
+     * РћС‚РїСЂР°РІР»РµРЅРёРµ РѕС‚РІРµС‚Р°.
      */
 
     public void send(Response response) throws ConnectionException {
 
-        if (clientAddress == null) throw new InvalidAddressException("Адрес клиента не найден.");
+        if (clientAddress == null) throw new InvalidAddressException("РђРґСЂРµСЃ РєР»РёРµРЅС‚Р° РЅРµ РЅР°Р№РґРµРЅ.");
         Runnable task = () -> {
             try {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
                 objectOutputStream.writeObject(response);
                 channel.send(ByteBuffer.wrap(byteArrayOutputStream.toByteArray()), clientAddress);
-                logger.trace("Ответ отправлен на " + clientAddress.toString());
+                logger.trace("РћС‚РІРµС‚ РѕС‚РїСЂР°РІР»РµРЅ РЅР° " + clientAddress.toString());
             } catch (IOException e) {
                 try {
-                    throw new ConnectionException("Что-то пошло не так во время отправки ответа.");
+                    throw new ConnectionException("Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє РІРѕ РІСЂРµРјСЏ РѕС‚РїСЂР°РІРєРё РѕС‚РІРµС‚Р°.");
                 } catch (ConnectionException ex) {
                     ex.printStackTrace();
                 }
@@ -191,7 +202,7 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Запуск сервера.
+     * Р—Р°РїСѓСЃРє СЃРµСЂРІРµСЂР°.
      */
 
     public void run() {
@@ -209,16 +220,25 @@ public class Server extends Thread implements SenderReceiver {
     }
 
     /**
-     * Закрытие сервера и соединения.
+     * Р—Р°РєСЂС‹С‚РёРµ СЃРµСЂРІРµСЂР° Рё СЃРѕРµРґРёРЅРµРЅРёСЏ.
      */
 
     public void close() {
         try {
+            broadcast(new AnswerMsg().setStatus(Response.Status.EXIT));
+            while (responseQueue.size()>0){
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored){
+
+                }
+            }
             running = false;
             dbManager.closeConnection();
             channel.close();
         } catch (IOException e) {
-            Log.logger.error("Не удалось закрыть канал.");
+            Log.logger.error("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РєСЂС‹С‚СЊ РєР°РЅР°Р».");
         }
     }
 
@@ -234,9 +254,29 @@ public class Server extends Thread implements SenderReceiver {
         hostUser = usr;
     }
 
+    public Commandable getCommandManager() {
+        return commandManager;
+    }
+
     public HumanManager getCollectionManager() {
         return collectionManager;
     }
 
+    private void broadcast(Response response, InetSocketAddress currentAddress) {
+        Log.logger.trace("РР·РјРµРЅРµРЅРёРµ РІ РІРµС‰Р°РЅРёРё.");
+        for (InetSocketAddress client : activeClients) {
+            if (!currentAddress.equals(client)) responseQueue.offer(new AbstractMap.SimpleEntry<>(client, response));
+        }
+    }
 
+    public void broadcast(Response response) {
+        Log.logger.trace("РР·РјРµРЅРµРЅРёРµ РІ РІРµС‰Р°РЅРёРё.");
+        for (InetSocketAddress client : activeClients) {
+            responseQueue.offer(new AbstractMap.SimpleEntry<>(client, response));
+        }
+    }
+
+    public boolean isRunning(){
+        return running;
+    }
 }

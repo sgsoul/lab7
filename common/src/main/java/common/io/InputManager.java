@@ -91,7 +91,7 @@ public interface InputManager {
      * Считывает пару команда-аргумент из входных данных.
      */
 
-    CommandMsg readCommand();
+    CommandMsg readCommand() throws InvalidDataException;
 
     /**
      * Получение сканнера.
@@ -100,7 +100,6 @@ public interface InputManager {
     Scanner getScanner();
 
     boolean hasNextLine();
-
 
     String readPassword() throws InvalidDataException;
 

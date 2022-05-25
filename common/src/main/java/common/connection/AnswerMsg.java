@@ -14,11 +14,13 @@ public class AnswerMsg implements Response {
     private String msg;
     private Status status;
     private Collection<HumanBeing> collection;
+    private CollectionOperation collectionOperation;
 
 
     public AnswerMsg() {
         msg = "";
         status = Status.FINE;
+        collectionOperation = CollectionOperation.NONE;
     }
 
     /**
@@ -84,5 +86,19 @@ public class AnswerMsg implements Response {
             return "Error: " + getMessage();
         }
         return getMessage();
+    }
+
+    public AnswerMsg setCollectionOperation(CollectionOperation op) {
+        collectionOperation = op;
+        return this;
+    }
+
+    public CollectionOperation getCollectionOperation() {
+        return collectionOperation;
+    }
+
+    public AnswerMsg setCollection(Collection<HumanBeing> c) {
+        collection = c;
+        return this;
     }
 }

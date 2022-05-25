@@ -1,6 +1,6 @@
 package commands;
 
-import collection.HumanManager;
+import common.collection.HumanManager;
 import common.data.HumanBeing;
 import common.exceptions.*;
 import common.commands.*;
@@ -17,11 +17,11 @@ public class PrintAverageOfMinutesOfWaiting extends CommandImpl {
 
 
     @Override
-    public String execute() throws InvalidDataException {
+    public String execute() {
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
         OptionalDouble minutes = collectionManager.getCollection().stream()
                 .mapToDouble(HumanBeing::getMinutesOfWaiting)
                 .average();
-        return "Среднее время ожидания: " + minutes.getAsDouble() + " минут.";
+        return "РЎСЂРµРґРЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ: " + minutes.getAsDouble() + " РјРёРЅСѓС‚.";
     }
 }

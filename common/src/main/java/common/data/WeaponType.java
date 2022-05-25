@@ -5,3 +5,4 @@ public enum WeaponType {
     PISTOL,
     SHOTGUN
 }
+

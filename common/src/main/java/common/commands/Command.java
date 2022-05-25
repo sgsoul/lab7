@@ -1,5 +1,6 @@
 package common.commands;
 
+import common.connection.CollectionOperation;
 import common.connection.Request;
 import common.connection.Response;
 import common.exceptions.*;
@@ -18,4 +19,6 @@ public interface Command {
     CommandType getType();
 
     void setArgument(Request a);
+
+    CollectionOperation getOperation();
 }

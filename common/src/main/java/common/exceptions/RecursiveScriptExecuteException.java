@@ -6,6 +6,6 @@ package common.exceptions;
 
 public class RecursiveScriptExecuteException extends CommandException {
     public RecursiveScriptExecuteException() {
-        super("Попытка выполнения рекурсивного скрипта.");
+        super("[RecursiveScriptExecuteException] Попытка выполнения рекурсивного скрипта.");
     }
 }

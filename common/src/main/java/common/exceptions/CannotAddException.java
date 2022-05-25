@@ -2,6 +2,6 @@ package common.exceptions;
 
 public class CannotAddException extends CollectionException {
     public CannotAddException() {
-        super("Не удалось добавить.");
+        super("[CannotAddException] Не удалось добавить.");
     }
 }

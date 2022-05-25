@@ -8,5 +8,5 @@ import common.exceptions.*;
 
 @FunctionalInterface
 public interface Askable<T> {
-    T ask() throws InvalidDataException, IncorrectInputInScriptException;
+    T ask() throws InvalidDataException;
 }

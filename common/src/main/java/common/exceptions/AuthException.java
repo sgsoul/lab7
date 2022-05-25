@@ -1,11 +1,10 @@
 package common.exceptions;
 
 public class AuthException extends ConnectionException {
-    public AuthException(String s) {
-        super(s);
-    }
-
     public AuthException() {
-        super("Ошибка входа.");
+        super("[AuthException]", "Такого пользователя не существует.");
+    }
+    public AuthException(String t, String s){
+        super(t,s);
     }
 }

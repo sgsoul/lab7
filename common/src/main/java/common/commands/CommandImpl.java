@@ -12,10 +12,22 @@ public abstract class CommandImpl implements Command {
     private final CommandType type;
     private final String name;
     private Request arg;
+    private CollectionOperation operation;
+
+    public CommandImpl(String n, CommandType t, CollectionOperation op) {
+        name = n;
+        type = t;
+        operation = op;
+    }
 
     public CommandImpl(String n, CommandType t) {
         name = n;
         type = t;
+        operation = CollectionOperation.NONE;
+    }
+
+    public CollectionOperation getOperation() {
+        return operation;
     }
 
     public CommandType getType() {
@@ -38,7 +50,7 @@ public abstract class CommandImpl implements Command {
      * Выполнение -> ответ.
      */
 
-
+    @Override
     public Response run() throws InvalidDataException, CommandException, FileException, ConnectionException, CollectionException {
         AnswerMsg res = new AnswerMsg();
         res.info(execute());
@@ -54,7 +66,7 @@ public abstract class CommandImpl implements Command {
     }
 
     public boolean hasStringArg() {
-        return arg == null || arg.getStringArg() == null || arg.getStringArg().equals("");
+        return arg != null && arg.getStringArg() != null && !arg.getStringArg().equals("");
     }
 
     public boolean hasHumanArg() {
@@ -69,4 +81,7 @@ public abstract class CommandImpl implements Command {
         return getArgument().getHuman();
     }
 
+    public boolean hasUserArg() {
+        return arg != null && arg.getUser() != null && arg.getUser().getLogin() != null;
+    }
 }

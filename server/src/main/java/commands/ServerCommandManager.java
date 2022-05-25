@@ -3,7 +3,7 @@ package commands;
 
 import auth.UserManager;
 import common.auth.User;
-import collection.HumanManager;
+import common.collection.HumanManager;
 import server.*;
 import log.*;
 import common.commands.*;

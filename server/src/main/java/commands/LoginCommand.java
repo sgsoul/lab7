@@ -18,19 +18,14 @@ public class LoginCommand extends CommandImpl {
     }
 
     @Override
-    public String execute() throws InvalidDataException, CommandException, FileException, ConnectionException {
-        return null;
-    }
-
-    @Override
-    public Response run() throws AuthorizationException {
+    public Response run() throws AuthException {
         User user = getArgument().getUser();
         if (user != null && user.getLogin() != null && user.getPassword() != null) {
             if (userManager.isValid(user)) {
-                return new AnswerMsg().info("Вход в систему прошел успешно.").setStatus(Response.Status.AUTH_SUCCESS);
+                return new AnswerMsg().info("Р’С…РѕРґ РІ СЃРёСЃС‚РµРјСѓ РїСЂРѕС€РµР» СѓСЃРїРµС€РЅРѕ.").setStatus(Response.Status.AUTH_SUCCESS);
             }
         }
-        throw new AuthorizationException("Неверный логин или пароль.");
+        throw new AuthException();
 
     }
 }

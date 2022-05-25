@@ -14,15 +14,24 @@ import common.exceptions.InvalidDateFormatException;
  */
 
 public class DateConverter {
-    private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy' 'HH:mm:ss");
-    private static final DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy' 'HH:mm:ss");
+    private static String pattern = "yyyy-MM-dd";
+
+    private static DateFormat dateFormatter = new SimpleDateFormat(pattern);
+
+    private static DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+    public static void setPattern(String p) {
+        pattern = p;
+        dateFormatter = new SimpleDateFormat(pattern);
+        localDateFormatter = DateTimeFormatter.ofPattern(pattern);
+    }
 
     public static String dateToString(Date date) {
-        return dateFormatter.format(date);
+        return date!=null?dateFormatter.format(date):null;
     }
 
     public static String dateToString(LocalDate date) {
-        return date.format(localDateFormatter);
+        return date!=null?date.format(localDateFormatter):null;
     }
 
     public static LocalDate parseLocalDate(String s) throws InvalidDateFormatException {

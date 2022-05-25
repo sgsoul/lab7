@@ -17,7 +17,11 @@ public interface Response extends Serializable {
         ERROR,
         FINE,
         EXIT,
-        AUTH_SUCCESS
+        AUTH_SUCCESS,
+        BROADCAST,
+        COLLECTION
     }
+
+    CollectionOperation getCollectionOperation();
 
 }

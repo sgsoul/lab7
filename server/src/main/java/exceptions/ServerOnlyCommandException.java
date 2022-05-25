@@ -3,11 +3,11 @@ package exceptions;
 import common.exceptions.CommandException;
 
 /**
- * Выбрасывается, если команда предназначена только для сервера.
+ * Р’С‹Р±СЂР°СЃС‹РІР°РµС‚СЃСЏ, РµСЃР»Рё РєРѕРјР°РЅРґР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° С‚РѕР»СЊРєРѕ РґР»СЏ СЃРµСЂРІРµСЂР°.
  */
 
 public class ServerOnlyCommandException extends CommandException {
     public ServerOnlyCommandException() {
-        super("Эта команда предназначена только для сервера.");
+        super("Р­С‚Р° РєРѕРјР°РЅРґР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° С‚РѕР»СЊРєРѕ РґР»СЏ СЃРµСЂРІРµСЂР°.");
     }
 }

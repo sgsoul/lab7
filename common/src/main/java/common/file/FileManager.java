@@ -10,35 +10,58 @@ import java.io.*;
 
 public class FileManager implements ReaderWriter {
     private String path;
+    private File file;
 
     public FileManager(String pth) {
         path = pth;
+    }
+
+    public FileManager(File f) {
+        file = f;
     }
 
     public void setPath(String pth) {
         path = pth;
     }
 
-    public String read() throws FileException {
-        StringBuilder str = new StringBuilder();
-        try {
-            if (path == null) throw new EmptyPathException();
-            InputStreamReader reader;
+    public void setFile(File f) {
+        file = f;
+    }
 
-            File file = new File(path);
-            if (!file.exists()) throw new FileNotExistsException();
-            if (!file.canRead()) throw new FileWrongPermissionsException("Не удаётся открыть файл.");
-            InputStream inputStream = new FileInputStream(file);
+    public FileManager() {
+        path = null;
+    }
+
+    public String read() throws FileException {
+        if(file==null) {
+            if (path == null) throw new EmptyPathException();
+            if (path.startsWith("/dev/null") || path.startsWith("/dev/zero")) throw new ProhibitedPathException();
+            InputStreamReader reader = null;
+
+            File f = new File(path);
+            return readFile(f);
+        } else {
+            return readFile(file);
+        }
+    }
+
+    private String readFile(File f) throws FileException{
+        String str = "";
+        try {
+            InputStreamReader reader = null;
+            if (!f.exists()) throw new FileNotExistsException();
+            if (!f.canRead()) throw new FileWrongPermissionsException();
+            InputStream inputStream = new FileInputStream(f);
             reader = new InputStreamReader(inputStream);
             int currectSymbol;
             while ((currectSymbol = reader.read()) != -1) {
-                str.append((char) currectSymbol);
+                str += ((char) currectSymbol);
             }
             reader.close();
-        } catch (IOException e) {
-            throw new FileException("Не удаётся открыть файл.");
+        } catch (IOException e){
+            throw new FileException();
         }
-        return str.toString();
+        return str;
     }
 
     private void create(File file) throws CannotCreateFileException {
@@ -58,12 +81,12 @@ public class FileManager implements ReaderWriter {
             if (!file.exists()) {
                 create(file);
             }
-            if (!file.canWrite()) throw new FileWrongPermissionsException("Не удаётся записать файл.");
+            if (!file.canWrite()) throw new FileWrongPermissionsException();
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(str);
             writer.close();
         } catch (IOException e) {
-            throw new FileException("Не удаётся получить доступ к файлу.");
+            throw new FileException();
         }
     }
 }

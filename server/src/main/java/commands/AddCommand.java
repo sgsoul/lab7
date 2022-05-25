@@ -1,21 +1,26 @@
 package commands;
 
-import collection.HumanManager;
+import common.collection.HumanManager;
+import common.connection.AnswerMsg;
+import common.connection.CollectionOperation;
+import common.connection.Response;
 import common.exceptions.*;
 import common.commands.*;
+
+import java.util.Arrays;
 
 
 public class AddCommand extends CommandImpl {
     private final HumanManager collectionManager;
 
     public AddCommand(HumanManager cm) {
-        super("add", CommandType.NORMAL);
+        super("add", CommandType.NORMAL, CollectionOperation.ADD);
         collectionManager = cm;
     }
 
     @Override
-    public String execute() throws InvalidDataException, CommandException {
+    public Response run() throws InvalidDataException, CommandException {
         collectionManager.add(getHumanArg());
-        return "Добавлен элемент: " + getHumanArg().toString();
+        return new AnswerMsg().info("Р”РѕР±Р°РІР»РµРЅ СЌР»РµРјРµРЅС‚: " + getHumanArg().toString()).setCollection(Arrays.asList(getHumanArg()));
     }
 }

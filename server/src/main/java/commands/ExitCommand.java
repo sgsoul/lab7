@@ -5,7 +5,7 @@ import common.exceptions.ExitException;
 
 public class ExitCommand extends CommandImpl {
     public ExitCommand() {
-        super("exit", CommandType.NORMAL);
+        super("exit", CommandType.SPECIAL);
     }
 
     @Override

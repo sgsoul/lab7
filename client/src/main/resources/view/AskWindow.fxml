@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="523.0" prefWidth="441.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AskWindowController">
+    <GridPane hgap="10.0" layoutY="7.0" prefHeight="523.0" prefWidth="441.0" vgap="10.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="167.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+        <Label fx:id="nameLabel" text="Имя:" GridPane.halignment="CENTER">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="coordinatesXLabel" layoutX="64.0" layoutY="31.0" text="Координата X: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="coordinatesYLabel" layoutX="86.0" layoutY="94.0" text="Координата Y:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="realHeroLabel" layoutX="86.0" layoutY="157.0" text="Реальный герой?" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="hasToothpickLabel" layoutX="62.0" layoutY="220.0" text="Зубочистка есть?" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="soundtrackNameLabel" layoutX="50.0" layoutY="283.0" text="Название песни:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="impactSpeedLabel" layoutX="20.0" layoutY="31.0" text="Скорость удара:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="weaponTypeLabel" layoutX="53.0" layoutY="346.0" text="Тип оружия:" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label fx:id="carLabel" layoutX="25.0" layoutY="419.0" text="Название машины:" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <TextField fx:id="nameField" GridPane.columnIndex="1" />
+        <TextField fx:id="coordinatesXField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="coordinatesYField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <CheckBox fx:id="realHeroBox" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <CheckBox fx:id="hasToothpickBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="impactSpeedField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="soundtrackNameField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <TextField fx:id="minutesOfWaitingField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <ComboBox fx:id="weaponTypeBox" prefHeight="26.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <BorderPane GridPane.columnSpan="2" GridPane.rowIndex="9">
+         <center>
+            <ButtonBar>
+               <buttons>
+                  <BorderPane>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </BorderPane>
+                  <ButtonBar>
+                     <buttons>
+                        <Button fx:id="backButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="126.0" text="Назад" textAlignment="CENTER" />
+                          <Button fx:id="enterButton" mnemonicParsing="false" onAction="#enterButtonOnAction" prefHeight="47.0" prefWidth="129.0" text="Готово" />
+                     </buttons>
+                  </ButtonBar>
+               </buttons>
+            </ButtonBar>
+         </center>
+      </BorderPane>
+    </GridPane>
+</AnchorPane>

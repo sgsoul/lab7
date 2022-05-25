@@ -1,31 +1,38 @@
 package commands;
 
-import collection.HumanManager;
+import common.collection.HumanManager;
 import common.auth.User;
+import common.connection.AnswerMsg;
+import common.connection.CollectionOperation;
+import common.connection.Response;
+import common.data.HumanBeing;
 import common.exceptions.*;
 import common.commands.*;
+
+import java.util.List;
 
 
 public class RemoveFirstCommand extends CommandImpl {
     private final HumanManager collectionManager;
 
     public RemoveFirstCommand(HumanManager cm) {
-        super("remove_first", CommandType.NORMAL);
+        super("remove_first", CommandType.NORMAL, CollectionOperation.REMOVE);
         collectionManager = cm;
     }
 
 
     @Override
-    public String execute() throws InvalidDataException, AuthException {
+    public Response run() throws AuthException {
         User user = getArgument().getUser();
 
         if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
-        int id = collectionManager.getCollection().iterator().next().getId();
+        HumanBeing human = collectionManager.getCollection().iterator().next();
+        int id = human.getId();
         String owner = collectionManager.getByID(id).getUserLogin();
         String workerCreatorLogin = user.getLogin();
         if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
-            throw new AuthException("У вас нет доступа. Элемент был создан:  " + owner);
+            throw new PermissionException(owner);
         collectionManager.removeFirst();
-        return "Элемент #" + id + " удалён.";
+        return new AnswerMsg().info("Р­Р»РµРјРµРЅС‚ #" + id + " СѓРґР°Р»С‘РЅ.").setCollection(List.of(human);
     }
 }

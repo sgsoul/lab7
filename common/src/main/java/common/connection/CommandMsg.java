@@ -4,16 +4,19 @@ package common.connection;
 import common.auth.User;
 import common.data.HumanBeing;
 
+import java.net.InetSocketAddress;
+
 /**
  * Сообщение с командой и аргументами.
  */
 
 public class CommandMsg implements Request {
     private final String commandName;
-    private final String commandStringArgument;
-    private final HumanBeing human;
+    private String commandStringArgument;
+    private HumanBeing human;
     private User user;
     private Request.Status status;
+    private InetSocketAddress address;
 
     public CommandMsg(String commandNm, String commandSA, HumanBeing h) {
         commandName = commandNm;
@@ -25,6 +28,13 @@ public class CommandMsg implements Request {
 
     public CommandMsg() {
         commandName = null;
+        commandStringArgument = null;
+        human = null;
+        status = Status.DEFAULT;
+    }
+
+    public CommandMsg(String s) {
+        commandName = s;
         commandStringArgument = null;
         human = null;
         status = Status.DEFAULT;
@@ -51,6 +61,17 @@ public class CommandMsg implements Request {
         user = usr;
         return this;
     }
+
+    public CommandMsg setHuman(HumanBeing h) {
+        human = h;
+        return this;
+    }
+
+    public CommandMsg setArgument(String s) {
+        commandStringArgument = s;
+        return this;
+    }
+
 
     /**
      * @return Название команды.
@@ -79,4 +100,14 @@ public class CommandMsg implements Request {
     public User getUser() {
         return user;
     }
+
+    public InetSocketAddress getBroadcastAddress() {
+        return address;
+    }
+
+    public CommandMsg setBroadcastAddress(InetSocketAddress addr) {
+        address = addr;
+        return this;
+    }
+
 }

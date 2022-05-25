@@ -7,15 +7,18 @@ import common.exceptions.*;
  */
 
 public class Question<T> {
+    private final Askable<T> askable;
     private T answer;
 
     public Question(String msg, Askable<T> askable) {
+        this.askable = askable;
         while (true) {
             try {
                 System.out.print(msg + " ");
-                answer = askable.ask();
+                T ans = this.askable.ask();
+                answer = ans;
                 break;
-            } catch (InvalidDataException | IncorrectInputInScriptException e) {
+            } catch (InvalidDataException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }

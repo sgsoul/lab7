@@ -37,7 +37,7 @@ public class UserDBManager implements UserManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("Ќе удаетс€ создать пользовательскую базу данных.");
+            throw new DataBaseException("cannot create user database");
         } finally {
             dbManager.setNormalMode();
         }
@@ -56,7 +56,7 @@ public class UserDBManager implements UserManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("„то-то пошло не так во врем€ добавлени€ нового пользовател€.");
+            throw new DataBaseException("something went wrong during adding new user");
         } finally {
             dbManager.setNormalMode();
         }
@@ -72,7 +72,7 @@ public class UserDBManager implements UserManager {
                     return true;
             return false;
         } catch (SQLException e) {
-            Log.logger.error("Ќе удаетс€ получить пользовател€ из базы данных.");
+            Log.logger.error("Can't get user from database.");
             return false;
         }
     }
@@ -82,7 +82,7 @@ public class UserDBManager implements UserManager {
             ResultSet rs = dbManager.getStatement().executeQuery("SELECT * FROM USERS WHERE login = '" + username + "'");
             return rs.next();
         } catch (SQLException e) {
-            Log.logger.error("Ќе удаетс€ получить пользовател€ из базы данных.");
+            Log.logger.error("Can't get user from database.");
             return false;
         }
     }
@@ -102,7 +102,7 @@ public class UserDBManager implements UserManager {
             }
 
         } catch (SQLException | DataBaseException e) {
-            if (users.isEmpty()) throw new DataBaseException("«арегистрированных пользователей не найдено.");
+            if (users.isEmpty()) throw new DataBaseException("no registered users found");
         }
         return users;
     }

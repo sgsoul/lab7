@@ -17,7 +17,7 @@ public interface Commandable {
     /**
      * Запускает команду.
      */
-    Response runCommand(Request req) throws FileException, InvalidDataException, ConnectionException;
+    Response runCommand(Request req);
 
 
     Command getCommand(String key);
@@ -36,13 +36,13 @@ public interface Commandable {
      * Выполнение в консоли.
      */
 
-    void consoleMode() throws FileException, InvalidDataException, ConnectionException;
+    void consoleMode();
 
 
     /**
      * Выполнение скрипта.
      */
 
-    void fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
+    Response fileMode(String path) throws FileException, InvalidDataException, ConnectionException;
 
 }

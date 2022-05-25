@@ -5,7 +5,7 @@ package common.exceptions;
  */
 
 public class NoSuchCommandException extends CommandException {
-    public NoSuchCommandException() {
-        super("Неправильная команда.");
+    public NoSuchCommandException(String cmd) {
+        super("[NoSuchCommandException] Неправильная команда.");
     }
 }

@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group 'ru.itmo'
@@ -22,6 +24,11 @@ jar {
     manifest {
         attributes "Main-Class": "main.Main"
     }
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls' ]
 }
 
 task copyAllJarsToBuild() {

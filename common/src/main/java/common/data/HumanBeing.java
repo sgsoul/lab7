@@ -12,16 +12,16 @@ import java.util.Date;
 
 public class HumanBeing implements Collectionable, Serializable {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private final String name; //Поле не может быть null, Строка не может быть пустой
+    private String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private final Boolean realHero; //Поле не может быть null
-    private final Boolean hasToothpick; //Поле не может быть null
-    private final Integer impactSpeed; //Поле не может быть null
-    private final String soundtrackName; //Поле не может быть null
-    private final float minutesOfWaiting;
-    private final WeaponType weaponType; //Поле не может быть null
-    private final Car car; //Поле не может быть null
+    private Boolean realHero; //Поле не может быть null
+    private Boolean hasToothpick; //Поле не может быть null
+    private Integer impactSpeed; //Поле не может быть null
+    private String soundtrackName; //Поле не может быть null
+    private float minutesOfWaiting;
+    private WeaponType weaponType; //Поле не может быть null
+    private Car car; //Поле не может быть null
     private String userLogin;
 
     /**
@@ -53,7 +53,7 @@ public class HumanBeing implements Collectionable, Serializable {
         this.car = car;
     }
 
-    //todo wtf
+
     public String getUserLogin() {
         return userLogin;
     }
@@ -93,12 +93,74 @@ public class HumanBeing implements Collectionable, Serializable {
         return name;
     }
 
+    public void setName(String s) {
+        name = s;
+    }
+
     public void setCreationDate(Date date) {
         creationDate = date;
     }
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public void setRealHero(Boolean realHero) {
+        this.realHero = realHero;
+    }
+
+    /**
+     * Method to set hasToothpick
+     *
+     * @param hasToothpick hasToothpick
+     */
+    public void setHasToothpick(Boolean hasToothpick) {
+        this.hasToothpick = hasToothpick;
+    }
+
+    /**
+     * Method to set impactSpeed
+     *
+     * @param impactSpeed impactSpeed
+     */
+    public void setImpactSpeed(Integer impactSpeed) {
+        this.impactSpeed = impactSpeed;
+    }
+
+    /**
+     * Method to set soundTrackName
+     *
+     * @param soundtrackName soundTrackName
+     */
+    public void setSoundtrackName(String soundtrackName) {
+        this.soundtrackName = soundtrackName;
+    }
+
+    /**
+     * Method to set minutesOfWaiting
+     *
+     * @param minutesOfWaiting minutesOfWaiting
+     */
+    public void setMinutesOfWaiting(float minutesOfWaiting) {
+        this.minutesOfWaiting = minutesOfWaiting;
+    }
+
+    /**
+     * Method to set weaponType
+     *
+     * @param weaponType weaponType
+     */
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType = weaponType;
+    }
+
+    /**
+     * Method to set car
+     *
+     * @param car car
+     */
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public Coordinates getCoordinates() {
@@ -170,13 +232,15 @@ public class HumanBeing implements Collectionable, Serializable {
 
     @Override
     public String toString() {
-        return "id: " + id + "\n name: " + name + "\n coordinates: " + coordinates + "\n creationDate: " + creationDate +
+        String string = "id: " + id + "\n name: " + name + "\n coordinates: " + coordinates + "\n creationDate: " + creationDate +
                 "\n realHero: " + realHero + "\n hasToothpick: " + hasToothpick + "\n impactSpeed: " + impactSpeed +
                 "\n soundtrackName: " + soundtrackName + "\n minutesOfWaiting: " + minutesOfWaiting +
                 "\n weaponType: " + weaponType + "\n Car: " + car + "\n\n";
+        return string;
     }
 
     /**
+     * @param obj
      * @return boolean
      */
 
@@ -189,6 +253,7 @@ public class HumanBeing implements Collectionable, Serializable {
 
 
     /**
+     * @param human
      * @return int
      */
 
@@ -196,7 +261,6 @@ public class HumanBeing implements Collectionable, Serializable {
         return Integer.compare(impactSpeed, human.getImpactSpeed());
     }
 
-    @Override
     public boolean validate() {
         return (
                 coordinates != null && coordinates.validate() &&

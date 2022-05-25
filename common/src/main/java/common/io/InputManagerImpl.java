@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 
 public abstract class InputManagerImpl implements InputManager {
-    private final Scanner scanner;
+    private Scanner scanner;
 
     public InputManagerImpl(Scanner scanner) {
         this.scanner = scanner;
@@ -33,18 +33,22 @@ public abstract class InputManagerImpl implements InputManager {
         return scanner;
     }
 
+    public void setScanner(Scanner sc) {
+        scanner = sc;
+    }
+
     public String readName() throws EmptyStringException {
         String s = read();
         if (s.equals("")) {
-            throw new EmptyStringException();
+            throw new EmptyStringException("[NameEmptyException] имя не может быть пустым");
         }
-        if (s.length()>1000) {
+        if (s.length() > 1000) {
             throw new EmptyStringException("хватит баловаться");
         }
         return s;
     }
 
-    public String readFullName()  {
+    public String readFullName() {
         String s = read();
         if (s.equals("")) {
             return null;
@@ -57,9 +61,9 @@ public abstract class InputManagerImpl implements InputManager {
         try {
             x = Double.parseDouble(read());
         } catch (NumberFormatException e) {
-            throw new InvalidNumberException();
+            throw new InvalidNumberException("[XCoordFormatException] X цифра!");
         }
-        if (Double.isInfinite(x) || Double.isNaN(x)) throw new InvalidNumberException("не double");
+        if (Double.isInfinite(x) || Double.isNaN(x)) throw new InvalidNumberException("[XCoordFormatException] X цифра!");
         return x;
     }
 
@@ -77,7 +81,8 @@ public abstract class InputManagerImpl implements InputManager {
     public Coordinates readCoords() throws InvalidNumberException {
         double x = readXCoord();
         double y = readYCoord();
-        return new Coordinates(x, y);
+        Coordinates coord = new Coordinates(x, y);
+        return coord;
     }
 
     public Integer readImpactSpeed() throws InvalidNumberException {
@@ -108,12 +113,13 @@ public abstract class InputManagerImpl implements InputManager {
         if (soundtrackName.equals("")) {
             throw new EmptyStringException();
         }
-        if (soundtrackName.length()>1000) {
+        if (soundtrackName.length() > 1000) {
             throw new EmptyStringException("хватит баловаться");
         }
         return soundtrackName;
     }
 
+    //todo тут сделала другой вывод car (add cool check=true)
     public Car readCar() {
         //Car car = null;
         String name = read();
@@ -133,15 +139,18 @@ public abstract class InputManagerImpl implements InputManager {
         return minutesOfWaiting;
     }
 
-    public boolean readRealHero() {
+    public boolean readRealHero() /*throws EmptyStringException*/ { /*InvalidDataException*/
         String strRealHero;
         boolean realHero;
         strRealHero = read().toLowerCase();
         realHero = strRealHero.equalsIgnoreCase("yes") || strRealHero.equalsIgnoreCase("да");
+        /*if (strRealHero.equals("")){
+            throw new EmptyStringException();
+        };*/
         return realHero;
     }
 
-    public boolean readHasToothPick() {
+    public boolean readHasToothPick() /*throws InvalidDataException*/ {
         String strHasToothpick;
         boolean hasToothpick;
         strHasToothpick = read().toLowerCase();
@@ -183,7 +192,7 @@ public abstract class InputManagerImpl implements InputManager {
         return new User(readPassword(), readLogin());
     }
 
-    public CommandMsg readCommand() {
+    public CommandMsg readCommand() throws InvalidDataException {
         String cmd = read();
         String arg = null;
         HumanBeing human = null;
@@ -194,15 +203,11 @@ public abstract class InputManagerImpl implements InputManager {
             arg = arr[1];
         }
         if (cmd.equals("add") || cmd.equals("add_if_min") || cmd.equals("add_if_max") || cmd.equals("update")) {
-            try {
-                human = readHuman();
-            } catch (InvalidDataException ignored) {
-            }
+
+            human = readHuman();
         } else if (cmd.equals("login") || cmd.equals("register")) {
-            try {
-                user = readUser();
-            } catch (InvalidDataException ignored) {
-            }
+            user = readUser();
+
             return new CommandMsg(cmd, null, null, user);
         }
         return new CommandMsg(cmd, arg, human);

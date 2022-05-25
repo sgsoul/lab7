@@ -6,6 +6,12 @@ package common.exceptions;
 
 public class ConnectionException extends Exception {
     public ConnectionException(String s) {
-        super(s);
+        super("[ConnectionException] " + s);
+    }
+    public ConnectionException(){
+        super("[ConnectionException] Что-то не так с подключением.");
+    }
+    public ConnectionException(String t, String msg){
+        super(t+" "+msg);
     }
 }

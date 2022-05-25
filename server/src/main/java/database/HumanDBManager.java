@@ -4,13 +4,13 @@ import auth.UserManager;
 import collection.HumanCollectionManager;
 import common.auth.User;
 import common.data.*;
+import common.exceptions.*;
 import exceptions.DataBaseException;
-import common.exceptions.InvalidDataException;
-import common.exceptions.InvalidEnumException;
 import common.utils.DateConverter;
 import log.Log;
 
 import java.sql.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,17 +22,10 @@ public class HumanDBManager extends HumanCollectionManager {
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,DEFAULT) RETURNING id; ";
     private final DBManager dbManager;
     private final UserManager userManager;
-    private Connection connection;
-    private static final String url = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String user = "postgres";
-    private static final String password = "qwerty";
-
-
 
     public HumanDBManager(DBManager c, UserManager userManager) throws DataBaseException {
         super();
         dbManager = c;
-
         this.userManager = userManager;
         create();
     }
@@ -94,7 +87,7 @@ public class HumanDBManager extends HumanCollectionManager {
 
     private HumanBeing getHuman(ResultSet resultSet) throws SQLException, InvalidDataException {
         Coordinates coordinates = new Coordinates(resultSet.getFloat("coordinates_x"), resultSet.getLong("coordinates_y"));
-        int id = resultSet.getInt("id");
+        Integer id = resultSet.getInt("id");
         String name = resultSet.getString("name");
 
         Date creationDate = DateConverter.parseDate(resultSet.getString("creation_date"));
@@ -123,61 +116,47 @@ public class HumanDBManager extends HumanCollectionManager {
     }
 
     @Override
-    public void add(HumanBeing humanBeing) {
+    public void add(HumanBeing human) {
 
         dbManager.setCommitMode();
         dbManager.setSavepoint();
         try (PreparedStatement statement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY, true)) {
-            setHuman(statement, humanBeing);
+            setHuman(statement, human);
             if (statement.executeUpdate() == 0)
                 throw new DataBaseException();
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (!resultSet.next()) throw new DataBaseException();
-            humanBeing.setId(resultSet.getInt("id"));
+            human.setId(resultSet.getInt(resultSet.getInt("id")));
 
             dbManager.commit();
         } catch (SQLException | DataBaseException e) {
-            e.printStackTrace();
             dbManager.rollback();
-            throw new DataBaseException("cannot add to database");
+            throw new CannotAddException();
         } finally {
             dbManager.setNormalMode();
         }
-        super.addWithoutIdGeneration(humanBeing);
+        super.addWithoutIdGeneration(human);
     }
 
 
     @Override
     public void removeByID(Integer id) {
-        //dbManager.setCommitMode();
-        //dbManager.setSavepoint();
         //language=SQL
-        Connection connection = dbManager.connectToDataBase();
         String query = "DELETE FROM humans WHERE id = ?";
-        /*try (PreparedStatement statement = dbManager.getPreparedStatement(query)) {
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataBaseException("ошибка при удалении из датабазы... ну и кринж");
-        }*/
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = dbManager.getPreparedStatement(query);
             preparedStatement.setInt(1,id);
-            preparedStatement.executeUpdate();
-            //return true;
+            preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new CannotRemoveException(id);
         }
-        //return false;
         super.removeByID(id);
-        //dbManager.commit();
-        //dbManager.setNormalMode();
     }
 
     @Override
     public void removeFirst() {
-        removeByID(getCollection().get(0).getId());
+        removeByID(getCollection().getFirst().getId());
     }
 
     @Override
@@ -206,7 +185,7 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("cannot update worker #" + human.getId() + " in database");
+            throw new CannotUpdateException(id);
         } finally {
             dbManager.setNormalMode();
         }
@@ -228,11 +207,11 @@ public class HumanDBManager extends HumanCollectionManager {
              PreparedStatement insertStatement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY)) {
 
             ResultSet resultSet = getStatement.executeQuery(getMaxQuery);
-            if (!resultSet.next()) throw new DataBaseException("unable to add");
+            if (!resultSet.next()) throw new CannotAddException();
 
             long impactspeed = resultSet.getLong(1);
             if (human.getImpactSpeed() < impactspeed)
-                throw new DataBaseException("unable to add, max impact speed is " + impactspeed + " current impact speed is " + human.getImpactSpeed());
+                throw new DataBaseException("[AddIfMaxException] unable to add, max impact speed is " + impactspeed + " current impact speed is " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 
@@ -240,7 +219,7 @@ public class HumanDBManager extends HumanCollectionManager {
             dbManager.commit();
         } catch (SQLException e) {
             dbManager.rollback();
-            throw new DataBaseException("cannot add due to internal error");
+            throw new CannotAddException();
         } finally {
             dbManager.setNormalMode();
         }
@@ -262,11 +241,11 @@ public class HumanDBManager extends HumanCollectionManager {
              PreparedStatement insertStatement = dbManager.getPreparedStatement(INSERT_HUMANS_QUERY)) {
 
             ResultSet resultSet = getStatement.executeQuery(getMinQuery);
-            if (!resultSet.next()) throw new DataBaseException("unable to add");
+            if (!resultSet.next()) throw new CannotAddException();
 
             long impactSpeed = resultSet.getLong(1);
             if (human.getImpactSpeed() > impactSpeed)
-                throw new DataBaseException("unable to add, min impact speed is " + impactSpeed + " current impact speed is " + human.getImpactSpeed());
+                throw new DataBaseException("[AddIfMinException] unable to add, min impact speed is " + impactSpeed + " current impact speed is " + human.getImpactSpeed());
 
             setHuman(insertStatement, human);
 
@@ -281,25 +260,26 @@ public class HumanDBManager extends HumanCollectionManager {
         super.addWithoutIdGeneration(human);
     }
 
-    public void clear(User user) {
+    public Collection<HumanBeing> clear(User user) {
         dbManager.setCommitMode();
         dbManager.setSavepoint();
-        Set<Integer> ids = new HashSet<>();
+        Set<Integer> removed = new HashSet<>();
         try (PreparedStatement statement = dbManager.getPreparedStatement("DELETE FROM HUMANS WHERE user_login=? RETURNING id")) {
             statement.setString(1, user.getLogin());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Integer id = resultSet.getInt(1);
-                ids.add(id);
+                removed.add(getByID(id));
+                removeByID(id);
             }
-        } catch (SQLException | RuntimeException e) {
+        } catch (SQLException | CollectionException e) {
             dbManager.rollback();
             deserializeCollection("");
             throw new DataBaseException("cannot clear database");
         } finally {
             dbManager.setNormalMode();
         }
-        removeAll(ids);
+        return  removed;
     }
 
     @Override
@@ -326,4 +306,6 @@ public class HumanDBManager extends HumanCollectionManager {
             throw new DataBaseException("cannot load");
         }
     }
+
+
 }

@@ -6,6 +6,6 @@ package common.exceptions;
 
 public class ConnectionTimeoutException extends ConnectionException {
     public ConnectionTimeoutException() {
-        super("Время ожидания ответа истекло.");
+        super("[TimeoutException] Время ожидания ответа истекло.");
     }
 }
