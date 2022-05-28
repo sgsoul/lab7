@@ -1,7 +1,7 @@
 package common.data;
 
 /**
- * РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕР±СЉРµРєС‚Р°. =)
+ * Интерфейс для объекта. =)
  */
 
 public interface Collectionable extends Comparable<Collectionable>, Validateable {

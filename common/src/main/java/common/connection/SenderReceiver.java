@@ -3,7 +3,7 @@ package common.connection;
 import java.io.Closeable;
 
 /**
- * РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕС‚РїСЂР°РІРєРё Рё РїРѕР»СѓС‡РµРЅРёСЏ.
+ * Интерфейс для отправки и получения.
  */
 
 public interface SenderReceiver extends Closeable {

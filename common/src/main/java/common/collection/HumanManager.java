@@ -1,4 +1,4 @@
-п»їpackage common.collection;
+package common.collection;
 
 import common.data.HumanBeing;
 
@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ.
+ * Iнтерфейс для хранения элементов.
  */
 
 public interface HumanManager {
@@ -88,13 +88,13 @@ public interface HumanManager {
     String serializeCollection();
 
     /**
-     * Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СѓРЅРёРєР°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№ СЃРєРѕСЂРѕСЃС‚Рё
+     * Вывести список уникальных значений скорости
      */
 
     List<Integer> getUniqueImpactSpeed();
 
     /**
-     * Р’С‹РІРµСЃС‚Рё СЃСЂРµРґРЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ РІСЃРµС… РѕР±СЉРµРєС‚РѕРІ РєРѕР»Р»РµРєС†РёРё
+     * Вывести среднее время ожидания всех объектов коллекции
      */
 
     double getAverageMinutesOfWaiting();

@@ -9,6 +9,7 @@ import common.data.HumanBeing;
 import common.exceptions.*;
 import common.commands.*;
 
+
 import java.util.List;
 
 import static common.utils.Parser.*;
@@ -38,7 +39,7 @@ public class RemoveByIdCommand extends CommandImpl {
             throw new PermissionException(owner);
         HumanBeing human = collectionManager.getByID(id);
         collectionManager.removeByID(id) ;
-        return new AnswerMsg().info( "Элемент #" + id + " удалён.").setCollection(List.of(human);
+        return new AnswerMsg().info( "Элемент #" + id + " удалён.").setCollection(List.of(human));
     }
 
 }

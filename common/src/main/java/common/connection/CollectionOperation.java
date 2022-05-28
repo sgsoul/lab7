@@ -1,4 +1,4 @@
-﻿package common.connection;
+package common.connection;
 
 public enum CollectionOperation {
     ADD,

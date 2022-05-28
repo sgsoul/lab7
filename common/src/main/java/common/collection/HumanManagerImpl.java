@@ -1,4 +1,4 @@
-п»їpackage common.collection;
+package common.collection;
 
 import common.data.HumanBeing;
 import common.exceptions.CannotAddException;
@@ -13,7 +13,7 @@ public abstract class HumanManagerImpl<T extends Collection<HumanBeing>> impleme
     private final java.time.LocalDateTime initDate;
 
     /**
-     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РЅР°С‡Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№.
+     * Конструктор для начальных значений.
      */
 
     public HumanManagerImpl() {
@@ -83,7 +83,7 @@ public abstract class HumanManagerImpl<T extends Collection<HumanBeing>> impleme
      */
 
     public String getInfo() {
-        return "[DatabaseInfo] Р‘Р°Р·Р° РґР°РЅРЅС‹С… HumanBeing, СЂР°Р·РјРµСЂ: [" + getCollection().size() + "] ; РґР°С‚Р° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё: [" + initDate.toString()+"]";
+        return "[DatabaseInfo] База данных HumanBeing, размер: [" + getCollection().size() + "] ; дата инициализации: [" + initDate.toString()+"]";
     }
 
     /**
@@ -190,7 +190,7 @@ public abstract class HumanManagerImpl<T extends Collection<HumanBeing>> impleme
     }
 
     /**
-     * Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СѓРЅРёРєР°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№ СЃРєРѕСЂРѕСЃС‚Рё
+     * Вывести список уникальных значений скорости
      */
 
     public List<Integer> getUniqueImpactSpeed() {
@@ -204,7 +204,7 @@ public abstract class HumanManagerImpl<T extends Collection<HumanBeing>> impleme
     }
 
     /**
-     * Р’С‹РІРµСЃС‚Рё СЃСЂРµРґРЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ РІСЃРµС… РѕР±СЉРµРєС‚РѕРІ РєРѕР»Р»РµРєС†РёРё
+     * Вывести среднее время ожидания всех объектов коллекции
      */
 
     public double getAverageMinutesOfWaiting() {

@@ -33,6 +33,6 @@ public class RemoveFirstCommand extends CommandImpl {
         if (workerCreatorLogin == null || !workerCreatorLogin.equals(owner))
             throw new PermissionException(owner);
         collectionManager.removeFirst();
-        return new AnswerMsg().info("Элемент #" + id + " удалён.").setCollection(List.of(human);
+        return new AnswerMsg().info("Элемент #" + id + " удалён.").setCollection(List.of(human));
     }
 }

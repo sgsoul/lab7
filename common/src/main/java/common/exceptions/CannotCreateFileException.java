@@ -1,11 +1,11 @@
 package common.exceptions;
 
 /**
- * Р’С‹Р±СЂР°СЃС‹РІР°РµС‚СЃСЏ, РєРѕРіРґР° РЅРµ СѓРґР°РµС‚СЃСЏ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р»
+ * Выбрасывается, когда не удается создать файл
  */
 
 public class CannotCreateFileException extends FileException {
     public CannotCreateFileException() {
-        super("РќРµ СѓРґР°РµС‚СЃСЏ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р».");
+        super("Не удается создать файл.");
     }
 }

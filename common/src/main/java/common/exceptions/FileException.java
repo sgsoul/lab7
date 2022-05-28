@@ -3,7 +3,7 @@ package common.exceptions;
 import java.nio.charset.StandardCharsets;
 
 /**
- * РСЃРєР»СЋС‡РµРЅРёСЏ СЃ С„Р°Р№Р»Р°РјРё
+ * Исключения с файлами
  */
 
 public class FileException extends Exception {
@@ -12,6 +12,6 @@ public class FileException extends Exception {
     }
 
     public FileException() {
-        super("[FileException] РЅРµ СѓРґР°РµС‚СЃСЏ РїСЂРѕС‡РёС‚Р°С‚СЊ С„Р°Р№Р».");
+        super("[FileException] не удается прочитать файл.");
     }
 }

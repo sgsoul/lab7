@@ -1,7 +1,7 @@
-п»їpackage common.exceptions;
+package common.exceptions;
 
 public class PermissionException extends AuthException {
     public PermissionException(String user){
-        super( "[PermissionException]", "Сѓ РІР°СЃ РЅРµС‚ СЂР°Р·СЂРµС€РµРЅРёСЏ, СЌР»РµРјРµРЅС‚ Р±С‹Р» СЃРѕР·РґР°РЅ ["+user+"]");
+        super( "[PermissionException]", "у вас нет разрешения, элемент был создан ["+user+"]");
     }
 }

@@ -1,7 +1,7 @@
-п»їpackage common.exceptions;
+package common.exceptions;
 
 public class CannotRemoveException extends CollectionException{
     public CannotRemoveException(Integer id){
-        super("[CannotUpdateException] РќРµ СѓРґР°Р»РѕСЃСЊ РѕР±РЅРѕРІРёС‚СЊ СЌР»РµРјРµРЅС‚ ["+id+"]");
+        super("[CannotUpdateException] Не удалось обновить элемент ["+id+"]");
     }
 }

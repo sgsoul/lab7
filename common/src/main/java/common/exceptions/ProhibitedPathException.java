@@ -1,7 +1,7 @@
-п»їpackage common.exceptions;
+package common.exceptions;
 
 public class ProhibitedPathException extends FileException {
     public ProhibitedPathException() {
-        super("РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ Р·Р°РїСЂРµС‰РµРЅ.");
+        super("Путь к файлу запрещен.");
     }
 }

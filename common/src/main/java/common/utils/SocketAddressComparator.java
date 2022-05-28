@@ -1,4 +1,4 @@
-﻿package common.utils;
+package common.utils;
 
 import java.net.InetSocketAddress;
 
